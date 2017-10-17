@@ -14,7 +14,8 @@ public class TestGrabber implements Grabber{
     public TestGrabber(HardwareMap hardwareMap, Telemetry telemetry){
 
     }
-
+    @Override
+    public void init(){}
     @Override
     public void open() {
 

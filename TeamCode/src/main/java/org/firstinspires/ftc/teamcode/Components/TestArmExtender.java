@@ -15,6 +15,8 @@ public class TestArmExtender implements ArmExtender{
 
     }
     @Override
+    public void init(){}
+    @Override
     public void extend(int percent) {
 
     }
@@ -37,5 +39,18 @@ public class TestArmExtender implements ArmExtender{
     @Override
     public boolean isExtended() {
         return false;
+    }
+
+
+    @Override
+    public double getDistance() {
+        return 0;
+    }
+
+    @Override
+    public double getStage(){return -1;}
+
+    public void setStage(){
+
     }
 }

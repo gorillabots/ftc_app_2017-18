@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.Interfaces.Jewel;
 
 public class TestJewel implements Jewel {
     @Override
+    public void init(){}
+    @Override
     public void swing(int degrees) {
 
     }

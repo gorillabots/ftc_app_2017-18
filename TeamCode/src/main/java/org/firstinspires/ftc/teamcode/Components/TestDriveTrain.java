@@ -14,7 +14,8 @@ public class TestDriveTrain implements DriveTrain {
     public TestDriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {
 
     }
-
+    @Override
+    public void init(){}
     @Override
     public void move(int degrees, float speed) {
 

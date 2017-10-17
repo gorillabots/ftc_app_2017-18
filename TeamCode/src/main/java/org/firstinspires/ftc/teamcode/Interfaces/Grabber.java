@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.Interfaces;
  */
 
 public interface Grabber {
+    public void init();
     public void open();
     public void close();
     public boolean isHolding();
