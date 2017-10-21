@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.Interfaces;
  */
 
 public interface DriveTrain {
+    public void init();
     public void move(int degrees, float speed);
     public void stop();
     public void rotate(int degrees, float speed);

@@ -27,7 +27,8 @@ public class TestGrabber implements Grabber{
         spin = hardwareMap.servo.get("spin");
 
     }
-
+    @Override
+    public void init(){}
     @Override
     public void open(int degrees, float seconds) {
 

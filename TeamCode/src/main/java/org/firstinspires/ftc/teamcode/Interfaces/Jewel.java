@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  */
 
 public interface Jewel {
+    public void init();
     public void swing(int degrees);
 
 }
