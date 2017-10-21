@@ -12,4 +12,6 @@ public interface ArmExtender {
     public void retractDistance(int distance);
     public boolean isExtended();
 
+
+
 }

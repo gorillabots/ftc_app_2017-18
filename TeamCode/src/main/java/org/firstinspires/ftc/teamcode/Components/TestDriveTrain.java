@@ -11,6 +11,11 @@ import org.firstinspires.ftc.teamcode.Interfaces.DriveTrain;
 
 public class TestDriveTrain implements DriveTrain {
 
+    HardwareMap hardwareMap;
+    Telemetry telemetry;
+
+
+
     public TestDriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {
 
     }
