@@ -9,4 +9,5 @@ public interface Grabber {
     public void open(int degrees, float seconds);
     public void close(int degrees, float seconds);
     public boolean isHolding();
+    public void rotate(int degrees, float seconds);
 }
