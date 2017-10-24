@@ -28,7 +28,9 @@ public class TestGrabber implements Grabber{
 
     }
     @Override
+
     public void init(){}
+
     @Override
     public void open(int degrees, float seconds) {
 
@@ -44,7 +46,7 @@ public class TestGrabber implements Grabber{
         return false;
     }
 
-    @Override
+
     public void rotate(int degrees, float seconds) {
 
     }
