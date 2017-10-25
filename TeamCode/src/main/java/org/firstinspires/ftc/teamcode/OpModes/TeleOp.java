@@ -33,6 +33,7 @@ public class TeleOp extends OpMode{
 
         claw = hardwareMap.servo.get("claw");
         spin = hardwareMap.servo.get("spin");
+        spin.getPosition();
 
     }
 
@@ -60,33 +61,25 @@ public class TeleOp extends OpMode{
         if(gamepad2.right_stick_y <= .7){
             armExtender.extend(50);
         }
-        else if(gamepad2.right_stick_y >= .7){
-            armExtender.extend(0);
-        }
-        if(gamepad2.right_stick_y <= -.7){
+        else (gamepad2.right_stick_y <= -.7) {
             armExtender.extend(-50);
-        }
-        else if(gamepad2.right_stick_y >= -.7){
+        } else if (gamepad2.right_stick_y >= -.7){
             armExtender.extend(0);
         }
 
+        if (gamepad1.right_trigger){
+            grabber.rotate();
+        } else if (gamepad1.left_trigger){
+            grabber.rotate();
+        }
+        if(gamepad1.right_bumper ){
+            grabber.open();
+        } else if(gamepad1.left_bumper ){
+            grabber.close();
+        }
+
         //Graber
-        if (gamepad2.x){
-            grabber.open(90, 005);}
-        else if (gamepad2.x){
-            grabber.open(0, 005);
-        }
-        if (gamepad2.y){
-            claw.close();
-        }
-        else if (gamepad2.y){
-            claw.close();
-        }
-        if(gamepad2.a){
-            grabber.rotate(90, 005);}
-        else if (gamepad2.b){
-            grabber.rotate(-90, 005);
-        }
+
 
 
 
