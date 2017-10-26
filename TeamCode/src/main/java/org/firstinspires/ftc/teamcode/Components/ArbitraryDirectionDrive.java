@@ -25,6 +25,9 @@ public class ArbitraryDirectionDrive
         int m1l = m1.getCurrentPosition(), m2l = m2.getCurrentPosition(), //Last encoder pos, updated at end of loop
                 m3l = m3.getCurrentPosition(), m4l = m4.getCurrentPosition();
         int m1d, m2d, m3d, m4d; //Encoder pos change since last loop
+	double m13a, m24a; //Average of two related encoder positions
+	double length, theta; //Converted to polar coordinates
+	double m13n, m24n; //Normalize m13a / m24a vector
 
         while(getThingamajigger(direction) < magnitude)
         {
@@ -43,7 +46,8 @@ public class ArbitraryDirectionDrive
             double m13a = (m1d + m3d) / 2d; //Average of m1 and m3
             double m24a = (m2d + m4d) / 2d;
 
-            double length = Math.sqrt(Math.pow(m13a, 2) + Math.pow(m24a, 2));
+            double length = Math.hypot(m13a, m24a);
+            double theta = Math.atan2(m13a, m24a);
 
             double m13n = m13a / length; //Normalized vector
             double m24n = m24a / length;
