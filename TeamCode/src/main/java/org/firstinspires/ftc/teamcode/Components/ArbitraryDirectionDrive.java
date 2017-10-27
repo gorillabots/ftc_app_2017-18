@@ -2,17 +2,20 @@ package org.firstinspires.ftc.teamcode.Components;
 
 //Created by Mikko on 2017-10-24
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class ArbitraryDirectionDrive
 {
-    public static final int N = 0, NE = 45, E = 90, SE = 135, S = 180, SW = 215, W = 270, NW = 305;
+    public static final int E = 0, NE = 45, N = 90, NW = 135, W = 180, SW = 215, S = 270, SE = 305;
 
-    OpMode opmode;
+    LinearOpMode opmode;
     DcMotor m1, m2, m3, m4;
 
-    public ArbitraryDirectionDrive(OpMode opmode)
+    //add.drive(ArbitraryDirectionDrive.N, .5, 10);
+
+    public ArbitraryDirectionDrive(LinearOpMode opmode)
     {
         this.opmode = opmode;
     }
@@ -25,11 +28,11 @@ public class ArbitraryDirectionDrive
         int m1l = m1.getCurrentPosition(), m2l = m2.getCurrentPosition(), //Last encoder pos, updated at end of loop
                 m3l = m3.getCurrentPosition(), m4l = m4.getCurrentPosition();
         int m1d, m2d, m3d, m4d; //Encoder pos change since last loop
-	double m13a, m24a; //Average of two related encoder positions
-	double length, theta; //Converted to polar coordinates
-	double m13n, m24n; //Normalize m13a / m24a vector
+	    double m13a, m24a; //Average of two related encoder positions
+	    double length = 0; //Magnitude of above vector
+        double m13, m24; //Amount to actually drive
 
-        while(getThingamajigger(direction) < magnitude)
+        while(opmode.opModeIsActive())
         {
             //Update new encoder pos
             m1n = m1.getCurrentPosition();
@@ -43,17 +46,23 @@ public class ArbitraryDirectionDrive
             m3d = m3n - m3l;
             m4d = m4n - m4l;
 
-            double m13a = (m1d + m3d) / 2d; //Average of m1 and m3
-            double m24a = (m2d + m4d) / 2d;
+            m13a = (m1d + m3d) / 2d; //Average of m1 and m3
+            m24a = (m2d + m4d) / 2d;
 
-            double length = Math.hypot(m13a, m24a);
-            double theta = Math.atan2(m13a, m24a);
+            length = Math.sqrt(m13a*m13a + m24a*m24a);
 
-            double m13n = m13a / length; //Normalized vector
-            double m24n = m24a / length;
+            if(length < magnitude)
+            {
+                m1.setPower(0);
+                m2.setPower(0);
+                m3.setPower(0);
+                m4.setPower(0);
+            }
 
-            double m13 = Math.sin(rad) * speed;
-            double m24 = Math.cos(rad) * speed;
+            //Apply power to motors;
+
+            m13 = Math.sin(rad) * speed;
+            m24 = Math.cos(rad) * speed;
 
             m1.setPower(m13);
             m2.setPower(m24);
