@@ -46,6 +46,11 @@ public class ArbitraryDirectionDrive
             m3d = m3n - m3l;
             m4d = m4n - m4l;
 
+            m1l = m1n;
+            m2l = m2n;
+            m3l = m3n;
+            m4l = m4n;
+
             m13a = (m1d + m3d) / 2d; //Average of m1 and m3
             m24a = (m2d + m4d) / 2d;
 
