@@ -18,13 +18,15 @@ import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.CstArray;
 import org.firstinspires.ftc.teamcode.Components.Constants;
 import java.util.concurrent.Callable;
 
-public class Drive {
+public class Drive  {
 
 
 
 
         private LinearOpMode opMode;
         private Telemetry telemetry;
+
+        private ArbitraryDirectionDrive driveTrain = new ArbitraryDirectionDrive(this.opMode);
 
         //Motors
         private DcMotor frontRight, backRight, frontLeft, backLeft;
@@ -51,10 +53,14 @@ public class Drive {
         private final double YAW_PID_I = 0.0;
         private final double YAW_PID_D = 0.0;
 
-        private double offset;
+        private double offset; 
         private double offsetConverted;
 
         private List movementHistory;
+
+        public Drive(LinearOpMode linear){
+            this.opMode = linear;
+        }
 
         public void init(LinearOpMode opMode, double offset) //Get hardware from hardwareMap
         {
@@ -113,7 +119,8 @@ public class Drive {
             offsetConverted = convertHeading(offset);
         }
 
-        
+
+
         public void forwards(double distance, double power) //Move forwards by distance
         {
             resetPid();
