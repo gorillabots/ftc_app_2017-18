@@ -80,20 +80,4 @@ public class ArbitraryDirectionDrive
         m3.setPower(0);
         m4.setPower(0);
     }
-
-    double getThingamajigger(double dir)
-    {
-        int m1e = m1.getCurrentPosition(); //m1e = motor 1 encoder value
-        int m2e = m2.getCurrentPosition();
-        int m3e = m3.getCurrentPosition();
-        int m4e = m4.getCurrentPosition();
-
-        double m13e = (m1e + m3e) / 2d;
-        double m24e = (m2e + m4e) / 2d;
-
-        double m13 = Math.sin(dir) * m13e;
-        double m24 = Math.cos(dir) * m24e;
-
-        return Math.sqrt(Math.pow(m13, 2) + Math.pow(m24, 2));
-    }
 }
