@@ -48,14 +48,15 @@ public class MovementHistory {
         return storedMov;
     }
 
-    public int getDegree(){
-        return 0;
+    public double getDegree(){
+        return Math.atan(calcY/calcX);
     }
 
-    public int getMagnitude(){
-        //return Math.sqrt(((int)((calcX*calcX)+(calcY*calcY);
-        return 1;
+    public double getMagnitude(){
+        double mag = Math.sqrt(Math.pow(calcX,2)+Math.pow(calcX,2));
+        return mag;
     }
 
+    
 
 }
