@@ -98,6 +98,11 @@ public class Drive {
 
         }
 
+        void resetPid(){
+            pidController.reset();
+            pidController.setSetpoint(offsetConverted);
+            pidController.enable(true);
+        }
         public void resetGyro() //Define the current heading as 0 degrees
         {
             navx.zeroYaw();
@@ -108,11 +113,10 @@ public class Drive {
             offsetConverted = convertHeading(offset);
         }
 
+        
         public void forwards(double distance, double power) //Move forwards by distance
         {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
+            resetPid();
 
             double pos = getPosFB();
 
