@@ -53,7 +53,7 @@ public class Drive  {
         private final double YAW_PID_I = 0.0;
         private final double YAW_PID_D = 0.0;
 
-        private double offset; 
+        private double offset;
         private double offsetConverted;
 
         private List movementHistory;
@@ -121,18 +121,14 @@ public class Drive  {
 
 
 
-        public void forwards(double distance, double power) //Move forwards by distance
+        public void forwards(int angle, double distance, double power) //Move forwards by distance
         {
             resetPid();
-
-            double pos = getPosFB();
-
-            double target = pos + distance * Constants.STRAIGHT_INCREMENTS;
 
             double pidOutput;
 
             try {
-                while (pos < target && opMode.opModeIsActive()) {
+                while (driveTrain.distanceCheck(distance) && opMode.opModeIsActive()) {
                     if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
                         pidOutput = 0;
 
@@ -140,33 +136,24 @@ public class Drive  {
                             pidOutput = pidResult.getOutput();
                         }
 
-                        frontRight.setPower(+power + pidOutput);
-                        backRight.setPower(+power + pidOutput);
-                        frontLeft.setPower(-power + pidOutput);
-                        backLeft.setPower(-power + pidOutput);
+                        driveTrain.drive(angle,power);
 
-                        telemetry.addData("Status", "Forwards");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
+                        telemetry.addData("Status", "Encoder movement");
                         telemetry.update();
 
                         opMode.sleep(5);
 
-                        pos = getPosFB();
                     }
                 }
 
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
+                driveTrain.stopMotors();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
 
-        public void forwardsToLine(ColorSensor floorColor, double power) //Move forwards to white line
+        public void forwardsToLine(ColorSensor floorColor, double power, int angle) //Move forwards to white line
         {
             //pidController.reset();
             //pidController.setSetpoint(offsetConverted);
@@ -192,10 +179,7 @@ public class Drive  {
                 //    pidOutput = pidResult.getOutput();
                 //}
 
-                frontRight.setPower(+power + pidOutput);
-                backRight.setPower(+power + pidOutput);
-                frontLeft.setPower(-power + pidOutput);
-                backLeft.setPower(-power + pidOutput);
+                driveTrain.drive(angle,power);
 
                 telemetry.addData("Status", "ForwardsToLine");
                 telemetry.addData("Heading", navx.getYaw());
@@ -210,10 +194,7 @@ public class Drive  {
                 opMode.sleep(5);
             }
 
-            frontRight.setPower(0);
-            backRight.setPower(0);
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+           driveTrain.stopMotors();
             //}
             //catch(InterruptedException e)
             //{
@@ -221,374 +202,8 @@ public class Drive  {
             //}
         }
 
-        public void backwards(double distance, double power) //Move backwards by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
 
-            double pos = getPosFB();
 
-            double target = pos - distance * Constants.STRAIGHT_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos > target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(-power + pidOutput);
-                        backRight.setPower(-power + pidOutput);
-                        frontLeft.setPower(+power + pidOutput);
-                        backLeft.setPower(+power + pidOutput);
-
-                        telemetry.addData("Status", "Backwards");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosFB();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void backToLine(ColorSensor floorColor, double power) //Move backwards by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pidOutput;
-
-            try {
-                while (!ColorHelper.isFloorWhiteTest(floorColor) && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(-power + pidOutput);
-                        backRight.setPower(-power + pidOutput);
-                        frontLeft.setPower(+power + pidOutput);
-                        backLeft.setPower(+power + pidOutput);
-
-                        telemetry.addData("Status", "BackwardsToLine");
-
-                        telemetry.update();
-
-                        opMode.sleep(5);
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void right(double distance, double power) //Move right by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pos = getPosRL();
-
-            double target = pos + distance * Constants.STRAIGHT_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos < target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(-power + pidOutput);
-                        backRight.setPower(+power + pidOutput);
-                        frontLeft.setPower(-power + pidOutput);
-                        backLeft.setPower(+power + pidOutput);
-
-                        telemetry.addData("Status", "Right");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Speed", power);
-                        telemetry.addData("Target", target);
-                        telemetry.addData("Gyro yaw", navx.getYaw());
-                        telemetry.addData("PID Output", pidOutput);
-                        telemetry.addData("Offset", offsetConverted);
-                        //telemetry.addData("Heading", navx.getYaw());
-                        //telemetry.addData("Target", offsetConverted);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosRL();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void left(double distance, double power) //Move left by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pos = getPosRL();
-
-            double target = pos - distance * Constants.STRAIGHT_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos > target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(+power + pidOutput);
-                        backRight.setPower(-power + pidOutput);
-                        frontLeft.setPower(+power + pidOutput);
-                        backLeft.setPower(-power + pidOutput);
-
-                        telemetry.addData("Status", "Left");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosRL();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            pidController.close();
-        }
-
-        public void frontRight(double distance, double power) //Move forwards-right by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pos = getPosBLFR();
-
-            double target = pos + distance * Constants.DIAGONAL_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos < target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(pidOutput);
-                        backRight.setPower(+power + pidOutput);
-                        frontLeft.setPower(-power + pidOutput);
-                        backLeft.setPower(pidOutput);
-
-                        telemetry.addData("Status", "FrontRight");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosBLFR();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void backRight(double distance, double power) //Move forwards by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pos = getPosBRFL();
-
-            double target = pos + distance * Constants.DIAGONAL_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos < target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(-power + pidOutput);
-                        backRight.setPower(pidOutput);
-                        frontLeft.setPower(pidOutput);
-                        backLeft.setPower(+power + pidOutput);
-
-                        telemetry.addData("Status", "BackRight");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosBRFL();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void frontLeft(double distance, double power) //Move forwards by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pos = getPosBRFL();
-
-            double target = pos - distance * Constants.DIAGONAL_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos > target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(+power + pidOutput);
-                        backRight.setPower(pidOutput);
-                        frontLeft.setPower(pidOutput);
-                        backLeft.setPower(-power + pidOutput);
-
-                        telemetry.addData("Status", "FrontLeft");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosBRFL();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void backLeft(double distance, double power) //Move forwards by distance
-        {
-            pidController.reset();
-            pidController.setSetpoint(offsetConverted);
-            pidController.enable(true);
-
-            double pos = getPosBLFR();
-
-            double target = pos - distance * Constants.DIAGONAL_INCREMENTS;
-
-            double pidOutput;
-
-            try {
-                while (pos > target && opMode.opModeIsActive()) {
-                    if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
-                        pidOutput = 0;
-
-                        if (!pidController.isOnTarget()) {
-                            pidOutput = pidResult.getOutput();
-                        }
-
-                        frontRight.setPower(pidOutput);
-                        backRight.setPower(-power + pidOutput);
-                        frontLeft.setPower(+power + pidOutput);
-                        backLeft.setPower(pidOutput);
-
-                        telemetry.addData("Status", "BackLeft");
-                        telemetry.addData("Position", pos);
-                        telemetry.addData("Target", target);
-                        telemetry.update();
-
-                        opMode.sleep(5);
-
-                        pos = getPosBLFR();
-                    }
-                }
-
-                frontRight.setPower(0);
-                backRight.setPower(0);
-                frontLeft.setPower(0);
-                backLeft.setPower(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
         public void turn(double target, double accuracy, double speed) {
             // With target = -135....
@@ -652,7 +267,7 @@ public class Drive  {
             offsetConverted = convertHeading(offset);
         }
 
-        public void goToDistance(ModernRoboticsI2cRangeSensor range, double target, double accuracy, double power) //Go to distance using range sensor
+        public void goToDistance(ModernRoboticsI2cRangeSensor range, double target, double accuracy, double power, int angle) //Go to distance using range sensor
         {
             pidController.reset();
             pidController.setSetpoint(offsetConverted);
@@ -677,20 +292,16 @@ public class Drive  {
 
                         if (distance > target) //Too far, move right
                         {
-                            frontRight.setPower(-power + pidOutput);
-                            backRight.setPower(+power + pidOutput);
-                            frontLeft.setPower(-power + pidOutput);
+                            driveTrain.drive(angle,power);
+                           ;
                             backLeft.setPower(+power + pidOutput);
 
-                            telemetry.addData("Going", "Right");
+                            telemetry.addData("until distnace", "forward");
                         } else //Too close, move left
                         {
-                            frontRight.setPower(+power + pidOutput);
-                            backRight.setPower(-power + pidOutput);
-                            frontLeft.setPower(+power + pidOutput);
-                            backLeft.setPower(-power + pidOutput);
+                            driveTrain.drive(angle, -power);
 
-                            telemetry.addData("Going", "Left");
+                            telemetry.addData("until distance", "reverse");
                         }
 
                         telemetry.update();
@@ -709,27 +320,7 @@ public class Drive  {
                 e.printStackTrace();
             }
         }
-    private double getPosFB() //Get position for use in forwards and backwards movements
-    {
-        return (frontRight.getCurrentPosition() - frontLeft.getCurrentPosition() +
-                backRight.getCurrentPosition() - backLeft.getCurrentPosition()) / 4;
-    }
 
-    private double getPosRL() //Get position for use in left and right movements
-    {
-        return (-frontRight.getCurrentPosition() - frontLeft.getCurrentPosition() +
-                backRight.getCurrentPosition() + backLeft.getCurrentPosition()) / 4;
-    }
-
-    private double getPosBRFL() //Get position for use in frontLeft and backRight
-    {
-        return (backLeft.getCurrentPosition() - frontRight.getCurrentPosition()) / 2;
-    }
-
-    private double getPosBLFR() //Get position for use in frontRight and backLeft
-    {
-        return (backRight.getCurrentPosition() - frontLeft.getCurrentPosition()) / 2;
-    }
 
     private double getRotation() //Get rotation
     {
