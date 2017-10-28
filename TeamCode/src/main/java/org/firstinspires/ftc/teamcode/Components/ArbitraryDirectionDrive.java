@@ -6,15 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class ArbitraryDirectionDrive {
-    public static final int E = 0, NE = 45, N = 90, NW = 135, W = 180, SW = 215, S = 270, SE = 305;
-
+public class ArbitraryDirectionDrive
+{
     LinearOpMode opmode;
     DcMotor m1, m2, m3, m4;
 
-    //add.drive(ArbitraryDirectionDrive.N, .5, 10);
+    //add.drive(Direction.N, .5, 10);
 
-    public ArbitraryDirectionDrive(LinearOpMode opmode) {
+    public ArbitraryDirectionDrive(LinearOpMode opmode)
+    {
         this.opmode = opmode;
     }
 

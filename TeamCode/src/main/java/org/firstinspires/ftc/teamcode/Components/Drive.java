@@ -121,7 +121,7 @@ public class Drive  {
 
 
 
-        public void forwards(int angle, double distance, double power) //Move forwards by distance
+        public void encoderMove(int angle, double distance, double power) //Move forwards by distance
         {
             resetPid();
 
@@ -153,7 +153,7 @@ public class Drive  {
 
         }
 
-        public void forwardsToLine(ColorSensor floorColor, double power, int angle) //Move forwards to white line
+        public void lineMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
         {
             //pidController.reset();
             //pidController.setSetpoint(offsetConverted);
