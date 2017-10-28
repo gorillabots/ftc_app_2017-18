@@ -18,7 +18,7 @@ public class ArbitraryDirectionDrive {
         this.opmode = opmode;
     }
 
-    public void drive(int direction, double speed, int magnitude) //No rotation fixing from gyro data!
+    public void drive(int direction, double speed) //No rotation fixing from gyro data!
     {
         double rad = Math.toRadians(direction + 45);
 
@@ -79,6 +79,13 @@ public class ArbitraryDirectionDrive {
         } else {
             return true;
         }
+    }
+
+    public void stopMotors(){
+        m1.setPower(0);
+        m2.setPower(0);
+        m3.setPower(0);
+        m4.setPower(0);
     }
 }
 
