@@ -10,6 +10,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.sun.tools.javac.util.List;
 
@@ -60,8 +61,16 @@ public class Drive  {
 
         public Drive(LinearOpMode linear){
             this.opMode = linear;
+
         }
 
+        public double getMag(double x, double y){
+            return Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+        }
+
+        public double getDir(double y, double x){
+            return Math.atan(y/x);
+        }
         public void init(LinearOpMode opMode, double offset) //Get hardware from hardwareMap
         {
             this.opMode = opMode;

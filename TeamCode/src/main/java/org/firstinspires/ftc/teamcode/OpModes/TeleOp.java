@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.Drive;
 import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Components.TestDriveTrain;
 import org.firstinspires.ftc.teamcode.Components.TestGrabber;
@@ -18,16 +20,17 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 
 public class TeleOp extends LinearOpMode{
 
-    DriveTrain driveTrain;
+    ArbitraryDirectionDrive driveTrain;
     ArmExtender armExtender;
     Grabber grabber;
+    private LinearOpMode opMode;
 
     Servo claw;
     Servo spin;
 
 
      public void init_() {
-        driveTrain = new TestDriveTrain(hardwareMap, telemetry);
+        driveTrain = new ArbitraryDirectionDrive(this.opMode);
         armExtender = new TestArmExtender(hardwareMap, telemetry);
         grabber = new TestGrabber(hardwareMap, telemetry);
 
@@ -39,21 +42,10 @@ public class TeleOp extends LinearOpMode{
         public void runOpMode() throws InterruptedException {
             init_();
             while(opModeIsActive()) {
-                float stickX = (gamepad1.left_stick_x);
-                float stickY = (gamepad1.right_stick_y); // range between -1 to 1
+                double stickX = (gamepad1.left_stick_x);
+                double stickY = (gamepad1.right_stick_y); // range between -1 to 1
 
-                //DriveTrain mov.
-                if (stickY >= .6) {
-                    driveTrain.move(0, stickY);
-                } else if (stickY <= -.6) {
-                    driveTrain.move(180, stickY);
-                }
-
-                if (stickX >= .6) {
-                    driveTrain.move(90, stickX);
-                } else if (stickX <= -.6) {
-                    driveTrain.move(270, stickX);
-                }
+                driveTrain.drive((int)Math.atan(stickY/stickX),Math.sqrt(Math.pow(stickX,2)+ Math.pow(stickY,2)));
 
                 //Arm extention
                 if (gamepad2.right_stick_y <= .7) {
