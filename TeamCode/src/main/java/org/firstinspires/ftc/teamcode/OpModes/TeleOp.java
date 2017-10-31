@@ -31,7 +31,7 @@ public class TeleOp extends LinearOpMode{
 
         claw = hardwareMap.servo.get("claw");
         spin = hardwareMap.servo.get("spin");
-         
+
 
     }
         @Override

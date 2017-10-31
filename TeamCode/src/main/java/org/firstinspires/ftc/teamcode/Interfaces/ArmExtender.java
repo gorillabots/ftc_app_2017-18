@@ -7,8 +7,8 @@ package org.firstinspires.ftc.teamcode.Interfaces;
 public interface ArmExtender {
 
     public void init();
-    public void extend(int percent);
-    public void retract(int percent);
+    public void extend();
+    public void retract();
     public void extendDistance(int distance);
     public void retractDistance(int distance);
     public boolean isExtended();
