@@ -41,7 +41,7 @@ public class TestArmExtender implements ArmExtender{
     @Override
     public void extendDistance(int distance) {
         if (extender.getCurrentPosition() <= POSITION_TWO) {
-            extender
+
         }
 
 

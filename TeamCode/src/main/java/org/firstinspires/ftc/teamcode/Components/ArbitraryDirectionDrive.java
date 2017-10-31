@@ -18,6 +18,15 @@ public class ArbitraryDirectionDrive
         this.opmode = opmode;
     }
 
+    public void init(){
+
+        m1=opmode.hardwareMap.dcMotor.get("m1");
+        m2=opmode.hardwareMap.dcMotor.get("m2");
+        m3=opmode.hardwareMap.dcMotor.get("m3");
+        m4=opmode.hardwareMap.dcMotor.get("m4");
+
+    }
+
     public void drive(int direction, double speed) //No rotation fixing from gyro data!
     {
         double rad = Math.toRadians(direction + 45);
@@ -86,6 +95,40 @@ public class ArbitraryDirectionDrive
         m2.setPower(0);
         m3.setPower(0);
         m4.setPower(0);
+    }
+    public void oneStickLoop(float stickX, float stickY, float stickRot) //TODO: Fix multiple possible memory leaks
+    {
+
+
+         // Convert to radians
+
+
+
+
+
+        double backLeftPower = limitToOne(-stickX + stickRot);
+        double frontRightPower = limitToOne(stickX + stickRot);
+        double backRightPower = limitToOne(stickY + stickRot);
+        double frontLeftPower = limitToOne(-stickY + stickRot);
+
+        m2.setPower(backLeftPower);
+        m4.setPower(frontRightPower);
+        m3.setPower(backRightPower);
+        m1.setPower(frontLeftPower);
+    }
+
+    double limitToOne(double in)
+    {
+        if(in < -1)
+        {
+            return -1;
+        }
+        if(in > 1)
+        {
+            return 1;
+        }
+
+        return in;
     }
 }
 
