@@ -41,7 +41,7 @@ public class TeleOp extends LinearOpMode{
                 double stickY = (gamepad1.right_stick_y); // range between -1 to 1
 
                driveTrain.oneStickLoop(gamepad1.right_stick_x,gamepad1.right_stick_y,gamepad1.left_stick_x);
-                
+
 
                 //Graber
                 if (gamepad2.right_bumper) {
