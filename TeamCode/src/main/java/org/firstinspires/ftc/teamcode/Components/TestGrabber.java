@@ -35,7 +35,7 @@ public class TestGrabber implements Grabber{
 
     @Override
     public void rotate(double degrees) {
-        spin.setPosition(.25);
+        spin.setPosition(degrees);
 
     }
 

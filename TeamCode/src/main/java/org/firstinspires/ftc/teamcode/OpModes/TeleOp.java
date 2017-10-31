@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -25,8 +26,7 @@ public class TeleOp extends OpMode{
     Servo spin;
 
 
-    @Override
-    public void init() {
+     public void init() {
         driveTrain = new TestDriveTrain(hardwareMap, telemetry);
         armExtender = new TestArmExtender(hardwareMap, telemetry);
         grabber = new TestGrabber(hardwareMap, telemetry);
@@ -58,19 +58,18 @@ public class TeleOp extends OpMode{
         }
 
         //Arm extention
-        if(gamepad2.right_stick_y <= .7){
+        if(gamepad2.right_stick_y >= .7){
             armExtender.extend(50);
-        }
-        else (gamepad2.right_stick_y <= -.7) {
+        } else if(gamepad2.right_stick_y <= -.7) {
             armExtender.extend(-50);
-        } else if (gamepad2.right_stick_y >= -.7){
+        } else if(gamepad2.right_stick_y == 0){
             armExtender.extend(0);
         }
 
-        if (gamepad1.right_trigger){
-            grabber.rotate();
-        } else if (gamepad1.left_trigger){
-            grabber.rotate();
+        if (gamepad1.right_trigger > .8){
+            grabber.rotate(+.25);
+        } else if (gamepad1.left_trigger > .8){
+            grabber.rotate(-.25);
         }
         if(gamepad1.right_bumper ){
             grabber.open();
