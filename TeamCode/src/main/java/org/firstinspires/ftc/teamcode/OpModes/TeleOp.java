@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 /**
  * Created by Owner on 10/6/2017.
  */
-
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="drive", group="Backup")
 public class TeleOp extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
@@ -29,8 +29,7 @@ public class TeleOp extends LinearOpMode{
         armExtender = new TestArmExtender(hardwareMap, telemetry);
         grabber = new TestGrabber(hardwareMap, telemetry);
 
-        claw = hardwareMap.servo.get("claw");
-        spin = hardwareMap.servo.get("spin");
+
 
     }
         @Override
@@ -40,8 +39,9 @@ public class TeleOp extends LinearOpMode{
                 double stickX = (gamepad1.left_stick_x);
                 double stickY = (gamepad1.right_stick_y); // range between -1 to 1
 
-                driveTrain.drive((int)Math.atan(stickY/stickX),Math.sqrt(Math.pow(stickX,2)+ Math.pow(stickY,2)));
+               driveTrain.oneStickLoop(gamepad1.right_stick_x,gamepad1.right_stick_y,gamepad1.left_stick_x);
 
+                /*
                 //Arm extention
                 if (gamepad2.right_stick_y <= .7) {
                     armExtender.extend(50);
@@ -70,7 +70,7 @@ public class TeleOp extends LinearOpMode{
                 } else if (gamepad2.b) {
                     grabber.rotate(-90, 005);
                 }
-
+                */
 
             }
     }
