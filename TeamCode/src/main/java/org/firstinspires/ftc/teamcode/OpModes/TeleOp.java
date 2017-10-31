@@ -31,6 +31,7 @@ public class TeleOp extends LinearOpMode{
 
         claw = hardwareMap.servo.get("claw");
         spin = hardwareMap.servo.get("spin");
+         
 
     }
         @Override
@@ -55,22 +56,19 @@ public class TeleOp extends LinearOpMode{
                 }
 
                 //Graber
-                if (gamepad2.x) {
-                    grabber.open(90, 005);
-                } else if (gamepad2.x) {
-                    grabber.open(0, 005);
+                if (gamepad2.right_bumper) {
+                    grabber.open();
                 }
-                if (gamepad2.y) {
-                    claw.close();
-                } else if (gamepad2.y) {
-                    claw.close();
-                }
-                if (gamepad2.a) {
-                    grabber.rotate(90, 005);
-                } else if (gamepad2.b) {
-                    grabber.rotate(-90, 005);
-                }
+                else if (gamepad2.left_bumper) {
+                    grabber.close();}
 
+                if (gamepad2.right_trigger > .9) {
+                    grabber.rotate(+.25);
+                } else if (gamepad2.left_trigger > .9) {
+                    grabber.rotate(-.25);
+                } else {
+                    grabber.rotate(0);
+                }
 
             }
     }
