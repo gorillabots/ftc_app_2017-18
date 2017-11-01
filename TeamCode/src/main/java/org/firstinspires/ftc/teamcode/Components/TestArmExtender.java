@@ -16,7 +16,7 @@ public class TestArmExtender implements ArmExtender{
 
     DcMotor extender;
     int POSITION_TWO = 200;
-    int POSITION_THREE = 300;
+
 
     public TestArmExtender(HardwareMap hardwareMap, Telemetry telemetry) {
 
