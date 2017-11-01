@@ -5,10 +5,16 @@ package org.firstinspires.ftc.teamcode.Interfaces;
  */
 
 public interface Grabber {
+<<<<<<< HEAD
+    public void open(int degrees, float seconds);
+    public void close(int degrees, float seconds);
+=======
     public void init();
     public void open();
     public void close();
-    public void rotate(double degrees);
+>>>>>>> origin/beta
     public boolean isHolding();
+
+    public void rotate(int degrees, float seconds);
 
 }

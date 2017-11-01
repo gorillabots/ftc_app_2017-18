@@ -28,29 +28,34 @@ public class TestGrabber implements Grabber{
 
     }
     @Override
+    public void init(){
+        spin.getPosition();
+    }
 
-    public void init(){}
 
     @Override
-    public void open(int degrees, float seconds) {
+    public void rotate(double degrees) {
+        spin.setPosition(degrees);
 
     }
 
     @Override
-    public void close(int degrees, float seconds) {
+    public void open() {
+        claw.setPosition(.8);
+
+    }
+
+    @Override
+    public void close() {
+        claw.setPosition(0);
 
     }
 
     @Override
     public boolean isHolding() {
         return false;
-    }
-
-    @Override
-    public void rotate(int degrees, float seconds) {
+    }{
 
     }
-
-
 
 }
