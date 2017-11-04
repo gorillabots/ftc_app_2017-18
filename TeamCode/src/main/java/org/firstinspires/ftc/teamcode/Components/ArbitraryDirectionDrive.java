@@ -5,25 +5,36 @@ package org.firstinspires.ftc.teamcode.Components;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class ArbitraryDirectionDrive
 {
     LinearOpMode opmode;
     DcMotor m1, m2, m3, m4;
-
+    double backLeftPower = 0;
+    double frontRightPower = 0;
+    double backRightPower = 0;
+    double frontLeftPower = 0;
+    Telemetry telemetry;
+    HardwareMap hardwareMap;
     //add.drive(Direction.N, .5, 10);
 
-    public ArbitraryDirectionDrive(LinearOpMode opmode)
+    public ArbitraryDirectionDrive(HardwareMap hMap, Telemetry telemetry)
     {
-        this.opmode = opmode;
+        
+        this.telemetry = telemetry;
+        this.hardwareMap = hMap;
+        init();
     }
 
     public void init(){
 
-        m1=opmode.hardwareMap.dcMotor.get("m1");
-        m2=opmode.hardwareMap.dcMotor.get("m2");
-        m3=opmode.hardwareMap.dcMotor.get("m3");
-        m4=opmode.hardwareMap.dcMotor.get("m4");
+        m1=hardwareMap.dcMotor.get("m1");
+        m2=hardwareMap.dcMotor.get("m2");
+        m3=hardwareMap.dcMotor.get("m3");
+        m4=hardwareMap.dcMotor.get("m4");
 
     }
 
@@ -42,8 +53,8 @@ public class ArbitraryDirectionDrive
 
         //Apply power to motors;
 
-        m13 = Math.sin(rad) * speed;
-        m24 = Math.cos(rad) * speed;
+        m13 = limitToOne(Math.sin(rad) * speed);
+        m24 = limitToOne(Math.cos(rad) * speed);
 
         m1.setPower(m13);
         m2.setPower(m24);
@@ -96,9 +107,8 @@ public class ArbitraryDirectionDrive
         m3.setPower(0);
         m4.setPower(0);
     }
-    public void oneStickLoop(float stickX, float stickY, float stickRot) //TODO: Fix multiple possible memory leaks
+    public void oneStickLoop(double stickX, double stickY, double stickRot) //TODO: Fix multiple possible memory leaks
     {
-
 
          // Convert to radians
 
@@ -106,18 +116,30 @@ public class ArbitraryDirectionDrive
 
 
 
-        double backLeftPower = limitToOne(-stickX + stickRot);
-        double frontRightPower = limitToOne(stickX + stickRot);
-        double backRightPower = limitToOne(stickY + stickRot);
-        double frontLeftPower = limitToOne(-stickY + stickRot);
+        backLeftPower  = ((-stickX +stickRot)/Math.sqrt(2));
+        frontRightPower = ((stickX + stickRot)/Math.sqrt(2));
+        backRightPower = ((stickY + stickRot)/Math.sqrt(2));
+         frontLeftPower = ((-stickY + stickRot)/Math.sqrt(2));
+
+
+
+        telemetry.addData("backLeftPower",backLeftPower);
+        telemetry.addData("frontRightPower", frontRightPower);
+        telemetry.addData("backRightPower", backRightPower);
+        telemetry.addData("frontLeftPower", frontLeftPower);
 
         m2.setPower(backLeftPower);
         m4.setPower(frontRightPower);
         m3.setPower(backRightPower);
         m1.setPower(frontLeftPower);
+
+
+        telemetry.addData("x", stickX);
+        telemetry.addData("y", stickY);
+        telemetry.update();
     }
 
-    double limitToOne(double in)
+    public double limitToOne(double in)
     {
         if(in < -1)
         {

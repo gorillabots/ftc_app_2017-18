@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 /**
  * Created by Owner on 10/6/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="drive", group="Backup")
-public class TeleOp extends LinearOpMode{
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="driveOp", group="Backup")
+public class TeleOpOp extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
     ArmExtender armExtender;
@@ -24,25 +24,25 @@ public class TeleOp extends LinearOpMode{
     Servo spin;
 
 
-     public void init_() {
+    public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
-       // armExtender = new TestArmExtender(hardwareMap, telemetry);
+        // armExtender = new TestArmExtender(hardwareMap, telemetry);
         //grabber = new TestGrabber(hardwareMap, telemetry);
 
 
 
 
     }
-        @Override
-        public void runOpMode() throws InterruptedException {
-            init_();
+    @Override
+    public void runOpMode() throws InterruptedException {
+        init_();
 
-            waitForStart();
-            while(opModeIsActive()) {
+        waitForStart();
+        while(opModeIsActive()) {
 
 
-               driveTrain.oneStickLoop(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
+            driveTrain.drive( (int)Math.sqrt(Math.pow(gamepad1.left_stick_x,2)+Math.pow(gamepad1.left_stick_y,2)),Math.atan(gamepad1.right_stick_y/gamepad1.right_stick_x));
 
                 /*
                 //Graber
@@ -62,6 +62,6 @@ public class TeleOp extends LinearOpMode{
 
                 */
 
-            }
+        }
     }
 }
