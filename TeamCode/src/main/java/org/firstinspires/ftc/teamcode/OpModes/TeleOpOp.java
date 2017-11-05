@@ -42,11 +42,11 @@ public class TeleOpOp extends LinearOpMode{
         while(opModeIsActive()) {
 
 
-            driveTrain.drive( (int)Math.sqrt(Math.pow(gamepad1.left_stick_x,2)+Math.pow(gamepad1.left_stick_y,2)),Math.atan(gamepad1.right_stick_y/gamepad1.right_stick_x));
+            driveTrain.drive(Math.sqrt(gamepad1.left_stick_x*gamepad1.left_stick_x + gamepad1.left_stick_y * gamepad1.left_stick_y), Math.atan2(gamepad1.left_stick_x,gamepad1.left_stick_y));
 
                 /*
                 //Graber
-                if (gamepad2.right_bumper) {
+                if (gamepad2.right_bumper)
                     grabber.open();
                 }
                 else if (gamepad2.left_bumper) {

@@ -38,10 +38,9 @@ public class ArbitraryDirectionDrive
 
     }
 
-    public void drive(int direction, double speed) //No rotation fixing from gyro data!
+    public void drive(double speed, double direction) //No rotation fixing from gyro data!
     {
         double rad = Math.toRadians(direction + 45);
-
         int m1n, m2n, m3n, m4n; //New encoder pos, updated at beginning of loop
         int m1l = m1.getCurrentPosition(), m2l = m2.getCurrentPosition(), //Last encoder pos, updated at end of loop
                 m3l = m3.getCurrentPosition(), m4l = m4.getCurrentPosition();
@@ -56,10 +55,16 @@ public class ArbitraryDirectionDrive
         m13 = limitToOne(Math.sin(rad) * speed);
         m24 = limitToOne(Math.cos(rad) * speed);
 
-        m1.setPower(m13);
-        m2.setPower(m24);
-        m3.setPower(m13);
-        m4.setPower(m24);
+        telemetry.addData("speed", speed);
+        telemetry.addData("direction",direction);
+        telemetry.addData("m13", m13);
+        telemetry.addData("m24",m24);
+        telemetry.update();
+
+        m1.setPower((m13));
+        m2.setPower((m24));
+        m3.setPower((-m13));
+        m4.setPower((-m24));
 
     }
 
@@ -106,6 +111,34 @@ public class ArbitraryDirectionDrive
         m2.setPower(0);
         m3.setPower(0);
         m4.setPower(0);
+    }
+
+    public void newOnstickDrive(float stickX, float stickY, float stickRot){
+        float facingDeg = -45; //Robot's rotation
+        double facingRad = Math.toRadians(facingDeg); // Convert to radians
+
+        double cs = Math.cos(facingRad);
+        double sn = Math.sin(facingRad);
+
+        double headX = stickX * cs - stickY * sn; //Rotated vector (Relative heading)
+        double headY = stickX * sn + stickY * cs; //Each is in range -root 2 to root 2
+
+        headX /= Math.sqrt(2); //In range -1 to 1
+        headY /= Math.sqrt(2);
+
+        telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
+
+        telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
+
+        double backLeftPower = limitToOne(-headX + stickRot);
+        double frontRightPower = limitToOne(headX + stickRot);
+        double backRightPower = limitToOne(headY + stickRot);
+        double frontLeftPower = limitToOne(-headY + stickRot);
+
+        m4.setPower(backLeftPower);
+        m2.setPower(frontRightPower);
+        m3.setPower(backRightPower);
+        m1.setPower(frontLeftPower);
     }
     public void oneStickLoop(double stickX, double stickY, double stickRot) //TODO: Fix multiple possible memory leaks
     {
