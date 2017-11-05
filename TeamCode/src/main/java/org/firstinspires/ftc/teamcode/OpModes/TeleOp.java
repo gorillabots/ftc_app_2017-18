@@ -44,7 +44,7 @@ public class TeleOp extends LinearOpMode{
 
                driveTrain.newOnstickDrive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
-                /*
+
                 //Graber
                 if (gamepad2.right_bumper) {
                     grabber.open();
@@ -52,6 +52,7 @@ public class TeleOp extends LinearOpMode{
                 else if (gamepad2.left_bumper) {
                     grabber.close();}
 
+                /*
                 if (gamepad2.right_trigger > .9) {
                     grabber.rotate(+.25);
                 } else if (gamepad2.left_trigger > .9) {

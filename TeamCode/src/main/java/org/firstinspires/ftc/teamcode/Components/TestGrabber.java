@@ -14,6 +14,10 @@ public class TestGrabber implements Grabber{
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
+    double INCREMENT = 0.01;
+    double MAX = 1.0;
+    double MIN = -1.0;
+    double position = (MAX-MIN)/2;
 
     Servo claw;
     Servo spin;
@@ -41,13 +45,19 @@ public class TestGrabber implements Grabber{
 
     @Override
     public void open() {
-        claw.setPosition(.8);
+        position += INCREMENT;
+        if(position >= MAX){
+            position = MAX;
+        }
 
     }
 
     @Override
     public void close() {
-        claw.setPosition(0);
+        position -= INCREMENT;
+        if(position <= MIN){
+            position = MIN;
+        }
 
     }
 
