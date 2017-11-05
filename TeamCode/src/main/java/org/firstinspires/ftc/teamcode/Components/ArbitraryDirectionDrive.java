@@ -40,20 +40,19 @@ public class ArbitraryDirectionDrive
 
     public void drive(double speed, double direction) //No rotation fixing from gyro data!
     {
-        double rad = Math.toRadians(direction + 45);
-        int m1n, m2n, m3n, m4n; //New encoder pos, updated at beginning of loop
-        int m1l = m1.getCurrentPosition(), m2l = m2.getCurrentPosition(), //Last encoder pos, updated at end of loop
-                m3l = m3.getCurrentPosition(), m4l = m4.getCurrentPosition();
-        int m1d, m2d, m3d, m4d; //Encoder pos change since last loop
-        double m13a, m24a; //Average of two related encoder positions
-        double length = 0; //Magnitude of above vector
+        float facingDeg = -45; //Robot's rotation
+        double facingRad = Math.toRadians(facingDeg);
         double m13, m24; //Amount to actually drive
 
 
         //Apply power to motors;
 
-        m13 = limitToOne(Math.sin(rad) * speed);
-        m24 = limitToOne(Math.cos(rad) * speed);
+
+
+
+
+        m13 = limitToOne(Math.sin(facingRad) * speed);
+        m24 = limitToOne(Math.cos(facingRad) * speed);
 
         telemetry.addData("speed", speed);
         telemetry.addData("direction",direction);
@@ -68,6 +67,13 @@ public class ArbitraryDirectionDrive
 
     }
 
+    public void drivePolar(double speed, double direction) //No rotation fixing from gyro data!
+    {
+        double yComp =  speed * Math.sin(Math.toRadians(direction));
+        double xComp = speed * Math.cos(Math.toRadians(direction));
+        driveCartesian(xComp,yComp,0);
+
+    }
     public boolean distanceCheck(double magnitude) {
 
         int m1n, m2n, m3n, m4n; //New encoder pos, updated at beginning of loop
@@ -113,7 +119,7 @@ public class ArbitraryDirectionDrive
         m4.setPower(0);
     }
 
-    public void newOnstickDrive(float stickX, float stickY, float stickRot){
+    public void driveCartesian(double stickX, double stickY, float stickRot){
         float facingDeg = -45; //Robot's rotation
         double facingRad = Math.toRadians(facingDeg); // Convert to radians
 
