@@ -13,10 +13,13 @@ import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 public class TestArmExtender implements ArmExtender{
     HardwareMap hardwareMap;
     Telemetry telemetry;
+    double INCREMENT = 0.01;
+    double MAX = 1.0;
+    double MIN = -1.0;
 
     DcMotor extender;
-    int POSITION_TWO = 200;
-
+    double power = 0;
+    double POSITION_TWO = 200;
 
     public TestArmExtender(HardwareMap hardwareMap, Telemetry telemetry) {
 
@@ -30,14 +33,18 @@ public class TestArmExtender implements ArmExtender{
     public void init(){}
     @Override
     public void extend() {
-        extender.setPower(.95);
+        power += INCREMENT;
+        if (power >= MAX) {
+            power = MAX;
+        }
     }
-
     @Override
     public void retract() {
-        extender.setPower(.95);
+        power -= INCREMENT;
+        if (power <= MIN) {
+            power = MIN;
+        }
     }
-
     @Override
     public void extendDistance(int distance) {
         if (extender.getCurrentPosition() <= POSITION_TWO) {
