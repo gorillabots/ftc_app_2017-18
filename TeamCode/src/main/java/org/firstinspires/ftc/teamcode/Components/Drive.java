@@ -22,12 +22,12 @@ import org.firstinspires.ftc.teamcode.Components.Constants;
 import java.util.concurrent.Callable;
 
 
-public class Drive {
-
-/*
+public class Drive  {
 
 
-    private ArbitraryDirectionDrive driveTrain = new ArbitraryDirectionDrive();
+
+
+    private ArbitraryDirectionDrive driveTrain;
 
     //Motors
     private DcMotor frontRight, backRight, frontLeft, backLeft;
@@ -56,14 +56,12 @@ public class Drive {
 
     private double offset;
     private double offsetConverted;
+    LinearOpMode linOp;
 
 
-    Telemetry telemetry;
-    HardwareMap hardwareMap;
 
-    public Drive(HardwareMap hMap, Telemetry telemetry) {
-        this.telemetry = telemetry;
-        this.hardwareMap = hMap;
+    public Drive(LinearOpMode opMode) {
+    this.init(0);
 
     }
 
@@ -75,25 +73,19 @@ public class Drive {
         return Math.atan(y / x);
     }
 
-    public void init(LinearOpMode opMode, double offset) //Get hardware from hardwareMap
+    public void init(double offset) //Get hardware from hardwareMap
     {
-        this.opMode = opMode;
-        telemetry = opMode.telemetry;
 
-        //Motors
-        frontRight = opMode.hardwareMap.dcMotor.get("frontLeft"); //frontRight
-        backRight = opMode.hardwareMap.dcMotor.get("frontRight"); //backRight
-        frontLeft = opMode.hardwareMap.dcMotor.get("backLeft"); //frontLeft
-        backLeft = opMode.hardwareMap.dcMotor.get("backRight"); //backLeft
 
+        driveTrain = new ArbitraryDirectionDrive(linOp.hardwareMap,linOp.telemetry);
         //Sensors
-        navx = AHRS.getInstance(opMode.hardwareMap.deviceInterfaceModule.get("gyrobox"),
+                navx = AHRS.getInstance(linOp.hardwareMap.deviceInterfaceModule.get("gyrobox"),
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
                 NAVX_DEVICE_UPDATE_RATE_HZ);
 
         while (navx.isCalibrating()) {
-            opMode.sleep(5);
+            linOp.sleep(5);
         }
 
         pidController = new navXPIDController(navx, navXPIDController.navXTimestampedDataSource.YAW);
@@ -105,7 +97,7 @@ public class Drive {
 
         pidResult = new navXPIDController.PIDResult();
 
-        wallTouch = opMode.hardwareMap.touchSensor.get("wallTouch");
+        wallTouch = linOp.hardwareMap.touchSensor.get("wallTouch");
 
         this.offset = offset;
         offsetConverted = convertHeading(offset);
@@ -141,7 +133,7 @@ public class Drive {
         double pidOutput;
 
         try {
-            while (driveTrain.distanceCheck(distance) && opMode.opModeIsActive()) {
+            while (driveTrain.distanceCheck(distance) && linOp.opModeIsActive()) {
                 if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
                     pidOutput = 0;
 
@@ -151,10 +143,10 @@ public class Drive {
 
                     driveTrain.drive(angle, power);
 
-                    telemetry.addData("Status", "Encoder movement");
-                    telemetry.update();
+                    linOp.telemetry.addData("Status", "Encoder movement");
+                    linOp.telemetry.update();
 
-                    opMode.sleep(5);
+                    linOp.sleep(5);
 
                 }
             }
@@ -174,12 +166,12 @@ public class Drive {
 
         double pidOutput;
 
-        telemetry.addData("Status", "Moving to line");
-        telemetry.update();
+        linOp.telemetry.addData("Status", "Moving to line");
+        linOp.telemetry.update();
 
         //try
         //{
-        while (!ColorHelper.isFloorWhiteTest(floorColor) && opMode.opModeIsActive()) {
+        while (!ColorHelper.isFloorWhiteTest(floorColor) && linOp.opModeIsActive()) {
             //boolean pidUpdated = pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS);
 
             //telemetry.addData("PID Updated", pidUpdated);
@@ -194,17 +186,17 @@ public class Drive {
 
             driveTrain.drive(angle, power);
 
-            telemetry.addData("Status", "ForwardsToLine");
-            telemetry.addData("Heading", navx.getYaw());
-            telemetry.addData("Target", offsetConverted);
+            linOp.telemetry.addData("Status", "ForwardsToLine");
+            linOp.telemetry.addData("Heading", navx.getYaw());
+            linOp.telemetry.addData("Target", offsetConverted);
             //telemetry.addData("PID Output", pidOutput);
             //telemetry.addData("PID Updated", pidUpdated);
-            telemetry.addData("R", floorColor.red());
-            telemetry.addData("G", floorColor.green());
-            telemetry.addData("B", floorColor.blue());
-            telemetry.update();
+            linOp.telemetry.addData("R", floorColor.red());
+            linOp.telemetry.addData("G", floorColor.green());
+            linOp.telemetry.addData("B", floorColor.blue());
+            linOp.telemetry.update();
 
-            opMode.sleep(5);
+            linOp.sleep(5);
         }
 
         driveTrain.stopMotors();
@@ -227,23 +219,23 @@ public class Drive {
         pidController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, accuracy);
         pidController.enable(true);
 
-        telemetry.addData("spot", 1);
-        telemetry.update();
+        linOp.telemetry.addData("spot", 1);
+        linOp.telemetry.update();
 
         try {
-            while (!pidResult.isOnTarget() && opMode.opModeIsActive()) {
+            while (!pidResult.isOnTarget() && linOp.opModeIsActive()) {
                 if (pidController.waitForNewUpdate(pidResult, 500)) {
                     double power = pidResult.getOutput();
 
-                    telemetry.addData("Status", "Turn");
-                    telemetry.addData("Offset", offset);
-                    telemetry.addData("Heading", navx.getYaw());
-                    telemetry.addData("Target", target);
-                    telemetry.addData("Absolute target", absoluteTarget);
-                    telemetry.addData("Defined Speed", speed);
-                    telemetry.addData("PID Speed", power);
+                    linOp.telemetry.addData("Status", "Turn");
+                    linOp.telemetry.addData("Offset", offset);
+                    linOp.telemetry.addData("Heading", navx.getYaw());
+                    linOp.telemetry.addData("Target", target);
+                    linOp.telemetry.addData("Absolute target", absoluteTarget);
+                    linOp.telemetry.addData("Defined Speed", speed);
+                    linOp.telemetry.addData("PID Speed", power);
 
-                    telemetry.update();
+                    linOp.telemetry.update();
 
                     if (power > -.15 && power < .15) {
                         if (Math.abs(power) < .05) {
@@ -257,22 +249,19 @@ public class Drive {
                         }
                     }
 
-                    frontRight.setPower(power * speed);
-                    backRight.setPower(power * speed);
-                    frontLeft.setPower(power * speed);
-                    backLeft.setPower(power * speed);
+                    driveTrain.m1.setPower(power * speed);
+                    driveTrain.m2.setPower(power * speed);
+                    driveTrain.m3.setPower(power * speed);
+                    driveTrain.m4.setPower(power * speed);
 
-                    opMode.sleep(5);
+                    linOp.sleep(5);
                 }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        frontRight.setPower(0);
-        backRight.setPower(0);
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
+        driveTrain.stopMotors();
 
         offset += target;
         offsetConverted = convertHeading(offset);
@@ -289,7 +278,7 @@ public class Drive {
         double pidOutput;
 
         try {
-            while (!inRange(target, accuracy, distance) && opMode.opModeIsActive()) {
+            while (!inRange(target, accuracy, distance) && linOp.opModeIsActive()) {
                 if (pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS)) {
                     pidOutput = 0;
 
@@ -297,9 +286,9 @@ public class Drive {
                         pidOutput = pidResult.getOutput();
                     }
 
-                    telemetry.addData("Status", "GoToDistance");
-                    telemetry.addData("Distance", distance);
-                    telemetry.addData("Target", target);
+                    linOp.telemetry.addData("Status", "GoToDistance");
+                    linOp.telemetry.addData("Distance", distance);
+                    linOp.telemetry.addData("Target", target);
 
                     if (distance > target) //Too far, move right
                     {
@@ -307,17 +296,17 @@ public class Drive {
                         ;
                         backLeft.setPower(+power + pidOutput);
 
-                        telemetry.addData("until distnace", "forward");
+                        linOp.telemetry.addData("until distnace", "forward");
                     } else //Too close, move left
                     {
                         driveTrain.drive(angle, -power);
 
-                        telemetry.addData("until distance", "reverse");
+                        linOp.telemetry.addData("until distance", "reverse");
                     }
 
-                    telemetry.update();
+                    linOp.telemetry.update();
 
-                    opMode.sleep(5);
+                    linOp.sleep(5);
 
                     distance = range.cmUltrasonic();
                 }
@@ -335,14 +324,14 @@ public class Drive {
 
     private double getRotation() //Get rotation
     {
-        return (frontRight.getCurrentPosition() + backRight.getCurrentPosition() +
-                frontLeft.getCurrentPosition() + backLeft.getCurrentPosition()) / 4;
+        return (driveTrain.m1.getCurrentPosition() + driveTrain.m2.getCurrentPosition() +
+                driveTrain.m3.getCurrentPosition() + driveTrain.m4.getCurrentPosition()) / 4;
     }
 
     /*
      * TODO: This is the problem with BlueCenterDisruptive
      * When input value = -135 this returns 45, should actually return -135
-
+    */
     private double convertHeading(double in) //0-360
     {
         while (in < 0) //Make sure in is positive
@@ -362,7 +351,7 @@ public class Drive {
     private boolean inRange(double target, double accuracy, double reading) {
         return (Math.abs(target - reading) < accuracy); //If abs of difference is less than accuracy, we are in range
     }
-*/
+
 
 }
 

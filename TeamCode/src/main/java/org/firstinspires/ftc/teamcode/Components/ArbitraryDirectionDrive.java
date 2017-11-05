@@ -140,37 +140,7 @@ public class ArbitraryDirectionDrive
         m3.setPower(backRightPower);
         m1.setPower(frontLeftPower);
     }
-    public void oneStickLoop(double stickX, double stickY, double stickRot) //TODO: Fix multiple possible memory leaks
-    {
 
-         // Convert to radians
-
-
-
-
-
-        backLeftPower  = ((-stickX +stickRot)/Math.sqrt(2));
-        frontRightPower = ((stickX + stickRot)/Math.sqrt(2));
-        backRightPower = ((stickY + stickRot)/Math.sqrt(2));
-         frontLeftPower = ((-stickY + stickRot)/Math.sqrt(2));
-
-
-
-        telemetry.addData("backLeftPower",backLeftPower);
-        telemetry.addData("frontRightPower", frontRightPower);
-        telemetry.addData("backRightPower", backRightPower);
-        telemetry.addData("frontLeftPower", frontLeftPower);
-
-        m2.setPower(backLeftPower);
-        m4.setPower(frontRightPower);
-        m3.setPower(backRightPower);
-        m1.setPower(frontLeftPower);
-
-
-        telemetry.addData("x", stickX);
-        telemetry.addData("y", stickY);
-        telemetry.update();
-    }
 
     public double limitToOne(double in)
     {
