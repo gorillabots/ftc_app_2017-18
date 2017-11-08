@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Components;
+package org.firstinspires.ftc.teamcode.OpenCV;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
