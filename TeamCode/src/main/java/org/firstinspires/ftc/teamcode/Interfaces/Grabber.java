@@ -6,8 +6,10 @@ package org.firstinspires.ftc.teamcode.Interfaces;
 
 public interface Grabber {
     public void init();
-    public void open();
-    public void close();
+    public void open1();
+    public void open2();
+    public void close1();
+    public void close2();
     public void rotate(double degrees);
     public boolean isHolding();
 

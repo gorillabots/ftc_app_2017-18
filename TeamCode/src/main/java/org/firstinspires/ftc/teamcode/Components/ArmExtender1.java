@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
  * Created by Owner on 10/6/2017.
  */
 
-public class TestArmExtender implements ArmExtender{
+public class ArmExtender1 implements ArmExtender{
     HardwareMap hardwareMap;
     Telemetry telemetry;
     double INCREMENT = 0.01;
@@ -21,22 +21,26 @@ public class TestArmExtender implements ArmExtender{
     double power = 0;
     double POSITION_TWO = 200;
 
-    public TestArmExtender(HardwareMap hardwareMap, Telemetry telemetry) {
+    public ArmExtender1(HardwareMap hardwareMap, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
         extender = hardwareMap.dcMotor.get("extender");
+        extender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
     @Override
-    public void init(){}
+    public void init(){
+
+    }
     @Override
     public void extend() {
         power += INCREMENT;
         if (power >= MAX) {
             power = MAX;
         }
+        extender.setPower(power);
     }
     @Override
     public void retract() {
@@ -44,6 +48,7 @@ public class TestArmExtender implements ArmExtender{
         if (power <= MIN) {
             power = MIN;
         }
+        extender.setPower(power);
     }
     @Override
     public void extendDistance(int distance) {
