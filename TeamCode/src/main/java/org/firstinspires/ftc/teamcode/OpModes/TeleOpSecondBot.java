@@ -7,9 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
-import org.firstinspires.ftc.teamcode.Components.TestGrabber;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
-import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 
 /**
  * Created by Owner on 10/6/2017.
@@ -38,7 +36,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new TestGrabber(hardwareMap, telemetry);
+        //grabber = new Grabber1(hardwareMap, telemetry);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");

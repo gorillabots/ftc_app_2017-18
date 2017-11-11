@@ -5,14 +5,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
-import org.firstinspires.ftc.teamcode.Components.TestGrabber;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
-import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 
 /**
  * Created by Owner on 10/6/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Servo Test", group="Backup")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="driveOp", group="Backup")
 public class TeleOpOp extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
@@ -26,11 +24,10 @@ public class TeleOpOp extends LinearOpMode{
 
     public void init_() {
 
-       // driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
+        driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new TestGrabber(hardwareMap, telemetry);
-        claw=hardwareMap.servo.get("claw");
-        spin=hardwareMap.servo.get("spin");
+        //grabber = new Grabber1(hardwareMap, telemetry);
+
 
 
 
@@ -40,15 +37,10 @@ public class TeleOpOp extends LinearOpMode{
         init_();
 
         waitForStart();
-
-
         while(opModeIsActive()) {
 
 
-            claw.setPosition(gamepad1.left_trigger);
-            spin.setPosition(gamepad1.right_trigger);
-
-            //driveTrain.drive(Math.sqrt(gamepad1.left_stick_x*gamepad1.left_stick_x + gamepad1.left_stick_y * gamepad1.left_stick_y), Math.atan2(gamepad1.left_stick_x,gamepad1.left_stick_y));
+            driveTrain.drive(Math.sqrt(gamepad1.left_stick_x*gamepad1.left_stick_x + gamepad1.left_stick_y * gamepad1.left_stick_y), Math.atan2(gamepad1.left_stick_x,gamepad1.left_stick_y));
 
                 /*
                 //Graber
