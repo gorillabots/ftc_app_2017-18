@@ -35,7 +35,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new Grabber(hardwareMap, telemetry);
+        //grabber = new Grabber1(hardwareMap, telemetry);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");

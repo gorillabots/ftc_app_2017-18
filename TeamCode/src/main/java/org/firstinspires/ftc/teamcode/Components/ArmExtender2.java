@@ -42,12 +42,22 @@ public class ArmExtender2 implements ArmExtender {
 
     @Override
     public void extend() {
-
+        power += INCREMENT;
+        if (power >= MAX) {
+            power = MAX;
+        }
+        extender1.setPower(power);
+        extender2.setPower(power*-1);
     }
 
     @Override
     public void retract() {
-
+        power -= INCREMENT;
+        if (power <= MIN) {
+            power = MIN;
+        }
+        extender1.setPower(power*-1);
+        extender2.setPower(power);
     }
 
     @Override

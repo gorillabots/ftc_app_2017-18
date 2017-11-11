@@ -4,7 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
+import org.firstinspires.ftc.teamcode.Components.Grabber1;
+import org.firstinspires.ftc.teamcode.Components.Grabber2;
+import org.firstinspires.ftc.teamcode.Components.ArmExtender1;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
@@ -15,7 +17,7 @@ public class TeleOp extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
     ArmExtender armExtender;
-    Grabber grabber;
+    Grabber1 grabber;
     private LinearOpMode opMode;
 
     Servo claw;
@@ -26,7 +28,7 @@ public class TeleOp extends LinearOpMode{
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
        // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new Grabber(hardwareMap, telemetry);
+        //grabber = new Grabber1(hardwareMap, telemetry);
 
 
 
@@ -45,10 +47,11 @@ public class TeleOp extends LinearOpMode{
 
                 //Graber
                 if (gamepad2.right_bumper) {
-                    grabber.open();
+                    grabber.open1();
                 }
                 else if (gamepad2.left_bumper) {
-                    grabber.close();}
+                    grabber.close1();}
+
 
                 /*
                 if (gamepad2.right_trigger > .9) {

@@ -10,29 +10,33 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 10/6/2017.
  */
 
-public class Grabber implements org.firstinspires.ftc.teamcode.Interfaces.Grabber {
+public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabber {
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
     double INCREMENT = 0.01;
     double MAX = 1.0;
     double MIN = -1.0;
-    double position = (MAX-MIN)/2;
+    double position = (MAX - MIN) / 2;
 
-    Servo claw;
+    Servo claw1;
+    Servo claw2;
     Servo spin;
 
-    public Grabber(HardwareMap hardwareMap, Telemetry telemetry){
+    public Grabber1(HardwareMap hardwareMap, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
-        claw = hardwareMap.servo.get("claw");
+        claw1 = hardwareMap.servo.get("claw1");
+        claw2 = hardwareMap.servo.get("claw2");
         spin = hardwareMap.servo.get("spin");
 
+
     }
+
     @Override
-    public void init(){
+    public void init() {
         spin.getPosition();
     }
 
@@ -44,28 +48,48 @@ public class Grabber implements org.firstinspires.ftc.teamcode.Interfaces.Grabbe
     }
 
     @Override
-    public void open() {
+    public void open1() {
         position += INCREMENT;
-        if(position >= MAX){
+        if (position >= MAX) {
             position = MAX;
         }
+        claw1.setPosition(position);
+        claw2.setPosition(position);
 
     }
 
     @Override
-    public void close() {
+    public void open2() {
+        open1();
+    }
+
+    @Override
+    public void close1() {
         position -= INCREMENT;
-        if(position <= MIN){
+        if (position <= MIN) {
             position = MIN;
         }
-
+        claw1.setPosition(position);
     }
+
+    @Override
+    public void close2() {
+        position -= INCREMENT;
+        if (position <= MIN) {
+            position = MIN;
+        }
+        claw2.setPosition(position);
+    }
+
 
     @Override
     public boolean isHolding() {
         return false;
-    }{
+    }
+
+    {
 
     }
+
 
 }

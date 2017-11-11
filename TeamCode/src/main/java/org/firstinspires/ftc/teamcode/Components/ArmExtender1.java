@@ -40,6 +40,7 @@ public class ArmExtender1 implements ArmExtender{
         if (power >= MAX) {
             power = MAX;
         }
+        extender.setPower(power);
     }
     @Override
     public void retract() {
@@ -47,6 +48,7 @@ public class ArmExtender1 implements ArmExtender{
         if (power <= MIN) {
             power = MIN;
         }
+        extender.setPower(power);
     }
     @Override
     public void extendDistance(int distance) {

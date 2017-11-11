@@ -26,7 +26,7 @@ public class TeleOpOp extends LinearOpMode{
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new Grabber(hardwareMap, telemetry);
+        //grabber = new Grabber1(hardwareMap, telemetry);
 
 
 
