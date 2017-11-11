@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 10/6/2017.
  */
 
-public class TestGrabber implements Grabber{
+public class Grabber implements org.firstinspires.ftc.teamcode.Interfaces.Grabber {
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
@@ -22,7 +22,7 @@ public class TestGrabber implements Grabber{
     Servo claw;
     Servo spin;
 
-    public TestGrabber(HardwareMap hardwareMap, Telemetry telemetry){
+    public Grabber(HardwareMap hardwareMap, Telemetry telemetry){
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
