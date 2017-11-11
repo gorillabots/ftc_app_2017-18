@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Components.TestGrabber;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
@@ -13,12 +14,12 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 /**
  * Created by Owner on 10/6/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="drive", group="Backup")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="driveSecond", group="Backup")
 public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
-    ArmExtender armExtender;
-    Grabber grabber;
+    //ArmExtender armExtender;
+    //Grabber grabber;
     private LinearOpMode opMode;
 
     Servo clawOne;
@@ -28,10 +29,10 @@ public class TeleOpSecondBot extends LinearOpMode{
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
-    double oneOpen = 0;
-    double oneClose = 0;
-    double twoOpen = 0;
-    double twoClose = 0;
+    double oneOpen = Constants.leftOpen;
+    double oneClose = Constants.leftClose;
+    double twoOpen = Constants.rightOpen;
+    double twoClose = Constants.rightClose;
 
     public void init_() {
 
@@ -45,8 +46,8 @@ public class TeleOpSecondBot extends LinearOpMode{
         clawOne = hardwareMap.servo.get("clawOne");
         clawTwo = hardwareMap.servo.get("clawTwo");
 
-        clawOne.setPosition(1);
-        clawTwo.setPosition(0);
+        clawOne.setPosition(oneOpen);
+        clawTwo.setPosition(twoOpen);
 
     }
     @Override
@@ -62,28 +63,34 @@ public class TeleOpSecondBot extends LinearOpMode{
             if(gamepad2.left_bumper){
                 clawOne.setPosition(oneClose);
             }
-            if(gamepad2.left_trigger >= .5){
+
+            else if(gamepad2.left_trigger >= .5){
                 clawOne.setPosition(oneOpen);
             }
+
+
+
+
+
             if(gamepad2.right_bumper){
-                clawTwo.setPosition(oneClose);
+                clawTwo.setPosition(twoClose);
             }
-            if(gamepad2.right_trigger >= .5){
-                clawTwo.setPosition(oneOpen);
+            else if(gamepad2.right_trigger >= .5){
+                clawTwo.setPosition(twoOpen);
             }
 
             if(gamepad2.dpad_up){
-                extend.setPower(.5);
+                extend.setPower(1);
             }
             else if(gamepad2.dpad_down){
-                extend.setPower(-.5);
+                extend.setPower(-1);
             }
             else{
                 extend.setPower(0);
             }
 
-            rotateOne.setPower(gamepad2.left_stick_y);
-            rotateTwo.setPower(gamepad2.right_stick_y);
+            rotateOne.setPower(gamepad2.left_stick_y*.75);
+            rotateTwo.setPower(gamepad2.right_stick_y*.75);
 
 
                 /*
