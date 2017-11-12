@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
+//import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
@@ -15,7 +15,7 @@ public class TeleOpOp extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
     ArmExtender armExtender;
-    Grabber grabber;
+    //Grabber grabber;
     private LinearOpMode opMode;
 
     Servo claw;
