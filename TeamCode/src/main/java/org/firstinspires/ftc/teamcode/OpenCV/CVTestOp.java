@@ -8,7 +8,7 @@ import org.opencv.core.Mat;
 
 //Created by Mikko on 2017-10-27
 
-@TeleOp(group="Test", name="CVTestOp")
+@TeleOp(group="Test", name="CVTestOp2")
 public class CVTestOp extends OpMode
 {
     @Override
