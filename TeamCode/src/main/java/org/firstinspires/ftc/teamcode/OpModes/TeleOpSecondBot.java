@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.Constants;
-import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
+//import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
@@ -22,7 +23,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     Servo clawOne;
     Servo clawTwo;
-
+    ModernRoboticsI2cColorSensor ballColor;
     DcMotor extend;
     DcMotor rotateOne;
     DcMotor rotateTwo;
