@@ -25,6 +25,7 @@ public class ArbitraryDirectionDrive {
     int m3Start = 0;
     int m4Start = 0;
     int m1n, m2n, m3n, m4n;
+    double length;
 
     ModernRoboticsI2cGyro gyro;
     //add.drive(Direction.N, .5, 10);
@@ -94,57 +95,35 @@ public class ArbitraryDirectionDrive {
         driveCartesian(xComp, yComp, 0);
 
     }
+    public boolean distanceCheck(double magnitude){
 
-    public boolean distanceCheck(double magnitude) {
-
-        if(firstRun){
-            m1n = m1.getCurrentPosition();
-            m2n = m2.getCurrentPosition();
-            m3n = m3.getCurrentPosition();
-            m4n = m4.getCurrentPosition();
-            firstRun = false;
+        if (!firstRun) {
+            m1Start = Math.abs(m1.getCurrentPosition());
+            m2Start = Math.abs(m2.getCurrentPosition());
+            m3Start = Math.abs(m3.getCurrentPosition());
+            m4Start = Math.abs(m4.getCurrentPosition());
         }
 
-        double encMag = toEncoder(magnitude);
-        // M#N = Motor # New?
-         //New encoder pos, updated at beginning of loop
+        int m1Current = Math.abs(m1.getCurrentPosition());
+        int m2Current = Math.abs(m2.getCurrentPosition());
+        int m3Current = Math.abs(m3.getCurrentPosition());
+        int m4Current = Math.abs(m4.getCurrentPosition());
 
-        // M#l Motor # loop?
-        int m1l = Math.abs(m1.getCurrentPosition());
-        int m2l = Math.abs(m2.getCurrentPosition()); //Last encoder pos, updated at end of loop
-        int m3l = Math.abs(m3.getCurrentPosition());
-        int m4l = Math.abs(m4.getCurrentPosition());
 
-        // M{number}d = motor # delta (or change)
-        int m1d, m2d, m3d, m4d; //Encoder pos change since last loop
+        int m1Calc = m1Current - m1Start;
+        int m2Calc = m2Current - m2Start;
+        int m3Calc = m3Current - m3Start;
+        int m4Calc = m4Current - m4Start;
 
-        double m13a, m24a; //Average of two related encoder positions
-        double length = 0; //Magnitude of above vector
-        double m13, m24; //Amount to actually drive
-        //Update new encoder pos
-        m1n = m1.getCurrentPosition();
-        m2n = m2.getCurrentPosition();
-        m3n = m3.getCurrentPosition();
-        m4n = m4.getCurrentPosition();
 
-        //Update encoder pos delta
-        m1d = m1n - m1l;
-        m2d = m2n - m2l;
-        m3d = m3n - m3l;
-        m4d = m4n - m4l;
+        int average1 = (m1Calc + m3Calc)/2;
+        int average2 = (m2Calc + m4Calc)/2;
 
-        m1l = m1n;
-        m2l = m2n;
-        m3l = m3n;
-        m4l = m4n;
-
-        m13a = (m1d + m3d) / 2d; //Average of m1 and m3
-        m24a = (m2d + m4d) / 2d;
-
-        length = Math.sqrt(m13a * m13a + m24a * m24a);
+        length = Math.sqrt(average1 * average1+ average2* average2);
         telemetry.addData("mag", magnitude);
         telemetry.addData("meas", length);
         telemetry.update();
+        double encMag = toEncoder(magnitude);
         if (length >= encMag) {
             firstRun = true;
             return false;
@@ -152,7 +131,10 @@ public class ArbitraryDirectionDrive {
             firstRun = true;
             return true;
         }
+
+
     }
+
 
     public void stopMotors() {
         m1.setPower(0);
