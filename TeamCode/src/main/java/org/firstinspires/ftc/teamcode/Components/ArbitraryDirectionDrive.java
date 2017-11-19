@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Components;
 
 //Created by Mikko on 2017-10-24
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,34 +10,56 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class ArbitraryDirectionDrive
-{
+public class ArbitraryDirectionDrive {
     LinearOpMode opmode;
     DcMotor m1, m2, m3, m4;
     double backLeftPower = 0;
     double frontRightPower = 0;
     double backRightPower = 0;
     double frontLeftPower = 0;
+    boolean firstRun = false;
     Telemetry telemetry;
     HardwareMap hardwareMap;
+    int m1Start = 0;
+    int m2Start = 0;
+    int m3Start = 0;
+    int m4Start = 0;
+    int m1n, m2n, m3n, m4n;
+
+    ModernRoboticsI2cGyro gyro;
     //add.drive(Direction.N, .5, 10);
 
-    public ArbitraryDirectionDrive(HardwareMap hMap, Telemetry telemetry)
-    {
-        
+    public ArbitraryDirectionDrive(HardwareMap hMap, Telemetry telemetry) {
+
         this.telemetry = telemetry;
         this.hardwareMap = hMap;
         init();
     }
 
-    public void init(){
+    public void init() {
 
-        m1=hardwareMap.dcMotor.get("m1");
-        m2=hardwareMap.dcMotor.get("m2");
-        m3=hardwareMap.dcMotor.get("m3");
-        m4=hardwareMap.dcMotor.get("m4");
+        m1 = hardwareMap.dcMotor.get("m1");
+        m2 = hardwareMap.dcMotor.get("m2");
+        m3 = hardwareMap.dcMotor.get("m3");
+        m4 = hardwareMap.dcMotor.get("m4");
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
 
+        gyro.calibrate();
+
+        try //Wait for gyro to calibrate
+        {
+            while (gyro.isCalibrating()) {
+                Thread.sleep(50);
+                telemetry.addData("Status", "Calibrating Gyro");
+                telemetry.update();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        gyro.resetZAxisIntegrator(); //Reset heading
     }
+
 
     public void drive(double speed, double direction) //No rotation fixing from gyro data!
     {
@@ -48,16 +71,13 @@ public class ArbitraryDirectionDrive
         //Apply power to motors;
 
 
-
-
-
         m13 = limitToOne(Math.sin(facingRad) * speed);
         m24 = limitToOne(Math.cos(facingRad) * speed);
 
         telemetry.addData("speed", speed);
-        telemetry.addData("direction",direction);
+        telemetry.addData("direction", direction);
         telemetry.addData("m13", m13);
-        telemetry.addData("m24",m24);
+        telemetry.addData("m24", m24);
         telemetry.update();
 
         m1.setPower((m13));
@@ -69,17 +89,35 @@ public class ArbitraryDirectionDrive
 
     public void drivePolar(double speed, double direction) //No rotation fixing from gyro data!
     {
-        double yComp =  speed * Math.sin(Math.toRadians(direction));
+        double yComp = speed * Math.sin(Math.toRadians(direction));
         double xComp = speed * Math.cos(Math.toRadians(direction));
-        driveCartesian(xComp,yComp,0);
+        driveCartesian(xComp, yComp, 0);
 
     }
+
     public boolean distanceCheck(double magnitude) {
 
-        int m1n, m2n, m3n, m4n; //New encoder pos, updated at beginning of loop
-        int m1l = m1.getCurrentPosition(), m2l = m2.getCurrentPosition(), //Last encoder pos, updated at end of loop
-                m3l = m3.getCurrentPosition(), m4l = m4.getCurrentPosition();
+        if(firstRun){
+            m1n = m1.getCurrentPosition();
+            m2n = m2.getCurrentPosition();
+            m3n = m3.getCurrentPosition();
+            m4n = m4.getCurrentPosition();
+            firstRun = false;
+        }
+
+        double encMag = toEncoder(magnitude);
+        // M#N = Motor # New?
+         //New encoder pos, updated at beginning of loop
+
+        // M#l Motor # loop?
+        int m1l = Math.abs(m1.getCurrentPosition());
+        int m2l = Math.abs(m2.getCurrentPosition()); //Last encoder pos, updated at end of loop
+        int m3l = Math.abs(m3.getCurrentPosition());
+        int m4l = Math.abs(m4.getCurrentPosition());
+
+        // M{number}d = motor # delta (or change)
         int m1d, m2d, m3d, m4d; //Encoder pos change since last loop
+
         double m13a, m24a; //Average of two related encoder positions
         double length = 0; //Magnitude of above vector
         double m13, m24; //Amount to actually drive
@@ -104,22 +142,33 @@ public class ArbitraryDirectionDrive
         m24a = (m2d + m4d) / 2d;
 
         length = Math.sqrt(m13a * m13a + m24a * m24a);
-
-        if (length >= magnitude) {
+        telemetry.addData("mag", magnitude);
+        telemetry.addData("meas", length);
+        telemetry.update();
+        if (length >= encMag) {
+            firstRun = true;
             return false;
         } else {
+            firstRun = true;
             return true;
         }
     }
 
-    public void stopMotors(){
+    public void stopMotors() {
         m1.setPower(0);
         m2.setPower(0);
         m3.setPower(0);
         m4.setPower(0);
     }
 
-    public void driveCartesian(double stickX, double stickY, float stickRot){
+    public double toFeet(double encoder){
+        return encoder/1935.48;
+    }
+
+    public double toEncoder(double feet){
+        return feet*1935.48;
+    }
+    public void driveCartesian(double stickX, double stickY, float stickRot) {
         float facingDeg = -45; //Robot's rotation
         double facingRad = Math.toRadians(facingDeg); // Convert to radians
 
@@ -132,14 +181,37 @@ public class ArbitraryDirectionDrive
         headX /= Math.sqrt(2); //In range -1 to 1
         headY /= Math.sqrt(2);
 
-        telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
+        int heading;
+        double turnpow;
+        double turnpower = 0.1;
+        heading = gyro.getHeading();
 
-        telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
+        if (heading <= 1 || heading >= 360 - 1) {
+            turnpow = 0;
+        } else if (heading <= 180) {
+            turnpow = turnpower;
+        } else {
+            turnpow = -turnpower;
+        }
 
-        double backLeftPower = limitToOne(-headX + stickRot);
-        double frontRightPower = limitToOne(headX + stickRot);
-        double backRightPower = limitToOne(headY + stickRot);
-        double frontLeftPower = limitToOne(-headY + stickRot);
+
+
+
+        //telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
+
+        //telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
+
+        double backLeftPower = limitToOne(-headX + stickRot + turnpow);
+        double frontRightPower = limitToOne(headX + stickRot + turnpow);
+        double backRightPower = limitToOne(headY + stickRot + turnpow);
+        double frontLeftPower = limitToOne(-headY + stickRot + turnpow);
+
+        telemetry.addData("heading", heading);
+        telemetry.addData("turnPow", turnpower);
+        telemetry.addData("m1", frontLeftPower);
+        telemetry.addData("m2", frontRightPower);
+        telemetry.addData("m3", backRightPower);
+        telemetry.addData("m4", backLeftPower);
 
         m4.setPower(backLeftPower);
         m2.setPower(frontRightPower);
@@ -148,14 +220,11 @@ public class ArbitraryDirectionDrive
     }
 
 
-    public double limitToOne(double in)
-    {
-        if(in < -1)
-        {
+    public double limitToOne(double in) {
+        if (in < -1) {
             return -1;
         }
-        if(in > 1)
-        {
+        if (in > 1) {
             return 1;
         }
 
