@@ -62,30 +62,43 @@ public class ArbitraryDirectionDrive {
     }
 
 
-    public void drive(double speed, double direction) //No rotation fixing from gyro data!
+    public void drive(double stickX, double stickY, double stickRot) //No rotation fixing from gyro data!
     {
         float facingDeg = -45; //Robot's rotation
-        double facingRad = Math.toRadians(facingDeg);
-        double m13, m24; //Amount to actually drive
+        double facingRad = Math.toRadians(facingDeg); // Convert to radians
+
+        double cs = Math.cos(facingRad);
+        double sn = Math.sin(facingRad);
+
+        double headX = stickX * cs - stickY * sn; //Rotated vector (Relative heading)
+        double headY = stickX * sn + stickY * cs; //Each is in range -root 2 to root 2
+
+        headX /= Math.sqrt(2); //In range -1 to 1
+        headY /= Math.sqrt(2);
 
 
-        //Apply power to motors;
 
 
-        m13 = limitToOne(Math.sin(facingRad) * speed);
-        m24 = limitToOne(Math.cos(facingRad) * speed);
 
-        telemetry.addData("speed", speed);
-        telemetry.addData("direction", direction);
-        telemetry.addData("m13", m13);
-        telemetry.addData("m24", m24);
-        telemetry.update();
+        //telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
 
-        m1.setPower((m13));
-        m2.setPower((m24));
-        m3.setPower((-m13));
-        m4.setPower((-m24));
+        //telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
 
+        double backLeftPower = limitToOne(-headX + stickRot );
+        double frontRightPower = limitToOne(headX + stickRot );
+        double backRightPower = limitToOne(headY + stickRot );
+        double frontLeftPower = limitToOne(-headY + stickRot );
+
+
+        telemetry.addData("m1", frontLeftPower);
+        telemetry.addData("m2", frontRightPower);
+        telemetry.addData("m3", backRightPower);
+        telemetry.addData("m4", backLeftPower);
+
+        m4.setPower(backLeftPower);
+        m2.setPower(frontRightPower);
+        m3.setPower(backRightPower);
+        m1.setPower(frontLeftPower);
     }
 
     public void drivePolar(double speed, double direction) //No rotation fixing from gyro data!

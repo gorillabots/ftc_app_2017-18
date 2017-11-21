@@ -57,7 +57,7 @@ public class TeleOpSecondBot extends LinearOpMode{
         while(opModeIsActive()) {
 
 
-            driveTrain.driveCartesian(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
+            driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad2.left_bumper){
                 clawOne.setPosition(oneClose);

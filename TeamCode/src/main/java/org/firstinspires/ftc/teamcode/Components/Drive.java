@@ -141,7 +141,7 @@ public class Drive  {
                         pidOutput = pidResult.getOutput();
                     }
 
-                    driveTrain.drive(angle, power);
+                   // driveTrain.drive(angle, power);
 
                     linOp.telemetry.addData("Status", "Encoder movement");
                     linOp.telemetry.update();
@@ -184,7 +184,7 @@ public class Drive  {
             //    pidOutput = pidResult.getOutput();
             //}
 
-            driveTrain.drive(angle, power);
+            //driveTrain.drive(angle, power);
 
             linOp.telemetry.addData("Status", "ForwardsToLine");
             linOp.telemetry.addData("Heading", navx.getYaw());
@@ -292,14 +292,14 @@ public class Drive  {
 
                     if (distance > target) //Too far, move right
                     {
-                        driveTrain.drive(angle, power);
+                        //driveTrain.drive(angle, power);
                         ;
                         backLeft.setPower(+power + pidOutput);
 
                         linOp.telemetry.addData("until distnace", "forward");
                     } else //Too close, move left
                     {
-                        driveTrain.drive(angle, -power);
+                       // driveTrain.drive(angle, -power);
 
                         linOp.telemetry.addData("until distance", "reverse");
                     }
