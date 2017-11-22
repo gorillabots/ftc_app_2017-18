@@ -75,8 +75,19 @@ public class ColorHelper {
         return (color.red() > 10 && color.green() > 10 && color.blue() > 10);
     }
 
+
+
     public static float getFloorValue()
     {
         return hsvValuesFloor[2];
     }
+
+    public static boolean isLineRed(){
+        return false;
+    }
+
+    public static boolean isLineBlue(){
+        return false;
+    }
+
 }

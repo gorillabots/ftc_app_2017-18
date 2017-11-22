@@ -1,11 +1,15 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import android.graphics.Color;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
 //import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
@@ -33,6 +37,9 @@ public class TeleOpSecondBot extends LinearOpMode{
     double twoOpen = Constants.rightOpen;
     double twoClose = Constants.rightClose;
 
+    ColorSensor lineSensor;
+
+
     public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
@@ -47,6 +54,10 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         clawOne.setPosition(oneOpen);
         clawTwo.setPosition(twoOpen);
+
+        lineSensor = hardwareMap.colorSensor.get("lineSensor");
+        lineSensor.enableLed(true);
+
 
     }
     @Override
@@ -67,6 +78,8 @@ public class TeleOpSecondBot extends LinearOpMode{
                 clawOne.setPosition(oneOpen);
             }
 
+            ColorHelper.printColorHSV(this.telemetry,lineSensor);
+            telemetry.update();
 
 
 

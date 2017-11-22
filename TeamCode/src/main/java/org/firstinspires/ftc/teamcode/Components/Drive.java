@@ -22,9 +22,7 @@ import org.firstinspires.ftc.teamcode.Components.Constants;
 import java.util.concurrent.Callable;
 
 
-public class Drive  {
-
-
+public class Drive {
 
 
     private ArbitraryDirectionDrive driveTrain;
@@ -59,9 +57,8 @@ public class Drive  {
     LinearOpMode linOp;
 
 
-
     public Drive(LinearOpMode opMode) {
-    this.init(0);
+        this.init(0);
 
     }
 
@@ -77,9 +74,10 @@ public class Drive  {
     {
 
 
-        driveTrain = new ArbitraryDirectionDrive(linOp.hardwareMap,linOp.telemetry);
+        driveTrain = new ArbitraryDirectionDrive(linOp.hardwareMap, linOp.telemetry);
         //Sensors
-                navx = AHRS.getInstance(linOp.hardwareMap.deviceInterfaceModule.get("gyrobox"),
+        /*
+        navx = AHRS.getInstance(linOp.hardwareMap.deviceInterfaceModule.get("gyrobox"),
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
                 NAVX_DEVICE_UPDATE_RATE_HZ);
@@ -96,7 +94,7 @@ public class Drive  {
         //pidController.enable(true);
 
         pidResult = new navXPIDController.PIDResult();
-
+        */
         wallTouch = linOp.hardwareMap.touchSensor.get("wallTouch");
 
         this.offset = offset;
@@ -126,7 +124,7 @@ public class Drive  {
     }
 
 
-    public void encoderMove(int angle, double distance, double power) //Move forwards by distance
+    public void encoderMoveNAVX(int angle, double distance, double power) //Move forwards by distance
     {
         resetPid();
 
@@ -141,7 +139,7 @@ public class Drive  {
                         pidOutput = pidResult.getOutput();
                     }
 
-                   // driveTrain.drive(angle, power);
+                    // driveTrain.drive(angle, power);
 
                     linOp.telemetry.addData("Status", "Encoder movement");
                     linOp.telemetry.update();
@@ -155,6 +153,27 @@ public class Drive  {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void encoderMoveMRGyro(double angle, double distance, double power) //Move forwards by distance
+    {
+        resetPid();
+
+        double pidOutput;
+
+        while (driveTrain.distanceCheck(distance) && linOp.opModeIsActive()) {
+            driveTrain.drivePolar(power, angle);
+
+            linOp.telemetry.addData("Status", "Encoder movement");
+            linOp.telemetry.update();
+
+            linOp.sleep(5);
+
+        }
+
+
+        driveTrain.stopMotors();
 
     }
 
@@ -299,7 +318,7 @@ public class Drive  {
                         linOp.telemetry.addData("until distnace", "forward");
                     } else //Too close, move left
                     {
-                       // driveTrain.drive(angle, -power);
+                        // driveTrain.drive(angle, -power);
 
                         linOp.telemetry.addData("until distance", "reverse");
                     }
