@@ -370,7 +370,5 @@ public class Drive {
     private boolean inRange(double target, double accuracy, double reading) {
         return (Math.abs(target - reading) < accuracy); //If abs of difference is less than accuracy, we are in range
     }
-
-
 }
 

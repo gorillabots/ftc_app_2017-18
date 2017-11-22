@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Components;
 
 //Created by Mikko on 2017-10-24
 
+import com.kauailabs.navx.ftc.AHRS;
+import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -224,6 +226,139 @@ public class ArbitraryDirectionDrive {
         }
 
         return in;
+    }
+
+    public void turnToGyro(int accuracy, double turnpower) //Turn until we are aligned
+    {
+
+        int heading = gyro.getHeading();
+        double turnpow;
+
+        opmode.telemetry.addData("Action", "Turn to Gyro");
+        opmode.telemetry.addData("Heading", heading);
+
+        if(heading <= accuracy || heading >= 360 - accuracy)
+        {
+            turnpow = 0;
+        }
+        else if(heading <= 180)
+        {
+            turnpow = -turnpower;
+        }
+        else
+        {
+            turnpow = turnpower;
+        }
+
+        m1.setPower(turnpow);
+        m2.setPower(turnpow);
+        m3.setPower(turnpow);
+        m4.setPower(turnpow);
+    }
+
+    private AHRS navx;
+    navXPIDController pidController;
+    navXPIDController.PIDResult pidResult;
+    double target;
+    double absoluteTarget;
+    double speed;
+    double offset;
+    double offsetConverted;
+
+    public void turnNavxStart(double target, double accuracy, double speed)
+    {
+        // With target = -135....
+
+        this.target = target;
+        absoluteTarget = convertHeading(offset + target);
+        // absoluteTarget = 45 | Should be -135
+
+        pidController.reset();
+        pidController.setSetpoint(absoluteTarget);
+        pidController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, accuracy);
+        pidController.enable(true);
+
+        this.speed = speed;
+    }
+
+    public boolean turnNavxLoop()
+    {
+        try
+        {
+            if (pidController.waitForNewUpdate(pidResult, 500))
+            {
+                double power = pidResult.getOutput();
+
+                telemetry.addData("Status", "Turn");
+                telemetry.addData("Offset", offset);
+                telemetry.addData("Heading", navx.getYaw());
+                telemetry.addData("Target", target);
+                telemetry.addData("Absolute target", absoluteTarget);
+                telemetry.addData("Defined Speed", speed);
+                telemetry.addData("PID Speed", power);
+
+                telemetry.update();
+
+                if (power > -.15 && power < .15)
+                {
+                    if (Math.abs(power) < .05)
+                    {
+                        return true;
+                    }
+                    if (power > 0 && power < .15)
+                    {
+                        power = .17;
+                    }
+                    if (power < 0 && power > -.15)
+                    {
+                        power = -.17;
+                    }
+                }
+
+                m1.setPower(power * speed);
+                m2.setPower(power * speed);
+                m3.setPower(power * speed);
+                m4.setPower(power * speed);
+
+                return false;
+            }
+        }
+        catch(InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void turnNavxStop()
+    {
+        m1.setPower(0);
+        m2.setPower(0);
+        m3.setPower(0);
+        m4.setPower(0);
+
+        offset += target;
+        offsetConverted = convertHeading(offset);
+    }
+
+    private double convertHeading(double in) //0-360
+    {
+        while(in < 0) //Make sure in is positive
+        {
+            in += 360;
+        }
+
+        in %= 360; //Modulus
+
+        if(in > 180)
+        {
+            return in - 360;
+        }
+        else
+        {
+            return in;
+        }
     }
 }
 
