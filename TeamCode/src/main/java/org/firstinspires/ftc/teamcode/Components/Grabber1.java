@@ -97,5 +97,8 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
 
     }
 
-
+    @Override
+    public void rotateOne(double murica){}
+    @Override
+    public void rotateTwo(double murica){}
 }

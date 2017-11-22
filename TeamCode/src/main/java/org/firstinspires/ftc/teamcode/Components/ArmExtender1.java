@@ -34,7 +34,7 @@ public class ArmExtender1 implements ArmExtender{
     public void init(){
 
     }
-    @Override
+
     public void extend() {
         power += INCREMENT;
         if (power >= MAX) {
@@ -84,4 +84,9 @@ public class ArmExtender1 implements ArmExtender{
     public void setStage(){
 
     }
+
+    @Override
+    public void stop(){}
+    @Override
+    public void extend(double murica){}
 }
