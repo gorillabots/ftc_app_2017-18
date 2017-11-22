@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode.OpenCV;
+package org.firstinspires.ftc.teamcode.Vision;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.firstinspires.ftc.teamcode.OpenCV.ViewDisplay;
 
 //Created by Derek on 2017-06-23
 //Copied by Mikko on 2017-11-10
