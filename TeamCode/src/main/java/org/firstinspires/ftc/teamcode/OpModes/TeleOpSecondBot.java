@@ -10,9 +10,11 @@ import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.ArmExtender2;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
 //import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
+import org.firstinspires.ftc.teamcode.Components.Grabber2;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
@@ -22,12 +24,10 @@ import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
-    //ArmExtender armExtender;
-    //Grabber grabber;
+    ArmExtender2 armExtender;
+    Grabber2 grabber;
     private LinearOpMode opMode;
 
-    Servo clawOne;
-    Servo clawTwo;
 
     DcMotor extend;
     DcMotor rotateOne;
@@ -38,6 +38,8 @@ public class TeleOpSecondBot extends LinearOpMode{
     double twoOpen = Constants.rightOpen;
     double twoClose = Constants.rightClose;
 
+    Servo clawOne;
+    Servo clawTwo;
     ColorSensor lineSensor;
 
     ColorSensor ballColor;
@@ -46,11 +48,13 @@ public class TeleOpSecondBot extends LinearOpMode{
     public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
-        // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new Grabber1(hardwareMap, telemetry);
+        armExtender = new ArmExtender2(hardwareMap, telemetry);
+        grabber = new Grabber2(hardwareMap, telemetry);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
+
+
 
         clawOne = hardwareMap.servo.get("clawOne");
         clawTwo = hardwareMap.servo.get("clawTwo");
@@ -71,6 +75,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
 
 
+
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -83,12 +88,12 @@ public class TeleOpSecondBot extends LinearOpMode{
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad2.left_bumper){
-                clawOne.setPosition(oneClose);
+                grabber.close1();
+            }
+            else if(gamepad2.left_trigger >= .5){
+                grabber.open1();
             }
 
-            else if(gamepad2.left_trigger >= .5){
-                clawOne.setPosition(oneOpen);
-            }
 
             ColorHelper.printColorHSV(this.telemetry,lineSensor);
             ColorHelper.printColorHSV(this.telemetry,ballColor);
@@ -99,24 +104,25 @@ public class TeleOpSecondBot extends LinearOpMode{
 
 
             if(gamepad2.right_bumper){
-                clawTwo.setPosition(twoClose);
+                grabber.close2();
             }
             else if(gamepad2.right_trigger >= .5){
-                clawTwo.setPosition(twoOpen);
+                grabber.open2();
             }
+
 
             if(gamepad2.dpad_up){
-                extend.setPower(1);
+                armExtender.extend(1);
             }
             else if(gamepad2.dpad_down){
-                extend.setPower(-1);
+                armExtender.extend(-1);
             }
             else{
-                extend.setPower(0);
+                armExtender.stop();
             }
 
-            rotateOne.setPower(gamepad2.left_stick_y*.75);
-            rotateTwo.setPower(gamepad2.right_stick_y*.75);
+            grabber.rotateOne(gamepad2.left_stick_y);
+            grabber.rotateTwo(gamepad2.right_stick_y);
 
 
                 /*

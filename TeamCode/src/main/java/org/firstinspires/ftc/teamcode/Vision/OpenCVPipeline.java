@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpenCV;
+package org.firstinspires.ftc.teamcode.Vision;
 
 import android.app.Activity;
 import android.content.Context;
