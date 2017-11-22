@@ -12,5 +12,7 @@ public interface Grabber {
     public void close2();
     public void rotate(double degrees);
     public boolean isHolding();
+    public void rotateOne(double power);
+    public void rotateTwo (double power);
 
 }

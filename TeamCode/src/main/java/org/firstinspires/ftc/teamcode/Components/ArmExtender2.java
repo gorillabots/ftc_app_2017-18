@@ -19,7 +19,6 @@ public class ArmExtender2 implements ArmExtender {
     double MIN = -1.0;
 
     DcMotor extender1;
-    DcMotor extender2;
     double power = 0;
     double POSITION_TWO = 200;
 
@@ -28,11 +27,9 @@ public class ArmExtender2 implements ArmExtender {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
-        extender1 = hardwareMap.dcMotor.get("extender1");
-        extender2 = hardwareMap.dcMotor.get("extender2");
+        extender1 = hardwareMap.dcMotor.get("extend");
 
         extender1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        extender2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     @Override
@@ -40,14 +37,14 @@ public class ArmExtender2 implements ArmExtender {
 
     }
 
+    /*
     @Override
-    public void extend() {
+    public void extend(double power) {
         power += INCREMENT;
         if (power >= MAX) {
             power = MAX;
         }
         extender1.setPower(power);
-        extender2.setPower(power*-1);
     }
 
     @Override
@@ -57,7 +54,21 @@ public class ArmExtender2 implements ArmExtender {
             power = MIN;
         }
         extender1.setPower(power*-1);
-        extender2.setPower(power);
+    }
+    */
+    @Override
+    public void extend(double power) {
+        extender1.setPower(power*.75);
+    }
+
+    @Override
+    public void stop() {
+        extender1.setPower(0);
+    }
+
+    @Override
+    public void retract() {
+
     }
 
     @Override
