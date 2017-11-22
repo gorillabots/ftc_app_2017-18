@@ -1,12 +1,19 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import android.graphics.Color;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
+<<<<<<< HEAD
 import org.firstinspires.ftc.teamcode.Components.ArmExtender2;
+=======
+import org.firstinspires.ftc.teamcode.Components.ColorHelper;
+>>>>>>> 3fcd4718c91c789e7f8f93cda842c81b1e3e7ab2
 import org.firstinspires.ftc.teamcode.Components.Constants;
 //import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Components.Grabber2;
@@ -34,6 +41,9 @@ public class TeleOpSecondBot extends LinearOpMode{
     double twoOpen = Constants.rightOpen;
     double twoClose = Constants.rightClose;
 
+    ColorSensor lineSensor;
+
+
     public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
@@ -43,6 +53,19 @@ public class TeleOpSecondBot extends LinearOpMode{
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
+<<<<<<< HEAD
+=======
+        clawOne = hardwareMap.servo.get("clawOne");
+        clawTwo = hardwareMap.servo.get("clawTwo");
+
+        clawOne.setPosition(oneOpen);
+        clawTwo.setPosition(twoOpen);
+
+        lineSensor = hardwareMap.colorSensor.get("lineSensor");
+        lineSensor.enableLed(true);
+
+
+>>>>>>> 3fcd4718c91c789e7f8f93cda842c81b1e3e7ab2
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -61,6 +84,15 @@ public class TeleOpSecondBot extends LinearOpMode{
                 grabber.open1();
             }
 
+<<<<<<< HEAD
+=======
+            ColorHelper.printColorHSV(this.telemetry,lineSensor);
+            telemetry.update();
+
+
+
+
+>>>>>>> 3fcd4718c91c789e7f8f93cda842c81b1e3e7ab2
             if(gamepad2.right_bumper){
                 grabber.close2();
             }
