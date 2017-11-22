@@ -82,12 +82,16 @@ public class ColorHelper {
         return hsvValuesFloor[2];
     }
 
-    public static boolean isLineRed(){
-        return false;
+    public static boolean isLineRed(ColorSensor color){
+        Color.RGBToHSV(color.red() * 8, color.green() * 8, color.blue() * 8, hsvValuesFloor);
+        return (hsvValuesFloor[0] < 5)&&(hsvValuesFloor[0]>3);
+        //&&hsvValuesFloor[1]>.9 && hsvValuesFloor[1]<1.1 && hsvValuesFloor[2]>.9 && hsvValuesFloor[2] <.98
     }
 
-    public static boolean isLineBlue(){
-        return false;
+    public static boolean isLineBlue(ColorSensor color){
+        Color.RGBToHSV(color.red() * 8, color.green() * 8, color.blue() * 8, hsvValuesFloor);
+        return  (hsvValuesFloor[0] < 226)&&(hsvValuesFloor[0]>224);
+        //&&hsvValuesFloor[1]>.9 && hsvValuesFloor[1]<1.1 && hsvValuesFloor[2]>.61 && hsvValuesFloor[2] <.67
     }
 
 }

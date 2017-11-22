@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
@@ -27,7 +28,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     Servo clawOne;
     Servo clawTwo;
-    ModernRoboticsI2cColorSensor ballColor;
+
     DcMotor extend;
     DcMotor rotateOne;
     DcMotor rotateTwo;
@@ -38,6 +39,8 @@ public class TeleOpSecondBot extends LinearOpMode{
     double twoClose = Constants.rightClose;
 
     ColorSensor lineSensor;
+
+    ColorSensor ballColor;
 
 
     public void init_() {
@@ -54,9 +57,18 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         clawOne.setPosition(oneOpen);
         clawTwo.setPosition(twoOpen);
-
         lineSensor = hardwareMap.colorSensor.get("lineSensor");
+        lineSensor.setI2cAddress(I2cAddr.create8bit(0x44)); //68 in decimal
+
+        ballColor = hardwareMap.colorSensor.get("ballColor");
+        //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
+
+
+        lineSensor.enableLed(false);
         lineSensor.enableLed(true);
+
+        ballColor.enableLed(false);
+
 
 
     }
@@ -79,8 +91,10 @@ public class TeleOpSecondBot extends LinearOpMode{
             }
 
             ColorHelper.printColorHSV(this.telemetry,lineSensor);
+            ColorHelper.printColorHSV(this.telemetry,ballColor);
+            telemetry.addData("Red state", ColorHelper.isLineRed(lineSensor));
+            telemetry.addData("Blue state", ColorHelper.isLineBlue(lineSensor));
             telemetry.update();
-
 
 
 
