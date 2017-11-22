@@ -9,11 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-<<<<<<< HEAD
 import org.firstinspires.ftc.teamcode.Components.ArmExtender2;
-=======
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
->>>>>>> 3fcd4718c91c789e7f8f93cda842c81b1e3e7ab2
 import org.firstinspires.ftc.teamcode.Components.Constants;
 //import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Components.Grabber2;
@@ -41,6 +38,8 @@ public class TeleOpSecondBot extends LinearOpMode{
     double twoOpen = Constants.rightOpen;
     double twoClose = Constants.rightClose;
 
+    Servo clawOne;
+    Servo clawTwo;
     ColorSensor lineSensor;
 
 
@@ -53,8 +52,8 @@ public class TeleOpSecondBot extends LinearOpMode{
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-<<<<<<< HEAD
-=======
+
+
         clawOne = hardwareMap.servo.get("clawOne");
         clawTwo = hardwareMap.servo.get("clawTwo");
 
@@ -65,7 +64,7 @@ public class TeleOpSecondBot extends LinearOpMode{
         lineSensor.enableLed(true);
 
 
->>>>>>> 3fcd4718c91c789e7f8f93cda842c81b1e3e7ab2
+
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -84,15 +83,14 @@ public class TeleOpSecondBot extends LinearOpMode{
                 grabber.open1();
             }
 
-<<<<<<< HEAD
-=======
+
             ColorHelper.printColorHSV(this.telemetry,lineSensor);
             telemetry.update();
 
 
 
 
->>>>>>> 3fcd4718c91c789e7f8f93cda842c81b1e3e7ab2
+
             if(gamepad2.right_bumper){
                 grabber.close2();
             }
