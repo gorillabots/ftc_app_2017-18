@@ -28,6 +28,7 @@ public class ArmExtender1 implements ArmExtender{
 
         extender = hardwareMap.dcMotor.get("extender");
         extender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        extender.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
     @Override
@@ -35,7 +36,7 @@ public class ArmExtender1 implements ArmExtender{
 
     }
 
-    public void extend() {
+    public void extendd() {
         power += INCREMENT;
         if (power >= MAX) {
             power = MAX;
@@ -88,5 +89,7 @@ public class ArmExtender1 implements ArmExtender{
     @Override
     public void stop(){}
     @Override
-    public void extend(double murica){}
+    public void extend(double murica){
+        extender.setPower(murica);
+    }
 }

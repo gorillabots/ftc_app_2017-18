@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.Drive;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
@@ -19,10 +20,13 @@ public class DistanceCheck extends LinearOpMode {
     Servo claw;
     Servo spin;
 
+    Drive drive;
+
 
     public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
+        drive = new Drive(this);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
         //grabber = new Grabber1(hardwareMap, telemetry);
 
@@ -46,10 +50,7 @@ public class DistanceCheck extends LinearOpMode {
             telemetry.update();
 
 
-            while(driveTrain.distanceCheck(1)){
-                driveTrain.drivePolar(.5,180);
-            }
-            driveTrain.stopMotors();
+            drive.encoderMoveMRGyro(180,1,.5);
             /*
             driveTrain.stopMotors();
             while(driveTrain.distanceCheck(1)){

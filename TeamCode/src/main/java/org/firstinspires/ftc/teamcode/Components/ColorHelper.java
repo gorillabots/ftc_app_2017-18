@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -92,6 +93,22 @@ public class ColorHelper {
         Color.RGBToHSV(color.red() * 8, color.green() * 8, color.blue() * 8, hsvValuesFloor);
         return  (hsvValuesFloor[0] < 226)&&(hsvValuesFloor[0]>224);
         //&&hsvValuesFloor[1]>.9 && hsvValuesFloor[1]<1.1 && hsvValuesFloor[2]>.61 && hsvValuesFloor[2] <.67
+    }
+
+    public static boolean blueBall(ColorSensor color){
+
+        return color.red()>color.blue();
+    }
+
+    public static boolean redBall(ColorSensor color){
+        return color.blue()>color.red();
+    }
+
+    public static void lowerSecond(Servo arm){
+        arm.setPosition(.88);
+    }
+    public static void raiseSecond(Servo arm){
+        arm.setPosition(.22);
     }
 
 }

@@ -35,7 +35,7 @@ public class Drive {
     private TouchSensor wallTouch;
 
     //Navx gyro constants
-    private final int NAVX_DIM_I2C_PORT = 0;
+    private final int NAVX_DIM_I2C_PORT = 5;
     private final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
     private int NAVX_TIMEOUT_MS = 5000;
 
@@ -58,6 +58,7 @@ public class Drive {
 
 
     public Drive(LinearOpMode opMode) {
+        linOp = opMode;
         this.init(0);
 
     }
@@ -95,7 +96,7 @@ public class Drive {
 
         pidResult = new navXPIDController.PIDResult();
         */
-        wallTouch = linOp.hardwareMap.touchSensor.get("wallTouch");
+        //wallTouch = linOp.hardwareMap.touchSensor.get("wallTouch");
 
         this.offset = offset;
         offsetConverted = convertHeading(offset);
@@ -113,11 +114,14 @@ public class Drive {
         pidController.enable(true);
     }
 
-    public void resetGyro() //Define the current heading as 0 degrees
+    public void resetNavX() //Define the current heading as 0 degrees
     {
         navx.zeroYaw();
     }
 
+    public void resetGyro(){
+        driveTrain.gyro.resetZAxisIntegrator();
+    }
     public void updateOffset(double offset) {
         this.offset = offset;
         offsetConverted = convertHeading(offset);
@@ -156,9 +160,11 @@ public class Drive {
 
     }
 
+
+
     public void encoderMoveMRGyro(double angle, double distance, double power) //Move forwards by distance
     {
-        resetPid();
+        //resetPid();
 
         double pidOutput;
 

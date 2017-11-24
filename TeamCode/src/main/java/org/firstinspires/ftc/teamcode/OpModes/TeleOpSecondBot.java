@@ -44,6 +44,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     ColorSensor ballColor;
 
+    Servo arm;
 
     public void init_() {
 
@@ -67,11 +68,12 @@ public class TeleOpSecondBot extends LinearOpMode{
         ballColor = hardwareMap.colorSensor.get("ballColor");
         //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
 
-
+        arm = hardwareMap.servo.get("arm");
         lineSensor.enableLed(false);
         lineSensor.enableLed(true);
 
         ballColor.enableLed(false);
+        ballColor.enableLed(true);
 
 
 
@@ -83,7 +85,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         waitForStart();
         while(opModeIsActive()) {
-
+            arm.setPosition(gamepad1.left_trigger);
 
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 

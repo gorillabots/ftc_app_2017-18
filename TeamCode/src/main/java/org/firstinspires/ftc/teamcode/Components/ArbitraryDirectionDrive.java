@@ -43,7 +43,7 @@ public class ArbitraryDirectionDrive {
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
-        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        /*gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
 
         gyro.calibrate();
 
@@ -59,6 +59,7 @@ public class ArbitraryDirectionDrive {
         }
 
         gyro.resetZAxisIntegrator(); //Reset heading
+        */
     }
 
 

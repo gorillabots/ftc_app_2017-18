@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Components;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -25,6 +26,8 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
     Servo claw2;
     Servo spin;
 
+    DcMotor belt;
+
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
     public Grabber1(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -35,7 +38,8 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
         claw1 = hardwareMap.servo.get("claw1");
         claw2 = hardwareMap.servo.get("claw2");
         spin = hardwareMap.servo.get("spin");
-        modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        belt = hardwareMap.dcMotor.get("belts");
+        //modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
 
 
 
@@ -101,4 +105,13 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
     public void rotateOne(double murica){}
     @Override
     public void rotateTwo(double murica){}
+
+    public void runBelts(double power, boolean toogle){
+        if(toogle){
+            belt.setPower(-power);
+        }
+        else{
+            belt.setPower(power);
+        }
+    }
 }
