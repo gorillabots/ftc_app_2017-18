@@ -41,7 +41,7 @@ public class DistanceCheck extends LinearOpMode {
         waitForStart();
 
             while(driveTrain.distanceCheck(1)){
-                driveTrain.drivePolar(.5,0);
+                driveTrain.drivePolar(.5,90);
             }
 
             driveTrain.stopMotors();
