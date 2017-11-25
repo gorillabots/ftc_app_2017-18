@@ -69,6 +69,7 @@ public class TeleOpSecondBot extends LinearOpMode{
         //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
 
         arm = hardwareMap.servo.get("arm");
+        arm.setPosition(.22);
         lineSensor.enableLed(false);
         lineSensor.enableLed(true);
 
@@ -85,15 +86,15 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         waitForStart();
         while(opModeIsActive()) {
-            arm.setPosition(gamepad1.left_trigger);
+            //arm.setPosition(gamepad1.left_trigger);
 
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad2.left_bumper){
-                grabber.close1();
+                grabber.close2();
             }
             else if(gamepad2.left_trigger >= .5){
-                grabber.open1();
+                grabber.open2();
             }
 
 
@@ -106,10 +107,10 @@ public class TeleOpSecondBot extends LinearOpMode{
 
 
             if(gamepad2.right_bumper){
-                grabber.close2();
+                grabber.close1();
             }
             else if(gamepad2.right_trigger >= .5){
-                grabber.open2();
+                grabber.open1();
             }
 
 

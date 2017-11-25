@@ -16,6 +16,7 @@ public class VuMarkRecognition
 {
     VuforiaLocalizer vuforia;
     VuforiaTrackable relicTemplate;
+    VuforiaTrackables relicTrackables;
 
     public void init(HardwareMap hardwareMap)
     {
@@ -24,7 +25,7 @@ public class VuMarkRecognition
         parameters.vuforiaLicenseKey = "AWFEfJ//////AAAAGRSAEvItIE6VmtdgqLncdq5pwXP81G5X4IT2ssIXnwbRECRsNIbxeFqkExyfeZM/uFLLMbwShZBYACYOOgl/aIz8PqlIV8FSGppU1XkPuC9WjGLiclIsgO+AXZ4OEKJyc27eiNvXTNI8MTBxyR3vk/cB9XDqtC7ksqhB8TgFD9QuKS3Xo9gOH8edNZ+pD6T0Xjfbh3Vl8REKuTcCQvIDG3ImRJVi3b6fsXxmciBv+pw91FqMjZeZbHFEKrDLlUHisvgQ1NkaoiOlyWw5XCXFmv0gtO0t+whwTOMz3dkOfUPafS+e2oDdd5SQJgk6R7SgzTmc/8Ld/TqiZtXSsIR39qUFdklNGhmWqd+mA5ZNCLUq";
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT; //Use selfie camera
         vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         relicTemplate = relicTrackables.get(0);
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         relicTrackables.activate();
@@ -51,5 +52,10 @@ public class VuMarkRecognition
             default:
                 return 9999;
         }
+    }
+
+    public void close()
+    {
+        relicTrackables.deactivate();
     }
 }
