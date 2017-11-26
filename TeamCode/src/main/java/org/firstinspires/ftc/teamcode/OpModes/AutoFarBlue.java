@@ -77,7 +77,7 @@ public class AutoFarBlue extends LinearOpMode
         arm.setPosition(ARM_RAISED);
         sleep(500);
 
-        drive.encoderMoveMRGyro(90, colorState ? 1.5 : 1.1, .3);
+        drive.encoderMoveMRGyro(90, colorState ? 2.1 : 2.5, .6);
 
         drive.close();
     }
