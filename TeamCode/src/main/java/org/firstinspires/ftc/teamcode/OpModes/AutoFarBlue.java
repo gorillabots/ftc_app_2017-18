@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  * Created by Jarred on 10/29/2017.
  */
 
-@Autonomous(name="AutoFarBlue", group="Autonomous")
+@Autonomous(name="AutoFarBlue", group="SecondBot")
 public class AutoFarBlue extends LinearOpMode
 {
     final double ARM_RAISED = .22;

@@ -171,8 +171,8 @@ public class Drive {
         while (driveTrain.distanceCheck(distance) && linOp.opModeIsActive()) {
             driveTrain.drivePolar(power, angle);
 
-            linOp.telemetry.addData("Status", "Encoder movement");
-            linOp.telemetry.update();
+            //linOp.telemetry.addData("Status", "Encoder movement");
+            //linOp.telemetry.update();
 
             linOp.sleep(5);
 
