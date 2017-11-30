@@ -179,11 +179,11 @@ public class ArbitraryDirectionDrive {
         headX /= Math.sqrt(2); //In range -1 to 1
         headY /= Math.sqrt(2);
 
-        int heading;
-        double turnpow;
-        double turnpower = 0.1;
-        heading = gyro.getHeading();
-
+      //  int heading;
+        //double turnpow;
+        //double turnpower = 0.1;
+        //heading = gyro.getHeading();
+/*
         if (heading <= 1 || heading >= 360 - 1) {
             turnpow = 0;
         } else if (heading <= 180) {
@@ -192,20 +192,19 @@ public class ArbitraryDirectionDrive {
             turnpow = -turnpower;
         }
 
-
+    */
 
 
         //telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
 
         //telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
 
-        double backLeftPower = limitToOne(-headX + stickRot + turnpow);
-        double frontRightPower = limitToOne(headX + stickRot + turnpow);
-        double backRightPower = limitToOne(headY + stickRot + turnpow);
-        double frontLeftPower = limitToOne(-headY + stickRot + turnpow);
+        double backLeftPower = limitToOne(-headX + stickRot );
+        double frontRightPower = limitToOne(headX + stickRot);
+        double backRightPower = limitToOne(headY + stickRot );
+        double frontLeftPower = limitToOne(-headY + stickRot);
 
-        telemetry.addData("heading", heading);
-        telemetry.addData("turnPow", turnpower);
+
         telemetry.addData("m1", frontLeftPower);
         telemetry.addData("m2", frontRightPower);
         telemetry.addData("m3", backRightPower);

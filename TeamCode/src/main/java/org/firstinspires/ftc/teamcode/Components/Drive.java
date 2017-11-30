@@ -60,7 +60,6 @@ public class Drive {
     public Drive(LinearOpMode opMode) {
         linOp = opMode;
         this.init(0);
-
     }
 
     public double getMag(double x, double y) {
