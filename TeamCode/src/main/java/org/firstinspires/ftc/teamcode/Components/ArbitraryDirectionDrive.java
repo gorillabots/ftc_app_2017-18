@@ -135,9 +135,9 @@ public class ArbitraryDirectionDrive {
         int average2 = (m2Calc + m4Calc)/2;
 
         length = Math.sqrt(average1 * average1+ average2* average2);
-        telemetry.addData("mag", magnitude);
-        telemetry.addData("meas", length);
-        telemetry.update();
+        //telemetry.addData("mag", magnitude);
+        //telemetry.addData("meas", length);
+        //telemetry.update();
         double encMag = toEncoder(magnitude);
         if (length >= encMag) {
             firstRun = true;
@@ -198,16 +198,17 @@ public class ArbitraryDirectionDrive {
 
         //telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
 
-        double backLeftPower = limitToOne(-headX + stickRot + turnpow );
-        double frontRightPower = limitToOne(headX + stickRot+ turnpow );
-        double backRightPower = limitToOne(headY + stickRot+ turnpow  );
-        double frontLeftPower = limitToOne(-headY + stickRot+ turnpow );
+        double backLeftPower = limitToOne(-headX + stickRot + turnpow);
+        double frontRightPower = limitToOne(headX + stickRot + turnpow);
+        double backRightPower = limitToOne(headY + stickRot + turnpow);
+        double frontLeftPower = limitToOne(-headY + stickRot + turnpow);
 
-
+        /*telemetry.addData("heading", heading);
+        telemetry.addData("turnPow", turnpower);
         telemetry.addData("m1", frontLeftPower);
         telemetry.addData("m2", frontRightPower);
         telemetry.addData("m3", backRightPower);
-        telemetry.addData("m4", backLeftPower);
+        telemetry.addData("m4", backLeftPower);*/
 
         m4.setPower(backLeftPower);
         m2.setPower(frontRightPower);
