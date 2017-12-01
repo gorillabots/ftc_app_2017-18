@@ -107,7 +107,7 @@ public class Jewels
         }
         else //Right is blue, hit blue on right
         {
-            hitRed();
+            hitRight();
         }
     }
 
