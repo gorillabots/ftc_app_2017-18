@@ -2,131 +2,59 @@ package org.firstinspires.ftc.teamcode.Components;
 
 //Created by Mikko on 2017-11-29
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Jewels
 {
-    final double BASE_UP = .08;
-    final double BASE_SCAN = .77;
-    final double BASE_HIT = .86;
-    final double BASE_ERROR = .03;
+    final double RESET_BASE = .08;
+    final double RESET_OTHER = 0;
 
-    final double OTHER_IN = 0; //Retracted
-    final double OTHER_SCAN = .83; //Scanning ??? ball
-    final double OTHER_HIT_CENTER = .6; //Between the balls, ready to hit
-    final double OTHER_HIT_LEFT = .6; //Hits the left jewel
-    final double OTHER_HIT_RIGHT = .6; //Hits the right jewel
-    final double OTHER_ERROR = .03;
-    LinearOpMode oMOde;
+    final double SCAN_BASE = .78;
+    final double SCAN_OTHER = .83;
+
+    final double UPTHING_BASE = .7;
+
+    final double BETWEEN_BASE = .83;
+    final double BETWEEN_OTHER = 1;
+
+    final double HIT_OTHER = 0;
 
     public Servo baseServo;
     public Servo otherServo;
     public ColorSensor color;
-    double place = 0;
 
-    public Jewels(HardwareMap hm)//, LinearOpMode oMode)
+    public Jewels(HardwareMap hm)
     {
         baseServo = hm.servo.get("arm");
         otherServo = hm.servo.get("rotateArm");
         color = hm.colorSensor.get("ballColor");
         color.enableLed(false);
         color.enableLed(true);
-
-        //oMOde = oMode;
+        color.enableLed(false);
     }
 
     public void reset()
     {
-        otherServo.setPosition(OTHER_IN); //Retract other servo
-        //waitForServoCloseEnough(otherServo, OTHER_IN, OTHER_ERROR);
-        baseServo.setPosition(BASE_UP); //Retract base servo
-        //waitForServoCloseEnough(baseServo, BASE_UP, BASE_ERROR);
+        baseServo.setPosition(RESET_BASE);
+        otherServo.setPosition(RESET_OTHER);
     }
 
     public void scanPosition()
     {
-        baseServo.setPosition(BASE_SCAN); //Extend base servo
-        otherServo.setPosition(OTHER_SCAN); //Extend other servo
+        baseServo.setPosition(SCAN_BASE);
+        otherServo.setPosition(SCAN_OTHER);
     }
 
-    private void hitPosition()
+    public void betweenPosition()
     {
-        otherServo.setPosition(OTHER_HIT_CENTER); //Get between the jewels horizontally
-        waitForServoCloseEnough(otherServo, OTHER_HIT_CENTER, OTHER_ERROR);
-        baseServo.setPosition(BASE_HIT); //Get between the jewels vertically
-        waitForServoCloseEnough(baseServo, BASE_HIT, BASE_ERROR);
-    }
-
-    public void hitLeft()
-    {
-        //hitPosition(); //Get in between the balls
-        otherServo.setPosition(OTHER_HIT_LEFT); //Hit left
-        waitForServoCloseEnough(otherServo, OTHER_HIT_LEFT, OTHER_ERROR);
-        baseServo.setPosition(BASE_SCAN); //Lift so reset doesn't knock the other ball
-        waitForServoCloseEnough(baseServo, BASE_SCAN, BASE_ERROR);
-    }
-
-    public void hitRight()
-    {
-        //hitPosition(); //Get in between the balls
-        otherServo.setPosition(OTHER_HIT_RIGHT); //Hit right
-        waitForServoCloseEnough(otherServo, OTHER_HIT_RIGHT, OTHER_ERROR);
-        baseServo.setPosition(BASE_SCAN); //Lift so reset doesn't knock the other ball
-        waitForServoCloseEnough(baseServo, BASE_SCAN, BASE_ERROR);
-    }
-
-    public void hitRed()
-    {
-        color.enableLed(true);
-        boolean isRed = color.red() >= color.blue(); //Right ball is red
-        color.enableLed(false);
-
-        hitPosition(); //Get in position to hit
-
-        if(isRed) //Right is red, hit red on right
-        {
-            hitRight();
-        }
-        else //Right is blue, hit red on left
-        {
-            hitLeft();
-        }
-    }
-
-    public void hitBlue()
-    {
-        color.enableLed(true);
-        boolean isRed = color.red() >= color.blue(); //Right ball is red
-        color.enableLed(false);
-
-        hitPosition(); //Get in position to hit
-
-        if(isRed) //Right is red, hit blue on left
-        {
-            hitLeft();
-        }
-        else //Right is blue, hit blue on right
-        {
-            hitRight();
-        }
-    }
-
-    //Waits for the servo to be at target plus or minus an error value
-    private void waitForServoCloseEnough(Servo servo, double target, double error)
-    {
-        double min = target - error;
-        double max = target + error;
-
         try
         {
-            while(!inRange(servo.getPosition(), min, max))
-            {
-                Thread.sleep(50);
-            }
+            baseServo.setPosition(UPTHING_BASE); //Go up to avoid breaking everything
+            otherServo.setPosition(BETWEEN_OTHER); //Go between horizontally
+            Thread.sleep(500);
+            baseServo.setPosition(BETWEEN_BASE);
         }
         catch(InterruptedException e)
         {
@@ -134,35 +62,29 @@ public class Jewels
         }
     }
 
-    //Is a double in a range between two other doubles?
-    private boolean inRange(double value, double min, double max)
+    public void hitRight()
     {
-        return (value > min) && (value < max);
+        otherServo.setPosition(HIT_OTHER);
     }
 
-    public void lowerUntilBall(Servo servo){
-        oMOde.sleep(1000);
-        for (double place = .6; color.red()> 10 || color.blue()>10; place = place+.03){
+    public boolean isRed()
+    {
+        try
+        {
+            color.enableLed(true);
+            Thread.sleep(10); //Ensure LED is enabled
 
-            servo.setPosition(place);
-            ElapsedTime time;
-            time = new ElapsedTime();
-            time.startTime();
-            int count =0;
+            boolean isRed = color.red() >= color.blue();
 
-            while (servo.getPosition() <= place && time.milliseconds()<3000){
-                oMOde.telemetry.addData("help", " me");
-                oMOde.telemetry.addData("count ", count);
-                oMOde.telemetry.addData("red ", color.red());
-                oMOde.telemetry.addData("blue", color.blue());
-                oMOde.telemetry.update();
-                count++;
-            }
+            color.enableLed(false);
 
-
+            return isRed;
         }
-        oMOde.telemetry.addData("red", color.red());
-        oMOde.telemetry.update();
-        oMOde.sleep(2000);
+        catch(InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        return false; //Should never happen
     }
 }
