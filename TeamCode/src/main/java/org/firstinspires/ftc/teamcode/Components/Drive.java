@@ -41,8 +41,13 @@ public class Drive {
 
 
     public Drive(LinearOpMode opMode) {
+
         linOp = opMode;
-        this.init(0);
+
+        linOp.telemetry.addData("made","the first part");
+        linOp.telemetry.update();
+        linOp.sleep(3000);
+        init(0);
     }
 
     public double getMag(double x, double y) {
@@ -53,32 +58,11 @@ public class Drive {
         return Math.atan(y / x);
     }
 
-    public void init(double offset) //Get hardware from hardwareMap
+     void init(double offset) //Get hardware from hardwareMap
     {
 
 
         driveTrain = new ArbitraryDirectionDrive(linOp.hardwareMap, linOp.telemetry);
-        //Sensors
-        /*
-        navx = AHRS.getInstance(linOp.hardwareMap.deviceInterfaceModule.get("gyrobox"),
-                NAVX_DIM_I2C_PORT,
-                AHRS.DeviceDataType.kProcessedData,
-                NAVX_DEVICE_UPDATE_RATE_HZ);
-
-        while (navx.isCalibrating()) {
-            linOp.sleep(5);
-        }
-
-        pidController = new navXPIDController(navx, navXPIDController.navXTimestampedDataSource.YAW);
-        pidController.setContinuous(true);
-        pidController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE, MAX_MOTOR_OUTPUT_VALUE);
-        pidController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, TOLERANCE_DEGREES);
-        pidController.setPID(YAW_PID_P, YAW_PID_I, YAW_PID_D);
-        //pidController.enable(true);
-
-        pidResult = new navXPIDController.PIDResult();
-        */
-        //wallTouch = linOp.hardwareMap.touchSensor.get("wallTouch");
 
         this.offset = offset;
         offsetConverted = convertHeading(offset);

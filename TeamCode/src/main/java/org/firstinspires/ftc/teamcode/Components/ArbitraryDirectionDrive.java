@@ -13,15 +13,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class ArbitraryDirectionDrive {
-    LinearOpMode opmode;
+
     DcMotor m1, m2, m3, m4;
     double backLeftPower = 0;
     double frontRightPower = 0;
     double backRightPower = 0;
     double frontLeftPower = 0;
     boolean firstRun = false;
-    Telemetry telemetry;
-    HardwareMap hardwareMap;
+
     int m1Start = 0;
     int m2Start = 0;
     int m3Start = 0;
@@ -30,22 +29,25 @@ public class ArbitraryDirectionDrive {
     double length;
 
     ModernRoboticsI2cGyro gyro;
+
+    HardwareMap hardMap;
+    Telemetry telemetryy;
     //add.drive(Direction.N, .5, 10);
 
     public ArbitraryDirectionDrive(HardwareMap hMap, Telemetry telemetry) {
 
-        this.telemetry = telemetry;
-        this.hardwareMap = hMap;
+        telemetryy = telemetry;
+        hardMap= hMap;
         init();
     }
 
-    public void init() {
+     void init() {
 
-        m1 = hardwareMap.dcMotor.get("m1");
-        m2 = hardwareMap.dcMotor.get("m2");
-        m3 = hardwareMap.dcMotor.get("m3");
-        m4 = hardwareMap.dcMotor.get("m4");
-        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        m1 = hardMap.dcMotor.get("m1");
+        m2 = hardMap.dcMotor.get("m2");
+        m3 = hardMap.dcMotor.get("m3");
+        m4 = hardMap.dcMotor.get("m4");
+        gyro = (ModernRoboticsI2cGyro) hardMap.gyroSensor.get("gyro");
 
         gyro.calibrate();
 
@@ -53,8 +55,8 @@ public class ArbitraryDirectionDrive {
         {
             while (gyro.isCalibrating()) {
                 Thread.sleep(50);
-                telemetry.addData("Status", "Calibrating Gyro");
-                telemetry.update();
+                telemetryy.addData("Status", "Calibrating Gyro");
+                telemetryy.update();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -82,9 +84,9 @@ public class ArbitraryDirectionDrive {
 
 
 
-        //telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
+        //telemetryyaddData("absHead", "(" + stickX + ", " + stickY + ")");
 
-        //telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
+        //telemetryyaddData("relHead", "(" + headX + ", " + headY + ")");
 
         double backLeftPower = limitToOne(-headX + stickRot );
         double frontRightPower = limitToOne(headX + stickRot );
@@ -92,10 +94,10 @@ public class ArbitraryDirectionDrive {
         double frontLeftPower = limitToOne(-headY + stickRot );
 
 
-        telemetry.addData("m1", frontLeftPower);
-        telemetry.addData("m2", frontRightPower);
-        telemetry.addData("m3", backRightPower);
-        telemetry.addData("m4", backLeftPower);
+        telemetryy.addData("m1", frontLeftPower);
+        telemetryy.addData("m2", frontRightPower);
+        telemetryy.addData("m3", backRightPower);
+        telemetryy.addData("m4", backLeftPower);
 
         m4.setPower(backLeftPower);
         m2.setPower(frontRightPower);
@@ -135,9 +137,9 @@ public class ArbitraryDirectionDrive {
         int average2 = (m2Calc + m4Calc)/2;
 
         length = Math.sqrt(average1 * average1+ average2* average2);
-        //telemetry.addData("mag", magnitude);
-        //telemetry.addData("meas", length);
-        //telemetry.update();
+        //telemetryy.addData("mag", magnitude);
+        //telemetryy.addData("meas", length);
+        //telemetryy.update();
         double encMag = toEncoder(magnitude);
         if (length >= encMag) {
             firstRun = true;
@@ -194,21 +196,21 @@ public class ArbitraryDirectionDrive {
 
 
 
-        //telemetry.addData("absHead", "(" + stickX + ", " + stickY + ")");
+        //telemetryy.addData("absHead", "(" + stickX + ", " + stickY + ")");
 
-        //telemetry.addData("relHead", "(" + headX + ", " + headY + ")");
+        //telemetryy.addData("relHead", "(" + headX + ", " + headY + ")");
 
         double backLeftPower = limitToOne(-headX + stickRot + turnpow);
         double frontRightPower = limitToOne(headX + stickRot + turnpow);
         double backRightPower = limitToOne(headY + stickRot + turnpow);
         double frontLeftPower = limitToOne(-headY + stickRot + turnpow);
 
-        /*telemetry.addData("heading", heading);
-        telemetry.addData("turnPow", turnpower);
-        telemetry.addData("m1", frontLeftPower);
-        telemetry.addData("m2", frontRightPower);
-        telemetry.addData("m3", backRightPower);
-        telemetry.addData("m4", backLeftPower);*/
+        /*telemetryy.addData("heading", heading);
+        telemetryy.addData("turnPow", turnpower);
+        telemetryy.addData("m1", frontLeftPower);
+        telemetryy.addData("m2", frontRightPower);
+        telemetryy.addData("m3", backRightPower);
+        telemetryy.addData("m4", backLeftPower);*/
 
         m4.setPower(backLeftPower);
         m2.setPower(frontRightPower);
@@ -234,8 +236,8 @@ public class ArbitraryDirectionDrive {
         int heading = gyro.getHeading();
         double turnpow;
 
-        opmode.telemetry.addData("Action", "Turn to Gyro");
-        opmode.telemetry.addData("Heading", heading);
+        telemetryy.addData("Action", "Turn to Gyro");
+        telemetryy.addData("Heading", heading);
 
         if(heading <= accuracy || heading >= 360 - accuracy)
         {
@@ -289,15 +291,15 @@ public class ArbitraryDirectionDrive {
             {
                 double power = pidResult.getOutput();
 
-                telemetry.addData("Status", "Turn");
-                telemetry.addData("Offset", offset);
-                telemetry.addData("Heading", navx.getYaw());
-                telemetry.addData("Target", target);
-                telemetry.addData("Absolute target", absoluteTarget);
-                telemetry.addData("Defined Speed", speed);
-                telemetry.addData("PID Speed", power);
+                telemetryy.addData("Status", "Turn");
+                telemetryy.addData("Offset", offset);
+                telemetryy.addData("Heading", navx.getYaw());
+                telemetryy.addData("Target", target);
+                telemetryy.addData("Absolute target", absoluteTarget);
+                telemetryy.addData("Defined Speed", speed);
+                telemetryy.addData("PID Speed", power);
 
-                telemetry.update();
+                telemetryy.update();
 
                 if (power > -.15 && power < .15)
                 {
