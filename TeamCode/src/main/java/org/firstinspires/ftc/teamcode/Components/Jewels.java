@@ -11,48 +11,46 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Jewels
 {
     final double BASE_UP = .08;
-    final double BASE_SCAN = .6;
+    final double BASE_SCAN = .77;
     final double BASE_HIT = .86;
     final double BASE_ERROR = .03;
 
     final double OTHER_IN = 0; //Retracted
-    final double OTHER_SCAN = .5; //Scanning ??? ball
+    final double OTHER_SCAN = .83; //Scanning ??? ball
     final double OTHER_HIT_CENTER = .6; //Between the balls, ready to hit
     final double OTHER_HIT_LEFT = .6; //Hits the left jewel
     final double OTHER_HIT_RIGHT = .6; //Hits the right jewel
     final double OTHER_ERROR = .03;
     LinearOpMode oMOde;
 
-    Servo baseServo;
-    Servo otherServo;
-    ColorSensor color;
+    public Servo baseServo;
+    public Servo otherServo;
+    public ColorSensor color;
     double place = 0;
 
-    public Jewels(HardwareMap hm, LinearOpMode oMode)
+    public Jewels(HardwareMap hm)//, LinearOpMode oMode)
     {
-        baseServo = hm.servo.get("rotateArm");
-        otherServo = hm.servo.get("arm");
+        baseServo = hm.servo.get("arm");
+        otherServo = hm.servo.get("rotateArm");
         color = hm.colorSensor.get("ballColor");
         color.enableLed(false);
         color.enableLed(true);
 
-        oMOde = oMode;
+        //oMOde = oMode;
     }
 
     public void reset()
     {
         otherServo.setPosition(OTHER_IN); //Retract other servo
-        waitForServoCloseEnough(otherServo, OTHER_IN, OTHER_ERROR);
+        //waitForServoCloseEnough(otherServo, OTHER_IN, OTHER_ERROR);
         baseServo.setPosition(BASE_UP); //Retract base servo
-        waitForServoCloseEnough(baseServo, BASE_UP, BASE_ERROR);
+        //waitForServoCloseEnough(baseServo, BASE_UP, BASE_ERROR);
     }
 
     public void scanPosition()
     {
         baseServo.setPosition(BASE_SCAN); //Extend base servo
-        waitForServoCloseEnough(baseServo, BASE_SCAN, BASE_ERROR);
         otherServo.setPosition(OTHER_SCAN); //Extend other servo
-        waitForServoCloseEnough(otherServo, OTHER_SCAN, OTHER_ERROR);
     }
 
     private void hitPosition()

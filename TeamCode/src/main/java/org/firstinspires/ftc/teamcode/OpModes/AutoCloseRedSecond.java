@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,8 +12,9 @@ import org.firstinspires.ftc.teamcode.Components.Drive;
  * Created by Jarred on 10/29/2017.
  */
 
-@Autonomous(name="AutoCloseRed", group="SecondBot")
-public class AutoCloseRed extends LinearOpMode
+@Disabled
+@Autonomous(name="AutoCloseRedSecond", group="SecondBot")
+public class AutoCloseRedSecond extends LinearOpMode
 {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
