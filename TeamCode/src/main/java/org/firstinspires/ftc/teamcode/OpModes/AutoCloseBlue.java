@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Drive;
+import org.firstinspires.ftc.teamcode.Components.Jewels;
 import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 /**
@@ -16,15 +17,21 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  */
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="CloseBlueSecond", group="Autonomous")
 public class AutoCloseBlue extends LinearOpMode {
-    Drive drive;
+    //Drive drive;
     Servo arm;
+    Servo rotateArm;
     
     ColorSensor ballColor;
     VuMarkRecognition vuMark;
 
-    void init_(){
-        drive = new Drive(this);
+    Jewels jewel;
 
+    void init_(){
+
+        jewel = new Jewels(this.hardwareMap,this);
+        arm = hardwareMap.servo.get("arm");
+        rotateArm = hardwareMap.servo.get("rotateArm");
+        rotateArm.setPosition(.76);
     }
 
 
@@ -34,7 +41,15 @@ public class AutoCloseBlue extends LinearOpMode {
 
         init_();
         waitForStart();
-        drive.encoderMoveMRGyro(0,2,.75);
+        jewel.scanPosition();
+        /*rotateArm.setPosition(.6);
+        sleep(1000);
+        jewel.lowerUntilBall(arm);
+        telemetry.addData("found ", "ball");
+
+        telemetry.update();
+        sleep(10000);
+        */
 
     }
 

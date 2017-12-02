@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode.Components;
 
 //Created by Mikko on 2017-11-29
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Jewels
 {
@@ -19,18 +21,22 @@ public class Jewels
     final double OTHER_HIT_LEFT = .6; //Hits the left jewel
     final double OTHER_HIT_RIGHT = .6; //Hits the right jewel
     final double OTHER_ERROR = .03;
-
+    LinearOpMode oMOde;
 
     Servo baseServo;
     Servo otherServo;
     ColorSensor color;
+    double place = 0;
 
-    public Jewels(HardwareMap hm)
+    public Jewels(HardwareMap hm, LinearOpMode oMode)
     {
         baseServo = hm.servo.get("rotateArm");
         otherServo = hm.servo.get("arm");
         color = hm.colorSensor.get("ballColor");
         color.enableLed(false);
+        color.enableLed(true);
+
+        oMOde = oMode;
     }
 
     public void reset()
@@ -134,5 +140,31 @@ public class Jewels
     private boolean inRange(double value, double min, double max)
     {
         return (value > min) && (value < max);
+    }
+
+    public void lowerUntilBall(Servo servo){
+        oMOde.sleep(1000);
+        for (double place = .6; color.red()> 10 || color.blue()>10; place = place+.03){
+
+            servo.setPosition(place);
+            ElapsedTime time;
+            time = new ElapsedTime();
+            time.startTime();
+            int count =0;
+
+            while (servo.getPosition() <= place && time.milliseconds()<3000){
+                oMOde.telemetry.addData("help", " me");
+                oMOde.telemetry.addData("count ", count);
+                oMOde.telemetry.addData("red ", color.red());
+                oMOde.telemetry.addData("blue", color.blue());
+                oMOde.telemetry.update();
+                count++;
+            }
+
+
+        }
+        oMOde.telemetry.addData("red", color.red());
+        oMOde.telemetry.update();
+        oMOde.sleep(2000);
     }
 }

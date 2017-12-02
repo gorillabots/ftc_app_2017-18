@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
@@ -10,27 +11,31 @@ import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 /**
  * Created by Owner on 10/6/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="driveOp", group="Backup")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Servo Test", group="Backup")
 public class TeleOpOp extends LinearOpMode{
 
-    ArbitraryDirectionDrive driveTrain;
-    ArmExtender armExtender;
-    //Grabber grabber;
+
     private LinearOpMode opMode;
 
-    Servo claw;
-    Servo spin;
+    Servo arm;
+    Servo rotateArm;
+
+    ColorSensor ballColor;
 
 
     public void init_() {
 
-        driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
+
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
         //grabber = new Grabber1(hardwareMap, telemetry);
 
 
+        arm = hardwareMap.servo.get("arm");
+        rotateArm = hardwareMap.servo.get("rotateArm");
+        ballColor = hardwareMap.colorSensor.get("ballColor");
 
-
+        ballColor.enableLed(false);
+        ballColor.enableLed(true);
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,27 +44,36 @@ public class TeleOpOp extends LinearOpMode{
         waitForStart();
         while(opModeIsActive()) {
 
+            //arm.setPosition(gamepad1.left_trigger);
+            if(gamepad1.a){
+                arm.setPosition(0.08);
+            }
+            if(gamepad1.b){
+                arm.setPosition(.77);
+            }
+            if (gamepad1.y){
+                arm.setPosition(.6);
+            }
+            if(gamepad1.x){
+                arm.setPosition(.82);
+            }
 
-            //1driveTrain.drive(Math.sqrt(gamepad1.left_stick_x*gamepad1.left_stick_x + gamepad1.left_stick_y * gamepad1.left_stick_y), Math.atan2(gamepad1.left_stick_x,gamepad1.left_stick_y));
+            if(gamepad1.dpad_down){
+                rotateArm.setPosition(0);
 
-                /*
-                //Graber
-                if (gamepad2.right_bumper)
-                    grabber.open();
-                }
-                else if (gamepad2.left_bumper) {
-                    grabber.close();}
+            }
+            if(gamepad1.dpad_up){
+                rotateArm.setPosition(1);
+            }
+            if(gamepad1.dpad_left){
+                rotateArm.setPosition(.76);
+            }
 
-                if (gamepad2.right_trigger > .9) {
-                    grabber.rotate(+.25);
-                } else if (gamepad2.left_trigger > .9) {
-                    grabber.rotate(-.25);
-                } else {
-                    grabber.rotate(0);
-                }
-
-                */
-
+            telemetry.addData("arm", arm.getPosition());
+            telemetry.addData("armRotate", rotateArm.getPosition());
+            telemetry.addData("red", ballColor.red());
+            telemetry.addData("blue", ballColor.blue());
+            telemetry.update();
         }
     }
 }
