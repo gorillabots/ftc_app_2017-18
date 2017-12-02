@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Components.Drive;
 import org.firstinspires.ftc.teamcode.Components.Jewels;
@@ -15,12 +16,17 @@ public class AutoCloseRed extends LinearOpMode
 {
     Drive drive;
     Jewels jewel;
+    DcMotor extendOne;
+    DcMotor extendTwo;
 
     public void runOpMode()
     {
         drive = new Drive(this.hardwareMap,this.telemetry);
         jewel = new Jewels(hardwareMap);
-
+        extendTwo = hardwareMap.dcMotor.get("extend2");
+        extendOne = hardwareMap.dcMotor.get("extend2");
+        extendOne.setPower(-.8);
+        extendTwo.setPower(-.8);
         waitForStart();
 
         jewel.scanPosition();
@@ -38,8 +44,8 @@ public class AutoCloseRed extends LinearOpMode
             telemetry.addData("Hitting", "Left");
             telemetry.update();
 
-            jewel.upThingPosition();
-
+            drive.encoderMoveMRGyro(180,.1,.3);
+            jewel.scanPosition();
             sleep(1000);
         }
         else //Right ball is blue, hit blue on right
@@ -55,6 +61,6 @@ public class AutoCloseRed extends LinearOpMode
 
         jewel.reset();
 
-        sleep(1500);
+
     }
 }

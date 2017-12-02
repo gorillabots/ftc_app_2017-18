@@ -6,8 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Jewels
-{
+public class Jewels {
     final double RESET_BASE = .08;
     final double RESET_OTHER = 0;
 
@@ -25,8 +24,7 @@ public class Jewels
     public Servo otherServo;
     public ColorSensor color;
 
-    public Jewels(HardwareMap hm)
-    {
+    public Jewels(HardwareMap hm) {
         baseServo = hm.servo.get("arm");
         otherServo = hm.servo.get("rotateArm");
         color = hm.colorSensor.get("ballColor");
@@ -35,47 +33,37 @@ public class Jewels
         color.enableLed(false);
     }
 
-    public void reset()
-    {
+    public void reset() {
         baseServo.setPosition(RESET_BASE);
         otherServo.setPosition(RESET_OTHER);
     }
 
-    public void scanPosition()
-    {
+    public void scanPosition() {
         baseServo.setPosition(SCAN_BASE);
         otherServo.setPosition(SCAN_OTHER);
     }
 
-    public void upThingPosition()
-    {
+    public void upThingPosition() {
         baseServo.setPosition(UPTHING_BASE);
     }
 
-    public void betweenPosition()
-    {
-        try
-        {
+    public void betweenPosition() {
+        try {
             baseServo.setPosition(UPTHING_BASE); //Go up to avoid breaking everything
             otherServo.setPosition(BETWEEN_OTHER); //Go between horizontally
             Thread.sleep(500);
             baseServo.setPosition(BETWEEN_BASE);
-        }
-        catch(InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void hitRight()
-    {
+    public void hitRight() {
         otherServo.setPosition(HIT_OTHER);
     }
 
-    public boolean isRed()
-    {
-        try
-        {
+    public boolean isRed() {
+        try {
             color.enableLed(true);
             Thread.sleep(10); //Ensure LED is enabled
 
@@ -84,12 +72,28 @@ public class Jewels
             color.enableLed(false);
 
             return isRed;
-        }
-        catch(InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         return false; //Should never happen
+    }
+
+    public boolean isBlue() {
+        try {
+            color.enableLed(true);
+            Thread.sleep(10); //Ensure LED is enabled
+
+            boolean isRed = color.blue() >= color.red();
+
+            color.enableLed(false);
+
+            return isRed;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false; //Should never happen
+
     }
 }

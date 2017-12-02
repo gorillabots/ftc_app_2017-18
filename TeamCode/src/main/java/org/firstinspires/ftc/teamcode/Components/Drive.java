@@ -90,7 +90,7 @@ public class Drive {
 
         double pidOutput;
 
-        while (driveTrain.distanceCheck(distance) && linOp.opModeIsActive()) {
+        while (driveTrain.distanceCheck(distance)) {
             driveTrain.drivePolar(power, angle);
 
             //telemetry.addData("Status", "Encoder movement");
