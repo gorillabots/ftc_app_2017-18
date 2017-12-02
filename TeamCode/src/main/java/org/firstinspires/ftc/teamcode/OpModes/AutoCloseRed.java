@@ -37,6 +37,10 @@ public class AutoCloseRed extends LinearOpMode
             telemetry.addData("Color", "Red");
             telemetry.addData("Hitting", "Left");
             telemetry.update();
+
+            jewel.upThingPosition();
+
+            sleep(1000);
         }
         else //Right ball is blue, hit blue on right
         {
@@ -46,7 +50,7 @@ public class AutoCloseRed extends LinearOpMode
 
             jewel.hitRight();
 
-            sleep(500);
+            sleep(1000);
         }
 
         jewel.reset();

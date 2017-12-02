@@ -47,6 +47,11 @@ public class Jewels
         otherServo.setPosition(SCAN_OTHER);
     }
 
+    public void upThingPosition()
+    {
+        baseServo.setPosition(UPTHING_BASE);
+    }
+
     public void betweenPosition()
     {
         try
