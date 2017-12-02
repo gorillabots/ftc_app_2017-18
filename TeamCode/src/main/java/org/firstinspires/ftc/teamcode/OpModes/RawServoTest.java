@@ -31,26 +31,16 @@ public class RawServoTest extends LinearOpMode {
     DcMotor extendTwo;
     void init_(){
 
-        extendOne = hardwareMap.dcMotor.get("extendOne");
-        extendTwo = hardwareMap.dcMotor.get("extendTwo");
 
-        driveTrain = new Drive(this);
-
-        extendTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extendOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-       // jewel = new Jewels(this.hardwareMap,this);
-        arm = hardwareMap.servo.get("arm");
-        rotateArm = hardwareMap.servo.get("rotateArm");
-        rotateArm.setPosition(.76);
+        driveTrain = new Drive(this.hardwareMap,this.telemetry);
     }
 
 
 
     @Override
     public void runOpMode() throws InterruptedException {
-
+        init();
+        waitForStart();
         driveTrain.encoderMoveMRGyro(90,1,.5);
 
     }

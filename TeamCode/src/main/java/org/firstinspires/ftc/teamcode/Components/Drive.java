@@ -34,19 +34,20 @@ public class Drive {
     //private ModernRoboticsI2cGyro gyro;
     private TouchSensor wallTouch;
 
-
+    Telemetry telemetry;
+    HardwareMap hardwareMap;
     private double offset;
     private double offsetConverted;
     LinearOpMode linOp;
 
 
-    public Drive(LinearOpMode opMode) {
+    public Drive(HardwareMap hMap, Telemetry telemetryy) {
 
-        linOp = opMode;
+        hardwareMap = hMap;
+        telemetry= telemetryy;
 
-        linOp.telemetry.addData("made","the first part");
-        linOp.telemetry.update();
-        linOp.sleep(3000);
+        telemetry.addData("made","the first part");
+        telemetry.update();
         init(0);
     }
 
@@ -62,7 +63,7 @@ public class Drive {
     {
 
 
-        driveTrain = new ArbitraryDirectionDrive(linOp.hardwareMap, linOp.telemetry);
+        driveTrain = new ArbitraryDirectionDrive(hardwareMap, telemetry);
 
         this.offset = offset;
         offsetConverted = convertHeading(offset);
@@ -92,10 +93,10 @@ public class Drive {
         while (driveTrain.distanceCheck(distance) && linOp.opModeIsActive()) {
             driveTrain.drivePolar(power, angle);
 
-            //linOp.telemetry.addData("Status", "Encoder movement");
-            //linOp.telemetry.update();
+            //telemetry.addData("Status", "Encoder movement");
+            //telemetry.update();
 
-            linOp.sleep(5);
+
 
         }
 
@@ -112,8 +113,8 @@ public class Drive {
 
         double pidOutput;
 
-        linOp.telemetry.addData("Status", "Moving to line");
-        linOp.telemetry.update();
+        telemetry.addData("Status", "Moving to line");
+        telemetry.update();
 
         //try
         //{
@@ -132,17 +133,17 @@ public class Drive {
 
             //driveTrain.drive(angle, power);
 
-            linOp.telemetry.addData("Status", "ForwardsToLine");
+            telemetry.addData("Status", "ForwardsToLine");
 
-            linOp.telemetry.addData("Target", offsetConverted);
+            telemetry.addData("Target", offsetConverted);
             //telemetry.addData("PID Output", pidOutput);
             //telemetry.addData("PID Updated", pidUpdated);
-            linOp.telemetry.addData("R", floorColor.red());
-            linOp.telemetry.addData("G", floorColor.green());
-            linOp.telemetry.addData("B", floorColor.blue());
-            linOp.telemetry.update();
+            telemetry.addData("R", floorColor.red());
+            telemetry.addData("G", floorColor.green());
+            telemetry.addData("B", floorColor.blue());
+            telemetry.update();
 
-            linOp.sleep(5);
+
         }
 
         driveTrain.stopMotors();

@@ -18,7 +18,7 @@ public class AutoCloseRed extends LinearOpMode
 
     public void runOpMode()
     {
-        drive = new Drive(this);
+        drive = new Drive(this.hardwareMap,this.telemetry);
         jewel = new Jewels(hardwareMap);
 
         waitForStart();

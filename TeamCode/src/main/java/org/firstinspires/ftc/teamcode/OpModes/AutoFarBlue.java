@@ -27,7 +27,7 @@ public class AutoFarBlue extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        drive = new Drive(this);
+        drive = new Drive(this.hardwareMap,this.telemetry);
         //drive.init(0);
         arm = hardwareMap.servo.get("arm");
         armColor=hardwareMap.colorSensor.get("ballColor");
