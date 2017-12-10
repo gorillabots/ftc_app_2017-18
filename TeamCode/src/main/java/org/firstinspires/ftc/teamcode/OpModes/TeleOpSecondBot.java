@@ -89,10 +89,10 @@ public class TeleOpSecondBot extends LinearOpMode{
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad2.left_bumper){
-                grabber.close2();
+                grabber.closeinst2();
             }
             else if(gamepad2.left_trigger >= .5){
-                grabber.open2();
+                grabber.openinst2();
             }
 
 
@@ -105,10 +105,10 @@ public class TeleOpSecondBot extends LinearOpMode{
 
 
             if(gamepad2.right_bumper){
-                grabber.close1();
+                grabber.closeinst1();
             }
             else if(gamepad2.right_trigger >= .5){
-                grabber.open1();
+                grabber.openinst1();
             }
 
 
