@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes;
+package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -11,9 +11,10 @@ import org.firstinspires.ftc.teamcode.Drive.Drive;
 /**
  * Created by Jarred on 10/29/2017.
  */
+
 @Disabled
-@Autonomous(name="AutoFarBlueSecond", group="SecondBot")
-public class AutoFarBlueSecond extends LinearOpMode
+@Autonomous(name="CloseRedAndrew", group="AndrewBot")
+public class CloseRedAndrew extends LinearOpMode
 {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
@@ -21,54 +22,37 @@ public class AutoFarBlueSecond extends LinearOpMode
     Drive drive;
     Servo arm;
     ColorSensor armColor;
-    //VuMarkRecognition vuMarks;
 
     @Override
     public void runOpMode()
     {
         drive = new Drive(this.hardwareMap,this.telemetry);
-        //drive.init(0);
         arm = hardwareMap.servo.get("arm");
         armColor=hardwareMap.colorSensor.get("ballColor");
         armColor.enableLed(false);
-        armColor.enableLed(true);
-
-        //telemetry.addData("Status", "Initializing Vuforia");
-        //telemetry.update();
-
-        //vuMarks = new VuMarkRecognition();
-        //vuMarks.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
 
-        //int vuMark = vuMarks.getVuMark();
-
-        //telemetry.addData("VuMark", vuMark);
-        //telemetry.update();
-
         arm.setPosition(ARM_LOWERED);
+        armColor.enableLed(true);
         sleep(500);
 
-        boolean colorState;
+        boolean isRed = armColor.red() > armColor.blue();
 
-        if(armColor.red() > armColor.blue()) //Ball is red
+        telemetry.addData("Color", isRed ? "Red" : "Blue");
+        telemetry.addData("Driving", isRed ? "Left" : "Right");
+        telemetry.update();
+
+        if(isRed) //Ball is red
         {
-            telemetry.addData("Ball Color", "Red");
-            telemetry.update();
-
-            drive.encoderMoveMRGyro(90,.2,.2); //Knock off red to right
-            colorState = true;
+            drive.encoderMoveMRGyro(270,.2,.2); //Knock off red to left
         }
         else //Ball is blue
         {
-            telemetry.addData("Ball Color", "Blue");
-            telemetry.update();
-
-            drive.encoderMoveMRGyro(270,.2,.2); //Knock off red to left
-            colorState = false;
+            drive.encoderMoveMRGyro(90,.2,.2); //Knock off blue to right
         }
 
         armColor.enableLed(false);
@@ -76,7 +60,7 @@ public class AutoFarBlueSecond extends LinearOpMode
         arm.setPosition(ARM_RAISED);
         sleep(500);
 
-        drive.encoderMoveMRGyro(90, colorState ? 2.1 : 2.5, .6);
+        drive.encoderMoveMRGyro(270, isRed ? 2.1 : 2.5, .6);
 
         drive.close();
     }

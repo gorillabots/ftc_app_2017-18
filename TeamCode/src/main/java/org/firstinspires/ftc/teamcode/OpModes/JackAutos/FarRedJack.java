@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes;
+package org.firstinspires.ftc.teamcode.OpModes.JackAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.Components.JewelsJack;
  * Created by mikko on 12/1/17.
  */
 
-@Autonomous(name="AutoFarBlue", group="Bot1")
-public class AutoFarBlue extends LinearOpMode
+@Autonomous(name="FarRedJack", group="JackBot")
+public class FarRedJack extends LinearOpMode
 {
     Drive drive;
     JewelsJack jewel;
@@ -32,13 +32,13 @@ public class AutoFarBlue extends LinearOpMode
         jewel.scanPosition();
         sleep(1500);
 
-        boolean isBlue = jewel.isBlue();
+        boolean isRed = jewel.isRed();
 
         jewel.betweenPosition();
 
         sleep(300);
 
-        if(isBlue) //Right ball is red, hit blue on left
+        if(isRed) //Right ball is red, hit blue on left
         {
             telemetry.addData("Color", "Red");
             telemetry.addData("Hitting", "Left");
