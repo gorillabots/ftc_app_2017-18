@@ -66,64 +66,37 @@ public class Drive {
     public void resetGyro(){
         driveTrain.gyro.resetZAxisIntegrator();
     }
+
     public void updateOffset(double offset) {
         this.offset = offset;
         offsetConverted = convertHeading(offset);
     }
 
-
-
-
-
-
     public void encoderMoveMRGyro(double angle, double distance, double power) //Move forwards by distance
     {
-        //resetPid();
-
-        double pidOutput;
 
         while (driveTrain.distanceCheck(distance)) {
+
             driveTrain.drivePolar(power, angle);
-
-            //telemetry.addData("Status", "Encoder movement");
-            //telemetry.update();
-
-
+            telemetry.addData("Status", "Encoder movement");
+            telemetry.update();
 
         }
-
 
         driveTrain.stopMotors();
 
     }
 
-    public void lineMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
+    public void colorMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
     {
-        //pidController.reset();
-        //pidController.setSetpoint(offsetConverted);
-        //pidController.enable(true);
 
-        double pidOutput;
-
-        telemetry.addData("Status", "Moving to line");
+        telemetry.addData("Status", "Starting Move to Color");
         telemetry.update();
 
         //try
         //{
         while (!ColorHelper.isFloorWhiteTest(floorColor) && linOp.opModeIsActive()) {
-            //boolean pidUpdated = pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS);
-
-            //telemetry.addData("PID Updated", pidUpdated);
-            //telemetry.update();
-
-            pidOutput = 0;
-
-            //if(pidUpdated && !pidController.isOnTarget())
-            //{
-            //    pidOutput = pidResult.getOutput();
-            //}
-
-            //driveTrain.drive(angle, power);
+            driveTrain.drivePolar(power, angle);
 
             telemetry.addData("Status", "ForwardsToLine");
 
@@ -139,11 +112,7 @@ public class Drive {
         }
 
         driveTrain.stopMotors();
-        //}
-        //catch(InterruptedException e)
-        //{
-        //    e.printStackTrace();
-        //}
+        
     }
 
 
