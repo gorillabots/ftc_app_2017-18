@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 11/10/2017.
  */
 
-public class GrabberJack implements Grabber {
+public class GrabberJack  {
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
@@ -46,12 +46,12 @@ public class GrabberJack implements Grabber {
 
     }
 
-    @Override
+    
     public void init() {
 
     }
 
-    @Override
+    
     public void open1() {
         positionOne += INCREMENT;
         if (positionOne >= MAXLeft) {
@@ -62,7 +62,7 @@ public class GrabberJack implements Grabber {
     }
 
 
-    @Override
+    
     public void open2() {
         positionTwo += INCREMENT;
         if (positionTwo >= MAXRight) {
@@ -72,7 +72,7 @@ public class GrabberJack implements Grabber {
 
     }
 
-    @Override
+    
     public void close1() {
         positionOne -= INCREMENT;
         if (positionOne <= MINLeft) {
@@ -81,7 +81,7 @@ public class GrabberJack implements Grabber {
         claw1.setPosition(positionOne);
      }
 
-    @Override
+    
     public void close2() {
         positionTwo -= INCREMENT;
         if (positionTwo <= MINRight) {
@@ -90,43 +90,43 @@ public class GrabberJack implements Grabber {
         claw2.setPosition(positionTwo);
     }
 
-    @Override
+    
     public void openinst1() {
         claw1.setPosition(MAXLeft);
     }
 
-    @Override
+    
     public void openinst2() {
 claw2.setPosition(MAXRight);
     }
 
-    @Override
+    
     public void closeinst1() {
 claw1.setPosition(MINLeft);
     }
 
-    @Override
+    
     public void closeinst2() {
 claw2.setPosition(MINRight);
     }
 
 
-    @Override
+    
     public void rotate(double degrees) {
 
     }
 
-    @Override
+    
     public boolean isHolding() {
         return false;
     }
 
-    @Override
+    
     public void rotateOne(double power) {
         rotateOne.setPower(power*.75);
     }
 
-    @Override
+    
     public void rotateTwo(double power) {
         rotateTwo.setPower(power*.75);
     }
