@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Created by Jarred on 11/4/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="driveOpOp", group="Backup")
+@Disabled
+@TeleOp(name="driveOpOp", group="Backup")
 public class Drivetrain extends OpMode {
 
     DcMotor m1, m2, m3, m4;

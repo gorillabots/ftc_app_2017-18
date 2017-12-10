@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,7 +13,9 @@ import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 /**
  * Created by Owner on 10/6/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Servo Test", group="Backup")
+
+@Disabled
+@TeleOp(name="Servo Test", group="Backup")
 public class TeleOpOp extends LinearOpMode{
 
 

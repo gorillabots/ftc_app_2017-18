@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import android.graphics.Color;
-
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,14 +12,13 @@ import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.ArmExtender2;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
-//import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 import org.firstinspires.ftc.teamcode.Components.Grabber2;
-import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
  * Created by Owner on 10/6/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="driveSecond", group="Backup")
+@Disabled
+@TeleOp(name="driveSecond", group="Backup")
 public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;

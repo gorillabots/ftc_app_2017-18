@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import android.graphics.Color;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,7 +18,8 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Jarred on 10/29/2017.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Raw Servo Test", group="Autonomous")
+@Disabled
+@Autonomous(name="Raw Servo Test", group="Autonomous")
 public class RawServoTest extends LinearOpMode {
     //Drive drive;
     Servo arm;
