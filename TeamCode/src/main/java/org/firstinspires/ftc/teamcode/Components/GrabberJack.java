@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 11/10/2017.
  */
 
-public class Grabber2 implements Grabber {
+public class GrabberJack implements Grabber {
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
@@ -32,7 +32,7 @@ public class Grabber2 implements Grabber {
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
-    public Grabber2(HardwareMap hardwareMap, Telemetry telemetry) {
+    public GrabberJack(HardwareMap hardwareMap, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;

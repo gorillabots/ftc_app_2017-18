@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.TestOpmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Components.Jewels;
+import org.firstinspires.ftc.teamcode.Components.JewelsJack;
 
 /**
  * Created by mikko on 12/1/17.
@@ -17,15 +17,15 @@ public class ArmTestOp extends OpMode
     boolean right = false;
     boolean left = false;
 
-    Jewels jewels;
+    JewelsJack jewelsJack;
 
     int ud = 50;
     int lr = 50;
 
     public void init()
     {
-        jewels = new Jewels(hardwareMap);
-        jewels.color.enableLed(true);
+        jewelsJack = new JewelsJack(hardwareMap);
+        jewelsJack.color.enableLed(true);
     }
 
     public void loop()
@@ -53,14 +53,14 @@ public class ArmTestOp extends OpMode
         double ud2 = ud / 100d;
         double lr2 = lr / 100d;
 
-        jewels.baseServo.setPosition(ud2);
-        jewels.otherServo.setPosition(lr2);
+        jewelsJack.baseServo.setPosition(ud2);
+        jewelsJack.otherServo.setPosition(lr2);
 
         telemetry.addData("Arm", ud2);
         telemetry.addData("Rotate", lr2);
-        telemetry.addData("R", jewels.color.red());
-        telemetry.addData("G", jewels.color.green());
-        telemetry.addData("B", jewels.color.blue());
+        telemetry.addData("R", jewelsJack.color.red());
+        telemetry.addData("G", jewelsJack.color.green());
+        telemetry.addData("B", jewelsJack.color.blue());
         telemetry.update();
 
         up = gamepad1.dpad_up;

@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.TestOpmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.Drive;
+import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Drive.Drive;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
@@ -28,7 +28,7 @@ public class DistanceCheck extends LinearOpMode {
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         drive = new Drive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new Grabber1(hardwareMap, telemetry);
+        //grabber = new GrabberAndrew(hardwareMap, telemetry);
 
 
 
