@@ -61,6 +61,7 @@ public class Grabber2 implements Grabber {
 
     }
 
+
     @Override
     public void open2() {
         positionTwo += INCREMENT;
@@ -87,6 +88,26 @@ public class Grabber2 implements Grabber {
             positionTwo = MINRight;
         }
         claw2.setPosition(positionTwo);
+    }
+
+    @Override
+    public void openinst1() {
+        claw1.setPosition(MAXLeft);
+    }
+
+    @Override
+    public void openinst2() {
+claw2.setPosition(MAXRight);
+    }
+
+    @Override
+    public void closeinst1() {
+claw1.setPosition(MINLeft);
+    }
+
+    @Override
+    public void closeinst2() {
+claw2.setPosition(MINRight);
     }
 
 

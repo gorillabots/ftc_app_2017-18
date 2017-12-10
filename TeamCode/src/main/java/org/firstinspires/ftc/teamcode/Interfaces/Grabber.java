@@ -10,6 +10,10 @@ public interface Grabber {
     public void open2();
     public void close1();
     public void close2();
+    public void openinst1();
+    public void openinst2();
+    public void closeinst1();
+    public void closeinst2();
     public void rotate(double degrees);
     public boolean isHolding();
     public void rotateOne(double power);
