@@ -2,69 +2,82 @@ package org.firstinspires.ftc.teamcode.Components;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Hardware;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 
 /**
- * Created by Owner on 10/6/2017.
+ * Created by Owner on 11/10/2017.
  */
 
-public class ArmExtender1 implements ArmExtender{
+public class ExtenderAndrew implements ArmExtender {
     HardwareMap hardwareMap;
     Telemetry telemetry;
     double INCREMENT = 0.01;
     double MAX = 1.0;
     double MIN = -1.0;
 
-    DcMotor extender;
+    DcMotor extender1;
     double power = 0;
     double POSITION_TWO = 200;
 
-    public ArmExtender1(HardwareMap hardwareMap, Telemetry telemetry) {
+
+    public ExtenderAndrew(HardwareMap hardwareMap, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
+        extender1 = hardwareMap.dcMotor.get("extend");
 
-        extender = hardwareMap.dcMotor.get("extender");
-        extender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        extender.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        extender1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     @Override
-    public void init(){
+    public void init() {
 
     }
 
-    public void extendd() {
+    /*
+    @Override
+    public void extend(double power) {
         power += INCREMENT;
         if (power >= MAX) {
             power = MAX;
         }
-        extender.setPower(power);
+        extender1.setPower(power);
     }
+
     @Override
     public void retract() {
         power -= INCREMENT;
         if (power <= MIN) {
             power = MIN;
         }
-        extender.setPower(power);
+        extender1.setPower(power*-1);
     }
+    */
+    @Override
+    public void extend(double power) {
+        extender1.setPower(power*.75);
+    }
+
+    @Override
+    public void stop() {
+        extender1.setPower(0);
+    }
+
+    @Override
+    public void retract() {
+
+    }
+
     @Override
     public void extendDistance(int distance) {
-        if (extender.getCurrentPosition() <= POSITION_TWO) {
-
-        }
-
 
     }
 
     @Override
     public void retractDistance(int distance) {
-        if (extender.getCurrentPosition() >= POSITION_TWO) {
-
-        }
 
     }
 
@@ -73,23 +86,18 @@ public class ArmExtender1 implements ArmExtender{
         return false;
     }
 
-
     @Override
     public double getDistance() {
         return 0;
     }
 
     @Override
-    public double getStage(){return -1;}
-
-    public void setStage(){
-
+    public double getStage() {
+        return 0;
     }
 
     @Override
-    public void stop(){}
-    @Override
-    public void extend(double murica){
-        extender.setPower(murica);
+    public void setStage() {
+
     }
 }

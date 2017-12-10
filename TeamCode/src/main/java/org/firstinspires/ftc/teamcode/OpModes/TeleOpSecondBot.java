@@ -8,11 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.ArmExtender2;
+import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
-import org.firstinspires.ftc.teamcode.Components.Grabber2;
+import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 
 /**
  * Created by Owner on 10/6/2017.
@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.Components.Grabber2;
 public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
-    ArmExtender2 armExtender;
-    Grabber2 grabber;
+    ExtenderAndrew armExtender;
+    GrabberJack grabber;
     private LinearOpMode opMode;
 
 
@@ -47,8 +47,8 @@ public class TeleOpSecondBot extends LinearOpMode{
     public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
-        armExtender = new ArmExtender2(hardwareMap, telemetry);
-        grabber = new Grabber2(hardwareMap, telemetry);
+        armExtender = new ExtenderAndrew(hardwareMap, telemetry);
+        grabber = new GrabberJack(hardwareMap, telemetry);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");

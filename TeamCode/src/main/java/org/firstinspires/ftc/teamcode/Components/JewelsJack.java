@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Jewels {
+public class JewelsJack {
     final double RESET_BASE = .08;
     final double RESET_OTHER = 0;
 
@@ -24,7 +24,7 @@ public class Jewels {
     public Servo otherServo;
     public ColorSensor color;
 
-    public Jewels(HardwareMap hm) {
+    public JewelsJack(HardwareMap hm) {
         baseServo = hm.servo.get("arm");
         otherServo = hm.servo.get("rotateArm");
         color = hm.colorSensor.get("ballColor");

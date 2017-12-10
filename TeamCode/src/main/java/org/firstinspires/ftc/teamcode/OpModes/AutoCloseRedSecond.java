@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.Drive;
+import org.firstinspires.ftc.teamcode.Drive.Drive;
 
 /**
  * Created by Jarred on 10/29/2017.

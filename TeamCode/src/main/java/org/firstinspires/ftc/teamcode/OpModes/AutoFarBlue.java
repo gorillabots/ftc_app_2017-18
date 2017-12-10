@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Components.Drive;
-import org.firstinspires.ftc.teamcode.Components.Jewels;
+import org.firstinspires.ftc.teamcode.Drive.Drive;
+import org.firstinspires.ftc.teamcode.Components.JewelsJack;
 
 /**
  * Created by mikko on 12/1/17.
@@ -15,14 +15,14 @@ import org.firstinspires.ftc.teamcode.Components.Jewels;
 public class AutoFarBlue extends LinearOpMode
 {
     Drive drive;
-    Jewels jewel;
+    JewelsJack jewel;
     DcMotor extendOne;
     DcMotor extendTwo;
 
     public void runOpMode()
     {
         drive = new Drive(this.hardwareMap,this.telemetry);
-        jewel = new Jewels(hardwareMap);
+        jewel = new JewelsJack(hardwareMap);
         extendTwo = hardwareMap.dcMotor.get("extend2");
         extendOne = hardwareMap.dcMotor.get("extend2");
         extendOne.setPower(-.8);
