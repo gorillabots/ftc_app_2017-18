@@ -63,6 +63,8 @@ public class ArbitraryDirectionDrive {
         }
 
         gyro.resetZAxisIntegrator(); //Reset heading
+         telemetryy.addData("Status","done");
+         telemetryy.update();
     }
 
 
