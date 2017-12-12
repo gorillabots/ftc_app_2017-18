@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Drive;
  * Created by Jarred on 10/22/2017.
  */
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -32,6 +33,8 @@ public class Drive {
     private double offsetConverted;
     LinearOpMode linOp;
 
+    ModernRoboticsI2cRangeSensor rangeSensor;
+
 
     public Drive(HardwareMap hMap, Telemetry telemetryy) {
 
@@ -59,6 +62,7 @@ public class Drive {
 
         this.offset = offset;
         offsetConverted = convertHeading(offset);
+        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "range");
     }
 
 
@@ -96,30 +100,19 @@ public class Drive {
         //try
         //{
         while (!ColorHelper.isFloorWhiteTest(floorColor) && linOp.opModeIsActive()) {
+
             driveTrain.drivePolar(power, angle);
-
             telemetry.addData("Status", "ForwardsToLine");
-
-            telemetry.addData("Target", offsetConverted);
-            //telemetry.addData("PID Output", pidOutput);
-            //telemetry.addData("PID Updated", pidUpdated);
             telemetry.addData("R", floorColor.red());
             telemetry.addData("G", floorColor.green());
             telemetry.addData("B", floorColor.blue());
             telemetry.update();
 
-
         }
 
         driveTrain.stopMotors();
-        
+
     }
-
-
-
-
-
-
 
     private double getRotation() //Get rotation
     {
@@ -127,10 +120,6 @@ public class Drive {
                 driveTrain.m3.getCurrentPosition() + driveTrain.m4.getCurrentPosition()) / 4;
     }
 
-    /*
-     * TODO: This is the problem with BlueCenterDisruptive
-     * When input value = -135 this returns 45, should actually return -135
-    */
     private double convertHeading(double in) //0-360
     {
         while (in < 0) //Make sure in is positive
@@ -151,9 +140,23 @@ public class Drive {
         return (Math.abs(target - reading) < accuracy); //If abs of difference is less than accuracy, we are in range
     }
 
+    public void rangeMove(double distance, double power, double angle){
+
+        telemetry.addData("starting", "range move");
+        telemetry.update();
+
+        while(!inRange(distance, .05, rangeSensor.cmUltrasonic()*0.0328084 )){
+            driveTrain.drivePolar(power,angle);
+            telemetry.addData("running","range move");
+            telemetry.addData("done", "range move");
+        }
+        driveTrain.stopMotors();
+    }
+
     public void close()
     {
         driveTrain.close();
+        this.close();
     }
 }
 
