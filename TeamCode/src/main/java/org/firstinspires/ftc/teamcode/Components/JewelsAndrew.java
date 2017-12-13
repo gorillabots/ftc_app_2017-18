@@ -27,7 +27,7 @@ public class JewelsAndrew{
 
         color.enableLed(false);
         color.enableLed(true);
-        color.enableLed(false);
+
 
         telemetry.addData("status","finished jewel init");
         telemetry.update();
@@ -35,18 +35,20 @@ public class JewelsAndrew{
 
     public void reset() {
         jewelArm.setPosition(ARM_RAISED);
+        color.enableLed(false);
     }
 
     public void lowerArm(){
         jewelArm.setPosition(ARM_LOWERED);
+        color.enableLed(true);
     }
 
     public void hitBalls(Drive drive, boolean color){
         if(color){
-            drive.encoderMoveMRGyro(90,.2,.2);
+            drive.encoderMoveMRGyro(90,.2,.5);
         }
         else{
-            drive.encoderMoveMRGyro(90,.2,.2);
+            drive.encoderMoveMRGyro(270,.2,.5);
         }
     }
 

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Drive.Drive;
 /**
  * Created by Jarred on 10/29/2017.
  */
-@Disabled
+
 @Autonomous(name="FarBlue", group="AndrewBot")
 public class FarBlue extends LinearOpMode
 {
@@ -40,25 +40,31 @@ public class FarBlue extends LinearOpMode
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-        waitForStart();   
+        jewel.reset();
+        waitForStart();
 
         //int vuMark = vuMarks.getVuMark();
 
         //telemetry.addData("VuMark", vuMark);
         //telemetry.update();
 
-       jewel.lowerArm();
+        drive.encoderMoveMRGyro(270,.5,.5);
+        jewel.lowerArm();
         sleep(500);
+        jewel.color.enableLed(true);
 
-        jewel.hitBalls(drive,jewel.isBlue());
+        jewel.hitBalls(drive,jewel.isRed());
+
+
         sleep(500);
-
+        telemetry.addData("status", "dunzo");
+        telemetry.update();
         jewel.reset();
         sleep(500);
 
 
 
-        drive.close();
+
+
     }
 }
