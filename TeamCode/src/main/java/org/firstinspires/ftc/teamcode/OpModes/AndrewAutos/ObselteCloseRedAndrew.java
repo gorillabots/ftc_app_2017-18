@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.Drive.Drive;
  */
 
 @Disabled
-@Autonomous(name="CloseRedAndrew", group="AndrewBot")
-public class CloseRedAndrew extends LinearOpMode
+@Autonomous(name="ObselteCloseRedAndrew", group="AndrewBot")
+public class ObselteCloseRedAndrew extends LinearOpMode
 {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
