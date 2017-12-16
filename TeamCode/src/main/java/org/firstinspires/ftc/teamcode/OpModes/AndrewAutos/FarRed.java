@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Drive.Drive;
 /**
  * Created by Jarred on 12/15/2017.
  */
-
+@Autonomous(name="FarRed", group="AndrewBot")
 public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
