@@ -16,7 +16,6 @@ public class CryptoVisionOp extends OpMode
     public void init()
     {
         OpenCVLoader.initDebug();
-        //System.loadLibrary("opencv-java3");
         cv = new CryptoVision();
         cv.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
         cv.enable();
