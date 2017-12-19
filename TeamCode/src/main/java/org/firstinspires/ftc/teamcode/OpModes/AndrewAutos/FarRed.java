@@ -14,7 +14,6 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
     Drive drive;
-
     JewelsAndrew jewel;
 
     @Override
