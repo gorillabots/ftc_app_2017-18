@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
+import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
 
 /**
  * Created by Jarred on 12/15/2017.
@@ -16,6 +18,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     Drive drive;
     JewelsAndrew jewel;
 
+    GrabberJack grabber;
     @Override
     public void runOpMode()
     {
@@ -25,6 +28,9 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
+        grabber = new GrabberJack(this.hardwareMap,this.telemetry);
+        grabber.closeinst2();
+        grabber.closeinst1();
 
         waitForStart();
 

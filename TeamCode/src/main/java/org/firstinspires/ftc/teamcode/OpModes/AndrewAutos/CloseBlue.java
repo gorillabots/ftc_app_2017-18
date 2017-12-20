@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
 
@@ -18,7 +19,7 @@ public class CloseBlue extends LinearOpMode {
 
     JewelsAndrew jewel;
     //VuMarkRecognition vuMarks;
-
+    GrabberJack grabber;
     @Override
     public void runOpMode()
     {
@@ -28,6 +29,10 @@ public class CloseBlue extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
+        grabber = new GrabberJack(this.hardwareMap,this.telemetry);
+        grabber.closeinst2();
+        grabber.closeinst1();
+
 
         waitForStart();
 
