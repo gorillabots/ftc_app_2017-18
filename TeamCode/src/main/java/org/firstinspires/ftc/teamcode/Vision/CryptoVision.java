@@ -13,19 +13,14 @@ import org.opencv.imgproc.Imgproc;
 
 public class CryptoVision extends OpenCVPipeline
 {
-    Mat hsv = null;
     Mat kernel = new Mat(5, 5, CvType.CV_8U, Scalar.all(0));
+    Mat structuringElement = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(20, 50));
 
     public Mat processFrame(Mat rgba, Mat grey)
     {
         Mat rotated = rotateMat(rgba);
 
-        if(hsv == null)
-        {
-            hsv = new Mat(rotated.width(), rotated.height(), CvType.CV_8U);
-        }
-
-        Imgproc.cvtColor(rotated, hsv, Imgproc.COLOR_RGB2HSV);
+        Mat hsv = RGBtoHSV(rotated);
 
         //Erode, dilate, and blur to clean up the image
         Mat eroded = new Mat();
@@ -35,23 +30,19 @@ public class CryptoVision extends OpenCVPipeline
         Mat blurred = new Mat();
         Imgproc.blur(dilated, blurred, new Size(6, 6));
 
-        Mat ranged1 = new Mat(blurred.width(), blurred.height(), blurred.type());
-        Core.inRange(blurred, new Scalar(90, 120, 10), new Scalar(130, 250, 150), ranged1);
+        Mat mask = new Mat(blurred.width(), blurred.height(), blurred.type());
+        Core.inRange(blurred, new Scalar(80, 120, 10), new Scalar(140, 250, 150), mask);
 
-        Mat masked = new Mat();
-        blurred.copyTo(masked, ranged1);
+        Imgproc.morphologyEx(mask, mask, Imgproc.MORPH_CLOSE, structuringElement);
 
-        Mat bgr = new Mat();
-        Imgproc.cvtColor(masked, bgr, Imgproc.COLOR_HSV2RGB);
-
-        return bgr;
+        return HSVtoRGB(mask(blurred, mask));
     }
 
     Mat mat1 = null;
     Mat mat2 = null;
     Mat mat3 = null;
 
-    public Mat rotateMat(Mat input)
+    Mat rotateMat(Mat input)
     {
         if(mat1 == null)
         {
@@ -72,5 +63,27 @@ public class CryptoVision extends OpenCVPipeline
         Imgproc.resize(mat1, mat2, mat2.size(), 0, 0, 0);
         Core.flip(mat2, mat3, 1);
         return mat3;
+    }
+
+    Mat mask(Mat img, Mat mask)
+    {
+        Mat output = new Mat();
+        img.copyTo(output, mask);
+
+        return output;
+    }
+
+    Mat HSVtoRGB(Mat in)
+    {
+        Mat out = new Mat();
+        Imgproc.cvtColor(in, out, Imgproc.COLOR_HSV2RGB);
+        return out;
+    }
+
+    Mat RGBtoHSV(Mat in)
+    {
+        Mat out = new Mat();
+        Imgproc.cvtColor(in, out, Imgproc.COLOR_RGB2HSV);
+        return out;
     }
 }

@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 public class Drive {
 
 
-    private ArbitraryDirectionDrive driveTrain;
+    public ArbitraryDirectionDrive driveTrain;
 
     //Motors
     private DcMotor frontRight, backRight, frontLeft, backLeft;
