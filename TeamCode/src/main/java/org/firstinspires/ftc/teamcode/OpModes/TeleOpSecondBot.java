@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 /**
  * Created by Owner on 10/6/2017.
  */
-@Disabled
+
 @TeleOp(name="driveSecond", group="Backup")
 public class TeleOpSecondBot extends LinearOpMode{
 
