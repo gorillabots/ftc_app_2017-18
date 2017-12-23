@@ -158,5 +158,36 @@ public class Drive {
         driveTrain.close();
         this.close();
     }
+
+    public void turn(int target, int error, double maxSpeed, double minSpeed)
+    {
+        driveTrain.offsetMR += target;
+
+        double heading;
+        double dir;
+
+        double speedFactor = maxSpeed - minSpeed;
+
+        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset())))
+        {
+            if(heading > 180)
+            {
+                heading -= 360;
+                dir = -1;
+            }
+            else
+            {
+                dir = 1;
+            }
+
+            heading /= 180d;
+
+            double turnpow = heading * speedFactor + minSpeed * dir;
+
+            driveTrain.turn(turnpow);
+        }
+
+        driveTrain.stopMotors();
+    }
 }
 

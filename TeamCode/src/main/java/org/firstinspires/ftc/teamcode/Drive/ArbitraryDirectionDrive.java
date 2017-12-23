@@ -34,6 +34,8 @@ public class ArbitraryDirectionDrive {
     Telemetry telemetryy;
     //add.drive(Direction.N, .5, 10);
 
+    int offsetMR = 0;
+
     public ArbitraryDirectionDrive(HardwareMap hMap, Telemetry telemetry) {
 
         telemetryy = telemetry;
@@ -176,6 +178,12 @@ public class ArbitraryDirectionDrive {
     public double toEncoder(double feet){
         return feet*1935.48;
     }
+
+    public int getHeadingWithOffset()
+    {
+        return ((gyro.getHeading() - offsetMR) + 720) % 360;
+    }
+
     public void driveCartesian(double stickX, double stickY, float stickRot) {
         float facingDeg = -45; //Robot's rotation
         double facingRad = Math.toRadians(facingDeg); // Convert to radians
@@ -192,7 +200,7 @@ public class ArbitraryDirectionDrive {
         int heading;
         double turnpow;
         double turnpower = 0.1;
-        heading = gyro.getHeading();
+        heading = getHeadingWithOffset();
 
         if (heading <= 1 || heading >= 360 - 1) {
             turnpow = 0;
@@ -240,8 +248,7 @@ public class ArbitraryDirectionDrive {
         headX /= Math.sqrt(2); //In range -1 to 1
         headY /= Math.sqrt(2);
 
-        double heading = gyro.getHeading();
-        double turnpow;
+        double heading = getHeadingWithOffset();
 
         //telemetryy.addData("Heading1", heading);
 
@@ -257,7 +264,7 @@ public class ArbitraryDirectionDrive {
         //telemetryy.addData("Heading3", heading);
         //telemetryy.addData("RotFactor", rotFactor);
 
-        turnpow = rotFactor * heading;
+        double turnpow = rotFactor * heading;
 
         //telemetryy.addData("Turnpow", turnpow);
 
@@ -287,6 +294,24 @@ public class ArbitraryDirectionDrive {
         }
 
         return in;
+    }
+
+    public void turn(double speed)
+    {
+        m1.setPower(speed);
+        m2.setPower(speed);
+        m3.setPower(speed);
+        m4.setPower(speed);
+    }
+
+    public void updateMROffset(int offset)
+    {
+        offsetMR = offset;
+    }
+
+    public void addMROffset(int offset)
+    {
+        offsetMR += offset;
     }
 
     public void turnToGyro(int accuracy, double turnpower) //Turn until we are aligned

@@ -14,19 +14,11 @@ public class RangeCryptoTestOp extends LinearOpMode
     public void runOpMode()
     {
         Drive drive = new Drive(hardwareMap, telemetry);
-
-        RangeCrypto rangeCrypto = new RangeCrypto(this, drive.driveTrain);
-
-        //drive.resetGyro();
-
-        double dist = rangeCrypto.range.cmUltrasonic();
-
-        telemetry.addData("Distance", dist);
-        telemetry.update();
+        drive.resetGyro();
 
         waitForStart();
 
-
+        drive.turn(90, 3, 1, .1);
 
         //rangeCrypto.updateOffset();
         //rangeCrypto.go(3);
