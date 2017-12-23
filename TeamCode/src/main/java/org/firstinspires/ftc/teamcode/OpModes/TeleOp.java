@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Components.ExtenderJack;
 /**
  * Created by Owner on 10/6/2017.
  */
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "drive", group = "Backup")
 public class TeleOp extends LinearOpMode {
 
