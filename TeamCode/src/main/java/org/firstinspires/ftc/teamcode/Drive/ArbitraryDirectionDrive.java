@@ -114,6 +114,13 @@ public class ArbitraryDirectionDrive {
         driveCartesian(xComp, yComp, 0);
 
     }
+    public void drivePolar2(double speed, double direction, double rotFactor) //No rotation fixing from gyro data!
+    {
+        double yComp = speed * Math.sin(Math.toRadians(direction));
+        double xComp = speed * Math.cos(Math.toRadians(direction));
+        driveCartesian2(xComp, yComp, 0, rotFactor);
+
+    }
     public boolean distanceCheck(double magnitude){
 
         if (!firstRun) {
@@ -220,6 +227,56 @@ public class ArbitraryDirectionDrive {
         m1.setPower(frontLeftPower);
     }
 
+    public void driveCartesian2(double stickX, double stickY, float stickRot, double rotFactor) {
+        float facingDeg = -45; //Robot's rotation
+        double facingRad = Math.toRadians(facingDeg); // Convert to radians
+
+        double cs = Math.cos(facingRad);
+        double sn = Math.sin(facingRad);
+
+        double headX = stickX * cs - stickY * sn; //Rotated vector (Relative heading)
+        double headY = stickX * sn + stickY * cs; //Each is in range -root 2 to root 2
+
+        headX /= Math.sqrt(2); //In range -1 to 1
+        headY /= Math.sqrt(2);
+
+        double heading = gyro.getHeading();
+        double turnpow;
+
+        //telemetryy.addData("Heading1", heading);
+
+        if(heading > 180)
+        {
+            heading -= 360;
+        }
+
+        //telemetryy.addData("Heading2", heading);
+
+        heading /= 180d;
+
+        //telemetryy.addData("Heading3", heading);
+        //telemetryy.addData("RotFactor", rotFactor);
+
+        turnpow = rotFactor * heading;
+
+        //telemetryy.addData("Turnpow", turnpow);
+
+        double backLeftPower = limitToOne(-headX + stickRot + turnpow);
+        double frontRightPower = limitToOne(headX + stickRot + turnpow);
+        double backRightPower = limitToOne(headY + stickRot + turnpow);
+        double frontLeftPower = limitToOne(-headY + stickRot + turnpow);
+
+        /*telemetryy.addData("m1", frontLeftPower);
+        telemetryy.addData("m2", frontRightPower);
+        telemetryy.addData("m3", backRightPower);
+        telemetryy.addData("m4", backLeftPower);
+        telemetryy.update();*/
+
+        m4.setPower(backLeftPower);
+        m2.setPower(frontRightPower);
+        m3.setPower(backRightPower);
+        m1.setPower(frontLeftPower);
+    }
 
     public double limitToOne(double in) {
         if (in < -1) {

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Components;
 //Created by Mikko on 2017-12-19
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
@@ -11,19 +12,21 @@ import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 
 public class RangeCrypto
 {
+    LinearOpMode opMode;
     HardwareMap hardwareMap;
     Telemetry telemetry;
 
     ArbitraryDirectionDrive add;
 
-    ModernRoboticsI2cRangeSensor range;
+    public ModernRoboticsI2cRangeSensor range;
 
     double offset;
 
-    public RangeCrypto(HardwareMap hardwareMap, Telemetry telemetry, ArbitraryDirectionDrive add)
+    public RangeCrypto(LinearOpMode opMode, ArbitraryDirectionDrive add)
     {
-        this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
+        this.opMode = opMode;
+        this.hardwareMap = opMode.hardwareMap;
+        this.telemetry = opMode.telemetry;
 
         this.add = add;
 
@@ -35,7 +38,7 @@ public class RangeCrypto
         offset = range.cmUltrasonic();
     }
 
-    final int PILLAR_ACTIVATION_DISTANCE = 7; //cm
+    final double PILLAR_ACTIVATION_DISTANCE = 7; //cm
 
     public void go(int numPillars)
     {
@@ -43,25 +46,28 @@ public class RangeCrypto
         boolean lastPollIsPillar = false;
         double criticalDistance = offset - PILLAR_ACTIVATION_DISTANCE;
 
-        telemetry.addData("Offset", offset);
-        telemetry.addData("Pillars Left", pillarsLeft);
-        telemetry.update();
-
-        while(pillarsLeft > 0)
+        while(pillarsLeft > 0 && opMode.opModeIsActive())
         {
-            add.drivePolar(.5, 180);
+            add.drivePolar2(.5, 180, .5);
 
-            if(range.cmUltrasonic() <= criticalDistance)
+            double dist = range.cmUltrasonic();
+
+            telemetry.addData("Offset", offset);
+            telemetry.addData("Pillars Left", pillarsLeft);
+            telemetry.addData("Critical Point", criticalDistance);
+            telemetry.addData("UltrasonicDistance", dist);
+            telemetry.addData("LastPollIsPillar", lastPollIsPillar);
+
+            if(dist <= criticalDistance)
             {
                 //Pillar!
+                telemetry.addData("Info", "UnderCrit");
 
                 if(!lastPollIsPillar)
                 {
                     pillarsLeft--;
 
-                    telemetry.addData("Offset", offset);
-                    telemetry.addData("Pillars Left", pillarsLeft);
-                    telemetry.update();
+                    telemetry.addData("Info", "Pillar");
                 }
 
                 lastPollIsPillar = true;
@@ -70,6 +76,8 @@ public class RangeCrypto
             {
                 lastPollIsPillar = false;
             }
+
+            telemetry.update();
         }
 
         add.stopMotors();
