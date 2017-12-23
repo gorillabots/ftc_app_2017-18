@@ -59,7 +59,7 @@ public class CloseBlue extends LinearOpMode {
 
 
 
-        drive.encoderMoveMRGyro(90,.2,.3);
+        drive.encoderMoveMRGyro2(90,.25,.3,.5);
 
 
 
