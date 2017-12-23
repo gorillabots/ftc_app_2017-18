@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Components;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -16,7 +17,9 @@ public class JewelsAndrew{
     final double ARM_LOWERED = .9;
     public Servo jewelArm;
     Telemetry telemetry;
+    public boolean moveLeft;
 
+    public ColorSensor secondColor;
     public JewelsAndrew(HardwareMap hm, Telemetry tele) {
         telemetry = tele;
         telemetry.addData("status","init jewels");
@@ -28,6 +31,9 @@ public class JewelsAndrew{
         color.enableLed(false);
         color.enableLed(true);
 
+        secondColor =hm.colorSensor.get("leftColor");
+        secondColor.setI2cAddress(I2cAddr.create8bit(68));
+
 
         telemetry.addData("status","finished jewel init");
         telemetry.update();
@@ -35,9 +41,11 @@ public class JewelsAndrew{
 
     public void ledState(boolean led){
         color.enableLed(led);
+        secondColor.enableLed(led);
     }
     public void reset() {
         jewelArm.setPosition(ARM_RAISED);
+        ledState(true);
 
     }
 
@@ -46,18 +54,36 @@ public class JewelsAndrew{
         color.enableLed(true);
     }
 
-    public void hitBalls(Drive drive, boolean color){
-        if(color){
-            drive.encoderMoveMRGyro(90,.2,.5);
+    public void hitBalls(Drive drive, boolean color, boolean opposColor){
+        if(color || opposColor ){
+            drive.turn(349,2,.2,.1);
+            this.reset();
+            try {
+                Thread.sleep(100,0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            drive.turn(11,2,.2,.1);
+           // drive.encoderMoveMRGyro(90,.2,.5);
         }
         else{
-            drive.encoderMoveMRGyro(270,.2,.5);
+            drive.turn(11,2,.2,.1);
+            this.reset();
+            try {
+                Thread.sleep(100,0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            drive.turn(349,2,.2,.1);
+            //drive.encoderMoveMRGyro(270,.2,.5);
+            moveLeft = true;
         }
     }
 
 
 
-    public boolean isRed() {
+    public boolean isRedRight() {
 
         try {
 
@@ -77,13 +103,50 @@ public class JewelsAndrew{
         return false; //Should never happen
 
     }
+    public boolean isRedLeft() {
 
-    public boolean isBlue() {
+        try {
+
+            Thread.sleep(10); //Ensure LED is enabled
+
+            boolean isRed = secondColor.red() >= secondColor.blue();
+
+
+
+            return isRed;
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false; //Should never happen
+
+    }
+
+    public boolean isBlueRight() {
         try {
 
             Thread.sleep(10); //Ensure LED is enabled
 
             boolean isRed = color.blue() >= color.red();
+
+
+
+            return isRed;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false; //Should never happen
+
+    }
+    public boolean isBlueLeft() {
+        try {
+
+            Thread.sleep(10); //Ensure LED is enabled
+
+            boolean isRed = secondColor.blue() >= secondColor.red();
 
 
 

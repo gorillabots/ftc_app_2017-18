@@ -17,7 +17,7 @@ public class CloseRed extends LinearOpMode {
     final double ARM_LOWERED = .9;//.88
     GrabberJack grabber;
     Drive drive;
-
+    boolean whereIsDatBall;
     JewelsAndrew jewel;
     VuMarkRecognition vuMarks;
 
@@ -29,11 +29,12 @@ public class CloseRed extends LinearOpMode {
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
         jewel.reset();
         grabber = new GrabberJack(this.hardwareMap,this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
-        vuMarks = new VuMarkRecognition(this.hardwareMap);
+        vuMarks = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
         waitForStart();
         int goodCol = vuMarks.getVuMark();
@@ -41,16 +42,24 @@ public class CloseRed extends LinearOpMode {
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
+        if(jewel.isBlueRight() || jewel.isRedLeft()){
+            whereIsDatBall = true;
+        }
 
-        jewel.hitBalls(drive,jewel.isBlue());
-
+        jewel.hitBalls(drive,jewel.isBlueRight(),jewel.isBlueRight());
+        //1.8 is the movement constant between
 
         sleep(500);
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();
         sleep(500);
+        if(jewel.moveLeft){
+            drive.encoderMoveMRGyro(90,1.86,.2);
+        }
 
 
     }
+
+
 }

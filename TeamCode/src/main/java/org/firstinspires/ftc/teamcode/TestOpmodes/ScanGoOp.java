@@ -22,8 +22,8 @@ public class ScanGoOp extends LinearOpMode
         telemetry.addData("Status", "Initializing Vuforia");
         telemetry.update();
 
-        vuMarks = new VuMarkRecognition(this.hardwareMap);
-        vuMarks.init(hardwareMap);
+        vuMarks = new VuMarkRecognition(this.hardwareMap, this.telemetry);
+
 
         telemetry.addData("Status", "Ready!");
         telemetry.update();

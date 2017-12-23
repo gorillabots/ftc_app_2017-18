@@ -23,7 +23,7 @@ public class FarBlue extends LinearOpMode
     final double ARM_LOWERED = .9;//.88
 
     Drive drive;
-
+    boolean whereIsDatBall;
     JewelsAndrew jewel;
     VuMarkRecognition vuMarks;
     GrabberJack grabber;
@@ -38,7 +38,7 @@ public class FarBlue extends LinearOpMode
         //telemetry.addData("Status", "Initializing Vuforia");
         //telemetry.update();
 
-        vuMarks = new VuMarkRecognition(this.hardwareMap);
+        vuMarks = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
 
         telemetry.addData("Status", "Initialized");
@@ -60,8 +60,10 @@ public class FarBlue extends LinearOpMode
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
-
-        jewel.hitBalls(drive,jewel.isRed());
+        if(jewel.isBlueLeft() || jewel.isRedRight()){
+            whereIsDatBall = true;
+        }
+        jewel.hitBalls(drive,jewel.isRedRight(),jewel.isRedLeft());
 
 
         sleep(500);
@@ -69,7 +71,9 @@ public class FarBlue extends LinearOpMode
         telemetry.update();
         jewel.reset();
         sleep(500);
-
+        if(jewel.moveLeft){
+            drive.encoderMoveMRGyro(90,1.86,.2);
+        }
 
 
 

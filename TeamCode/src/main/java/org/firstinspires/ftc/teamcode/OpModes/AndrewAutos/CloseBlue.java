@@ -21,12 +21,13 @@ public class CloseBlue extends LinearOpMode {
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberJack grabber;
+    boolean IsDatBallLeft;
     @Override
     public void runOpMode()
     {
         drive = new Drive(this.hardwareMap,this.telemetry);
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
-        vuMark = new VuMarkRecognition(this.hardwareMap);
+        vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
@@ -44,7 +45,7 @@ public class CloseBlue extends LinearOpMode {
         sleep(500);
         jewel.color.enableLed(true);
 
-        jewel.hitBalls(drive,jewel.isRed());
+        jewel.hitBalls(drive,jewel.isRedRight(),jewel.isBlueLeft());
 
 
         sleep(500);
@@ -55,7 +56,10 @@ public class CloseBlue extends LinearOpMode {
 
         telemetry.addData("zone mabob", goodCol);
         telemetry.update();
-        sleep(10000);
+
+
+
+        drive.encoderMoveMRGyro(90,.2,.3);
 
 
 

@@ -20,11 +20,12 @@ public class ColorTest extends OpMode {
 
     @Override
     public void loop(){
-
-        telemetry.addData("Red? ", jewel.isRed());
-        telemetry.addData("BLue?", jewel.isBlue());
-        telemetry.addData("Red #", jewel.color.red());
-        telemetry.addData("Blue #", jewel.color.blue());
+     //   telemetry.addData("Red #", jewel.color.red());
+       // telemetry.addData("Blue #", jewel.color.blue());
+        telemetry.addData("leftred", jewel.color.red());
+        telemetry.addData("rightred", jewel.color.red());
+        telemetry.addData("leftblue", jewel.color.blue());
+        telemetry.addData("rightblue", jewel.color.blue());
         telemetry.update();
     }
 }

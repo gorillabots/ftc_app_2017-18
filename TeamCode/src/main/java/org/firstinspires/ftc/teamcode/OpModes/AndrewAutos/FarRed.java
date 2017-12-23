@@ -20,6 +20,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberJack grabber;
+    boolean whereIsDatBall;
     @Override
     public void runOpMode()
     {
@@ -32,15 +33,17 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         grabber = new GrabberJack(this.hardwareMap,this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
-         vuMark = new VuMarkRecognition(this.hardwareMap);
+         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
         waitForStart();
         int goodCol = vuMark.getVuMark();
         //drive.encoderMoveMRGyro(270,.5,.5);
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
-
-        jewel.hitBalls(drive,jewel.isBlue());
+        if(jewel.isBlueRight() || jewel.isRedLeft()){
+            whereIsDatBall = true;
+        }
+        jewel.hitBalls(drive,jewel.isBlueRight(),jewel.isRedLeft());
 
 
         sleep(500);
@@ -48,7 +51,10 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         telemetry.update();
         jewel.reset();
         sleep(500);
-
+        if(jewel.moveLeft){
+            drive.encoderMoveMRGyro(180,2,.5);
+            drive.encoderMoveMRGyro(90,4.166,.8);
+        }
 
 
 
