@@ -16,11 +16,21 @@ public class RangeCryptoTestOp extends LinearOpMode
         Drive drive = new Drive(hardwareMap, telemetry);
         drive.resetGyro();
 
+        RangeCrypto rangeCrypto = new RangeCrypto(this, drive.driveTrain);
+
         waitForStart();
 
-        drive.turn(90, 3, 1, .1);
+        //drive.turn(90, 3, 1, .1);
 
-        //rangeCrypto.updateOffset();
-        //rangeCrypto.go(3);
+        rangeCrypto.updateOffset();
+        rangeCrypto.go(3);
+
+        sleep(1000);
+
+        drive.encoderMoveMRGyro2(180, .16, .5, .5);
+
+        sleep(1000);
+
+        rangeCrypto.approach(15, .35);
     }
 }

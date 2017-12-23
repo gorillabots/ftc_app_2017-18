@@ -82,4 +82,14 @@ public class RangeCrypto
 
         add.stopMotors();
     }
+
+    public void approach(int target, double speed)
+    {
+        while(range.cmUltrasonic() > target)
+        {
+            add.drivePolar2(speed, 90, .5);
+        }
+
+        add.stopMotors();
+    }
 }
