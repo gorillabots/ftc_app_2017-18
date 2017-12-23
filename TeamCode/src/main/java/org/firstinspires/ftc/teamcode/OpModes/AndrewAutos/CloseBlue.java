@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
+import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 /**
  * Created by Jarred on 12/15/2017.
@@ -18,14 +19,14 @@ public class CloseBlue extends LinearOpMode {
     Drive drive;
 
     JewelsAndrew jewel;
-    //VuMarkRecognition vuMarks;
+    VuMarkRecognition vuMark;
     GrabberJack grabber;
     @Override
     public void runOpMode()
     {
         drive = new Drive(this.hardwareMap,this.telemetry);
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
-
+        vuMark = new VuMarkRecognition(this.hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
@@ -35,6 +36,8 @@ public class CloseBlue extends LinearOpMode {
 
 
         waitForStart();
+        int goodCol = vuMark.getVuMark();
+
 
         //drive.encoderMoveMRGyro(270,.5,.5);
         jewel.lowerArm();
@@ -49,6 +52,10 @@ public class CloseBlue extends LinearOpMode {
         telemetry.update();
         jewel.reset();
         sleep(500);
+
+        telemetry.addData("zone mabob", goodCol);
+        telemetry.update();
+        sleep(10000);
 
 
 

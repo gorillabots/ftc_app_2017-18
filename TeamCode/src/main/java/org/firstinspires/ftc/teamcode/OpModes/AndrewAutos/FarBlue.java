@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
 import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
+import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 /**
  * Created by Jarred on 10/29/2017.
@@ -24,7 +25,7 @@ public class FarBlue extends LinearOpMode
     Drive drive;
 
     JewelsAndrew jewel;
-    //VuMarkRecognition vuMarks;
+    VuMarkRecognition vuMarks;
     GrabberJack grabber;
     @Override
     public void runOpMode()
@@ -37,14 +38,14 @@ public class FarBlue extends LinearOpMode
         //telemetry.addData("Status", "Initializing Vuforia");
         //telemetry.update();
 
-        //vuMarks = new VuMarkRecognition();
-        //vuMarks.init(hardwareMap);
+        vuMarks = new VuMarkRecognition(this.hardwareMap);
+
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
         waitForStart();
-
+        int goodCol = vuMarks.getVuMark();
         grabber = new GrabberJack(this.hardwareMap,this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();

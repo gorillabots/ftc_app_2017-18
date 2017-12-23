@@ -18,6 +18,9 @@ public class VuMarkRecognition
     VuforiaTrackable relicTemplate;
     VuforiaTrackables relicTrackables;
 
+    public VuMarkRecognition(HardwareMap hardwareMap){
+    init(hardwareMap);
+    }
     public void init(HardwareMap hardwareMap)
     {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

@@ -33,9 +33,12 @@ public class JewelsAndrew{
         telemetry.update();
     }
 
+    public void ledState(boolean led){
+        color.enableLed(led);
+    }
     public void reset() {
         jewelArm.setPosition(ARM_RAISED);
-        color.enableLed(false);
+
     }
 
     public void lowerArm(){
@@ -57,12 +60,12 @@ public class JewelsAndrew{
     public boolean isRed() {
 
         try {
-            color.enableLed(true);
+
             Thread.sleep(10); //Ensure LED is enabled
 
             boolean isRed = color.red() >= color.blue();
 
-            color.enableLed(false);
+
 
             return isRed;
 
@@ -77,12 +80,12 @@ public class JewelsAndrew{
 
     public boolean isBlue() {
         try {
-            color.enableLed(true);
+
             Thread.sleep(10); //Ensure LED is enabled
 
             boolean isRed = color.blue() >= color.red();
 
-            color.enableLed(false);
+
 
             return isRed;
         } catch (InterruptedException e) {
