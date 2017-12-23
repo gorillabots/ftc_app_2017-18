@@ -91,6 +91,21 @@ public class Drive {
 
     }
 
+    public void encoderMoveMRGyro2(double angle, double distance, double power, double turnFactor) //Move forwards by distance
+    {
+
+        while (driveTrain.distanceCheck(distance)) {
+
+            driveTrain.drivePolar2(power, angle, turnFactor);
+            telemetry.addData("Status", "Encoder movement");
+            telemetry.update();
+
+        }
+
+        driveTrain.stopMotors();
+
+    }
+
     public void colorMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
     {
 
