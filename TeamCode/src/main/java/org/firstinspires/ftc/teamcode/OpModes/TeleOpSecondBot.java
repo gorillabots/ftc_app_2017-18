@@ -38,7 +38,6 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     Servo clawOne;
     Servo clawTwo;
-    ColorSensor lineSensor;
 
     ColorSensor ballColor;
 
@@ -60,16 +59,12 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         clawOne.setPosition(oneOpen);
         clawTwo.setPosition(twoOpen);
-        lineSensor = hardwareMap.colorSensor.get("lineSensor");
-        lineSensor.setI2cAddress(I2cAddr.create8bit(0x44)); //68 in decimal
 
         ballColor = hardwareMap.colorSensor.get("ballColor");
         //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
 
         arm = hardwareMap.servo.get("arm");
         arm.setPosition(.22);
-        lineSensor.enableLed(false);
-        lineSensor.enableLed(true);
 
         ballColor.enableLed(false);
         ballColor.enableLed(true);
@@ -96,10 +91,7 @@ public class TeleOpSecondBot extends LinearOpMode{
             }
 
 
-            ColorHelper.printColorHSV(this.telemetry,lineSensor);
             ColorHelper.printColorHSV(this.telemetry,ballColor);
-            telemetry.addData("Red state", ColorHelper.isLineRed(lineSensor));
-            telemetry.addData("Blue state", ColorHelper.isLineBlue(lineSensor));
             telemetry.update();
 
 
