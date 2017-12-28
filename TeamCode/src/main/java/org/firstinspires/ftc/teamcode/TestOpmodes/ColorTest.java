@@ -14,7 +14,7 @@ public class ColorTest extends OpMode {
     @Override
     public void init(){
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
-        jewel.reset();
+
 
     }
 
@@ -23,9 +23,9 @@ public class ColorTest extends OpMode {
      //   telemetry.addData("Red #", jewel.color.red());
        // telemetry.addData("Blue #", jewel.color.blue());
         telemetry.addData("leftred", jewel.color.red());
-        telemetry.addData("rightred", jewel.color.red());
+        telemetry.addData("rightred", jewel.secondColor.red());
         telemetry.addData("leftblue", jewel.color.blue());
-        telemetry.addData("rightblue", jewel.color.blue());
+        telemetry.addData("rightblue", jewel.secondColor.blue());
         telemetry.update();
     }
 }

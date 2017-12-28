@@ -32,9 +32,9 @@ public class ScanGoOp extends LinearOpMode
 
         int vuMark = vuMarks.getVuMark();
 
-        drive.encoderMoveMRGyro(270, 2, .6);
 
-        telemetry.addData("VuMark", vuMark);
-        telemetry.update();
+
+
+
     }
 }

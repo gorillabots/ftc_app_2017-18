@@ -60,7 +60,12 @@ public class GrabberJack  {
         claw1.setPosition(positionOne);
 
     }
-
+    public void wide1(){
+        claw1.setPosition(0);
+    }
+    public void wide2(){
+        claw2.setPosition(0);
+    }
 
     
     public void open2() {

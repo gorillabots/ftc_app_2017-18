@@ -63,7 +63,7 @@ public class FarBlue extends LinearOpMode
         if(jewel.isBlueLeft() || jewel.isRedRight()){
             whereIsDatBall = true;
         }
-        jewel.hitBalls(drive,jewel.isRedRight(),jewel.isRedLeft());
+        jewel.hitBalls(jewel.isRedRight(),jewel.isRedLeft());
 
 
         sleep(500);

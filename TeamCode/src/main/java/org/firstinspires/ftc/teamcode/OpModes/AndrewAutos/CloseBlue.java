@@ -32,7 +32,7 @@ public class CloseBlue extends LinearOpMode {
 
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
         jewel.reset();
-
+        jewel.toogleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
         grabber = new GrabberJack(this.hardwareMap,this.telemetry);
@@ -50,38 +50,58 @@ public class CloseBlue extends LinearOpMode {
 
 
         //drive.encoderMoveMRGyro(270,.5,.5);
+        jewel.toogleSwing(true);
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
 
-        jewel.hitBalls(drive,jewel.isRedRight(),jewel.isBlueLeft());
+        telemetry.addData("blue left", jewel.isBlueLeft());
+        telemetry.addData("red left", jewel.isRedLeft());
+        telemetry.addData("blue right", jewel.isBlueRight());
+        telemetry.addData("red right", jewel.isRedRight());
+        telemetry.addData("col", goodCol);
+        telemetry.update();
+        sleep(500);
+        jewel.hitBalls(jewel.isRedRight(),jewel.isBlueLeft());
 
-        //drive.encoderMoveMRGyro2(180, 1, 1, .5);
+        //drive.encoderMoveMRGyro(180, .3, 1);
 
         sleep(500);
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();
+        jewel.toogleSwing(false);
         sleep(500);
 
         telemetry.addData("zone mabob", goodCol);
         telemetry.update();
 
-        drive.encoderMoveMRGyro2(90, .5, .3, .5);
-        drive.encoderMoveMRGyro2(180, .5, .8, .5);
-
+        drive.encoderMoveMRGyro2(90, .6, .3, .5);
         drive.turn(90, 2, 1, .1);
 
+        drive.resetGyro();
+        //drive.encoderMoveMRGyro2(180, .5, .8, .5);
 
+
+
+        rangeCrypto.approach(40,.35);
         rangeCrypto.updateOffset(); //Scan wall for reference distance
-        rangeCrypto.go(3); //Count off 3 things while moving - 2-Left, 3-Center, 4-Right
+        rangeCrypto.go(goodCol);
+        /*
+        //Count off 3 things while moving - 2-Left, 3-Center, 4-Right
+        drive.encoderMoveMRGyro2(180,.007,.3,.5);
 
-        sleep(1000);
+        //drive.encoderMoveMRGyro2(180, .16, .5, .5);
 
-        drive.encoderMoveMRGyro2(180, .16, .5, .5); //Move a bit right to align
 
-        sleep(1000);
 
         rangeCrypto.approach(15, .35); //Approach box with range sensor
+        grabber.openinst1();
+        grabber.openinst2();
+        grabber.wide1();
+        grabber.wide2();
+        drive.encoderMoveMRGyro(90,.5,.5);
+        drive.encoderMoveMRGyro(270,.75,.5);
+        */
     }
 }

@@ -16,6 +16,7 @@ public class JewelsAndrew{
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;
     public Servo jewelArm;
+    public Servo swing;
     Telemetry telemetry;
     public boolean moveLeft;
 
@@ -34,9 +35,11 @@ public class JewelsAndrew{
         secondColor =hm.colorSensor.get("leftColor");
         secondColor.setI2cAddress(I2cAddr.create8bit(68));
 
-
+        swing = hm.servo.get("swing");
         telemetry.addData("status","finished jewel init");
         telemetry.update();
+
+        reset();
     }
 
     public void ledState(boolean led){
@@ -44,17 +47,27 @@ public class JewelsAndrew{
         secondColor.enableLed(led);
     }
     public void reset() {
-        jewelArm.setPosition(ARM_RAISED);
+        jewelArm.setPosition(.2);
+        swing.setPosition(.63);
         ledState(true);
 
     }
 
-    public void lowerArm(){
-        jewelArm.setPosition(ARM_LOWERED);
-        color.enableLed(true);
+    public void toogleSwing(boolean bool){
+        if(bool){
+            swing.setPosition(.39);
+        }
+        else if(!bool){
+            swing.setPosition(.63);
+        }
     }
 
-    public void hitBalls(Drive drive, boolean color, boolean opposColor){
+    public void lowerArm(){
+        jewelArm.setPosition(.9);
+
+    }
+
+    public void hitBallsOld(Drive drive, boolean color, boolean opposColor){
         if(color || opposColor ){
             drive.turn(349,2,.2,.1);
             this.reset();
@@ -82,28 +95,28 @@ public class JewelsAndrew{
     }
 
 
+    public void hitBalls(boolean color, boolean opposColor){
+        if(color || opposColor ){
+           swing.setPosition(.59);
+            try {
+                Thread.sleep(100,0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            toogleSwing(true);
+        }
+        else{
+           swing.setPosition(.44);
+            try {
+                Thread.sleep(100,0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            toogleSwing(true);
+        }
+    }
 
     public boolean isRedRight() {
-
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean isRed = color.red() >= color.blue();
-
-
-
-            return isRed;
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
-    }
-    public boolean isRedLeft() {
 
         try {
 
@@ -123,13 +136,33 @@ public class JewelsAndrew{
         return false; //Should never happen
 
     }
+    public boolean isRedLeft() {
+
+        try {
+
+            Thread.sleep(10); //Ensure LED is enabled
+
+            boolean isRed = color.red() >= color.blue();
+
+
+
+            return isRed;
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false; //Should never happen
+
+    }
 
     public boolean isBlueRight() {
         try {
 
             Thread.sleep(10); //Ensure LED is enabled
 
-            boolean isRed = color.blue() >= color.red();
+            boolean isRed = secondColor.red() >= secondColor.blue();
 
 
 
@@ -146,7 +179,7 @@ public class JewelsAndrew{
 
             Thread.sleep(10); //Ensure LED is enabled
 
-            boolean isRed = secondColor.blue() >= secondColor.red();
+            boolean isRed = color.blue() >= color.red();
 
 
 

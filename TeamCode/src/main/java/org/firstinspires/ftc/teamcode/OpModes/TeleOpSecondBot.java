@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
@@ -25,7 +26,7 @@ public class TeleOpSecondBot extends LinearOpMode{
     ExtenderAndrew armExtender;
     GrabberJack grabber;
     private LinearOpMode opMode;
-
+    JewelsAndrew  jewels;
 
     DcMotor extend;
     DcMotor rotateOne;
@@ -52,6 +53,9 @@ public class TeleOpSecondBot extends LinearOpMode{
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
+        jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
+        jewels.reset();
+        jewels.toogleSwing(false);
 
 
         clawOne = hardwareMap.servo.get("clawOne");

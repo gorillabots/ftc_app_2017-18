@@ -43,7 +43,10 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         if(jewel.isBlueRight() || jewel.isRedLeft()){
             whereIsDatBall = true;
         }
-        jewel.hitBalls(drive,jewel.isBlueRight(),jewel.isRedLeft());
+
+
+
+        jewel.hitBalls(jewel.isBlueRight(),jewel.isRedLeft());
 
 
         sleep(500);
