@@ -48,15 +48,21 @@ public class RangeCrypto
 
         while(pillarsLeft > 0 && opMode.opModeIsActive())
         {
-            add.drivePolar(.5, 180); //180 - right, 0 - left
+            add.drivePolar2(.5, 180,.5); //180 - right, 0 - left
 
             double dist = range.cmUltrasonic();
 
             telemetry.addData("Offset", offset);
+            telemetry.addData("destined pillar", numPillars);
             telemetry.addData("Pillars Left", pillarsLeft);
             telemetry.addData("Critical Point", criticalDistance);
             telemetry.addData("UltrasonicDistance", dist);
             telemetry.addData("LastPollIsPillar", lastPollIsPillar);
+            telemetry.addData("heading", add.getHeadingWithOffset());
+            telemetry.addData("m1", add.m1.getPower());
+            telemetry.addData("m2", add.m2.getPower());
+            telemetry.addData("m3", add.m3.getPower());
+            telemetry.addData("m4", add.m4.getPower());
 
             if(dist <= criticalDistance)
             {
@@ -85,10 +91,18 @@ public class RangeCrypto
 
     public void approach(int target, double speed)
     {
-        while(range.cmUltrasonic() > target)
-        {
-            add.drivePolar2(speed, 90, .5);
+        if(target > range.cmUltrasonic()){
+            while(range.cmUltrasonic()>target){
+                add.drivePolar2(speed,270,.5);
+            }
         }
+        else{
+            while(range.cmUltrasonic() > target)
+            {
+                add.drivePolar2(speed, 90, .5);
+            }
+        }
+
 
         add.stopMotors();
     }

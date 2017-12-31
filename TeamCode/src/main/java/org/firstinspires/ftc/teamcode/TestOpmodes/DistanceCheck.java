@@ -17,15 +17,15 @@ public class DistanceCheck extends LinearOpMode {
     //Grabber grabber;
     private LinearOpMode opMode;
 
-    Servo claw;
-    Servo spin;
+    //Servo claw;
+    //Servo spin;
 
     Drive drive;
 
 
     public void init_() {
 
-        driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
+        //driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         drive = new Drive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
         //grabber = new GrabberAndrew(hardwareMap, telemetry);
@@ -39,49 +39,9 @@ public class DistanceCheck extends LinearOpMode {
         init_();
 
         waitForStart();
-
-            while(driveTrain.distanceCheck(1)){
-                driveTrain.drivePolar(.5,90);
-            }
-
-            driveTrain.stopMotors();
-            telemetry.addData("second step","");
-
-            telemetry.update();
-
-
-            drive.encoderMoveMRGyro(180,1,.5);
-            /*
-            driveTrain.stopMotors();
-            while(driveTrain.distanceCheck(1)){
-                driveTrain.drivePolar(.5,90);
-            }
-            driveTrain.stopMotors();
-            while(driveTrain.distanceCheck(1)){
-                driveTrain.drivePolar(.5,270);
-            }
-            driveTrain.stopMotors();
-            */
-
-            //driveTrain.drive(Math.sqrt(gamepad1.left_stick_x*gamepad1.left_stick_x + gamepad1.left_stick_y * gamepad1.left_stick_y), Math.atan2(gamepad1.left_stick_x,gamepad1.left_stick_y));
-
-                /*
-                //Graber
-                if (gamepad2.right_bumper)
-                    grabber.open();
-                }
-                else if (gamepad2.left_bumper) {
-                    grabber.close();}
-
-                if (gamepad2.right_trigger > .9) {
-                    grabber.rotate(+.25);
-                } else if (gamepad2.left_trigger > .9) {
-                    grabber.rotate(-.25);
-                } else {
-                    grabber.rotate(0);
-                }
-
-                */
+        drive.encoderMoveMRGyro2(90,2,.5,.5);
+        sleep(2000);
+        drive.encoderMoveMRGyro2(270,2,.5,.5);
 
         }
     }

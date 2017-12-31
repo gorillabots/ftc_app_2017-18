@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class ArbitraryDirectionDrive {
 
-    DcMotor m1, m2, m3, m4;
+   public DcMotor m1, m2, m3, m4;
     double backLeftPower = 0;
     double frontRightPower = 0;
     double backRightPower = 0;
@@ -125,11 +125,13 @@ public class ArbitraryDirectionDrive {
     }
     public boolean distanceCheck(double magnitude){
 
+
         if (!firstRun) {
             m1Start = Math.abs(m1.getCurrentPosition());
             m2Start = Math.abs(m2.getCurrentPosition());
             m3Start = Math.abs(m3.getCurrentPosition());
             m4Start = Math.abs(m4.getCurrentPosition());
+            firstRun = true;
         }
 
         int m1Current = Math.abs(m1.getCurrentPosition());
@@ -153,7 +155,7 @@ public class ArbitraryDirectionDrive {
         //telemetryy.update();
         double encMag = toEncoder(magnitude);
         if (length >= encMag) {
-            firstRun = true;
+            firstRun = false;
             return false;
         } else {
             firstRun = true;

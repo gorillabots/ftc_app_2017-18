@@ -69,6 +69,7 @@ public class Drive {
 
     public void resetGyro(){
         driveTrain.gyro.resetZAxisIntegrator();
+
     }
 
     public void updateOffset(double offset) {
@@ -98,6 +99,9 @@ public class Drive {
 
             driveTrain.drivePolar2(power, angle, turnFactor);
             telemetry.addData("Status", "Encoder movement");
+            telemetry.addData("first run status",driveTrain.firstRun);
+            telemetry.addData("measured length", driveTrain.length);
+            telemetry.addData("final", driveTrain.toEncoder(distance));
             telemetry.update();
 
         }

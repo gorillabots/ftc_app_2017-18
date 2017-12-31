@@ -162,11 +162,11 @@ public class JewelsAndrew{
 
             Thread.sleep(10); //Ensure LED is enabled
 
-            boolean isRed = secondColor.red() >= secondColor.blue();
+            boolean isBlue= secondColor.blue() >= secondColor.red();
 
 
 
-            return isRed;
+            return isBlue;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
