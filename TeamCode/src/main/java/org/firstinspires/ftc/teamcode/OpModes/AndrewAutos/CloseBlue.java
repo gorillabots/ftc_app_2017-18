@@ -17,11 +17,9 @@ import org.opencv.core.Range;
 /**
  * Created by Jarred on 12/15/2017.
  */
-<<<<<<< HEAD
+
 @Autonomous(name="CloseBlue", group="AndrewBot")
-=======
-@Autonomous(name = "CloseBlue", group = "AndrewBot")
->>>>>>> origin/beta
+
 public class CloseBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
@@ -34,7 +32,7 @@ public class CloseBlue extends LinearOpMode {
     RangeCrypto rangeCrypto;
 
     @Override
-<<<<<<< HEAD
+
     public void runOpMode()
     {
         drive = new Drive(this.hardwareMap,this.telemetry);
