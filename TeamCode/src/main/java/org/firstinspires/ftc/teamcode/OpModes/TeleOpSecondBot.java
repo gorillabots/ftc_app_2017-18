@@ -8,24 +8,25 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.ArmExtender2;
+import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
+import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
-import org.firstinspires.ftc.teamcode.Components.Grabber2;
+import org.firstinspires.ftc.teamcode.Components.GrabberJack;
 
 /**
  * Created by Owner on 10/6/2017.
  */
-@Disabled
+
 @TeleOp(name="driveSecond", group="Backup")
 public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
-    ArmExtender2 armExtender;
-    Grabber2 grabber;
+    ExtenderAndrew armExtender;
+    GrabberJack grabber;
     private LinearOpMode opMode;
-
+    JewelsAndrew  jewels;
 
     DcMotor extend;
     DcMotor rotateOne;
@@ -38,7 +39,6 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     Servo clawOne;
     Servo clawTwo;
-    ColorSensor lineSensor;
 
     ColorSensor ballColor;
 
@@ -47,12 +47,15 @@ public class TeleOpSecondBot extends LinearOpMode{
     public void init_() {
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
-        armExtender = new ArmExtender2(hardwareMap, telemetry);
-        grabber = new Grabber2(hardwareMap, telemetry);
+        armExtender = new ExtenderAndrew(hardwareMap, telemetry);
+        grabber = new GrabberJack(hardwareMap, telemetry);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
+        jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
+        jewels.reset();
+        jewels.toogleSwing(false);
 
 
         clawOne = hardwareMap.servo.get("clawOne");
@@ -60,16 +63,12 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         clawOne.setPosition(oneOpen);
         clawTwo.setPosition(twoOpen);
-        lineSensor = hardwareMap.colorSensor.get("lineSensor");
-        lineSensor.setI2cAddress(I2cAddr.create8bit(0x44)); //68 in decimal
 
         ballColor = hardwareMap.colorSensor.get("ballColor");
         //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
 
         arm = hardwareMap.servo.get("arm");
         arm.setPosition(.22);
-        lineSensor.enableLed(false);
-        lineSensor.enableLed(true);
 
         ballColor.enableLed(false);
         ballColor.enableLed(true);
@@ -89,26 +88,23 @@ public class TeleOpSecondBot extends LinearOpMode{
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad2.left_bumper){
-                grabber.close2();
+                grabber.closeinst2();
             }
             else if(gamepad2.left_trigger >= .5){
-                grabber.open2();
+                grabber.openinst2();
             }
 
 
-            ColorHelper.printColorHSV(this.telemetry,lineSensor);
             ColorHelper.printColorHSV(this.telemetry,ballColor);
-            telemetry.addData("Red state", ColorHelper.isLineRed(lineSensor));
-            telemetry.addData("Blue state", ColorHelper.isLineBlue(lineSensor));
             telemetry.update();
 
 
 
             if(gamepad2.right_bumper){
-                grabber.close1();
+                grabber.closeinst1();
             }
             else if(gamepad2.right_trigger >= .5){
-                grabber.open1();
+                grabber.openinst1();
             }
 
 

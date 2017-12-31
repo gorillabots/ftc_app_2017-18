@@ -6,9 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
 //import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
-import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
+
 
 /**
  * Created by Owner on 10/6/2017.
@@ -31,7 +30,7 @@ public class TeleOpOp extends LinearOpMode{
 
 
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new Grabber1(hardwareMap, telemetry);
+        //grabber = new GrabberAndrew(hardwareMap, telemetry);
 
 
         arm = hardwareMap.servo.get("arm");

@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,10 +7,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Components.ColorHelper;
-import org.firstinspires.ftc.teamcode.Components.Drive;
-import org.firstinspires.ftc.teamcode.Components.Jewels;
+import org.firstinspires.ftc.teamcode.Drive.Drive;
+import org.firstinspires.ftc.teamcode.Components.JewelsJack;
 import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 /**
@@ -28,7 +24,7 @@ public class RawServoTest extends LinearOpMode {
     ColorSensor ballColor;
     VuMarkRecognition vuMark;
     Drive driveTrain;
-    Jewels jewel;
+    JewelsJack jewel;
 
     DcMotor extendOne;
     DcMotor extendTwo;

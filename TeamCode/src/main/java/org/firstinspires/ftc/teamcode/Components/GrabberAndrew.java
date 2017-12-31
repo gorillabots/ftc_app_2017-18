@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 10/6/2017.
  */
 
-public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabber {
+public class GrabberAndrew  {
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
@@ -30,7 +30,7 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
 
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
-    public Grabber1(HardwareMap hardwareMap, Telemetry telemetry) {
+    public GrabberAndrew(HardwareMap hardwareMap, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -45,19 +45,19 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
 
     }
 
-    @Override
+    
     public void init() {
         spin.getPosition();
     }
 
 
-    @Override
+    
     public void rotate(double degrees) {
         spin.setPosition(degrees);
 
     }
 
-    @Override
+    
     public void open1() {
         position += INCREMENT;
         if (position >= MAX) {
@@ -68,12 +68,12 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
 
     }
 
-    @Override
+    
     public void open2() {
         open1();
     }
 
-    @Override
+    
     public void close1() {
         position -= INCREMENT;
         if (position <= MIN) {
@@ -82,7 +82,7 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
         claw1.setPosition(position);
     }
 
-    @Override
+    
     public void close2() {
         position -= INCREMENT;
         if (position <= MIN) {
@@ -92,7 +92,7 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
     }
 
 
-    @Override
+    
     public boolean isHolding() {
         return false;
     }
@@ -101,9 +101,9 @@ public class Grabber1 implements org.firstinspires.ftc.teamcode.Interfaces.Grabb
 
     }
 
-    @Override
+    
     public void rotateOne(double murica){}
-    @Override
+    
     public void rotateTwo(double murica){}
 
     public void runBelts(double power, boolean toogle){

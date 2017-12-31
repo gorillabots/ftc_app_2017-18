@@ -15,8 +15,8 @@ public class VuMarkTestOp extends OpMode
     @Override
     public void init()
     {
-        vuMarks = new VuMarkRecognition();
-        vuMarks.init(hardwareMap);
+        vuMarks = new VuMarkRecognition(this.hardwareMap, this.telemetry);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
     }

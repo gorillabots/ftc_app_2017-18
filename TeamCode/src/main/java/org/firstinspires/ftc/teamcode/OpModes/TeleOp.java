@@ -1,30 +1,26 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import junit.framework.Test;
-
-import org.firstinspires.ftc.teamcode.Components.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.Grabber1;
-import org.firstinspires.ftc.teamcode.Components.Grabber2;
-import org.firstinspires.ftc.teamcode.Components.ArmExtender1;
-import org.firstinspires.ftc.teamcode.Components.TestShoppingCartD;
-import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
+import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
+import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.ExtenderJack;
 
 /**
  * Created by Owner on 10/6/2017.
  */
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "drive", group = "Backup")
 public class TeleOp extends LinearOpMode {
 
     ArbitraryDirectionDrive driveTrain;
-    ArmExtender1 armExtender;
-    Grabber2 grabber;
+    ExtenderJack armExtender;
+    GrabberJack grabber;
     private LinearOpMode opMode;
 
     Servo claw1;

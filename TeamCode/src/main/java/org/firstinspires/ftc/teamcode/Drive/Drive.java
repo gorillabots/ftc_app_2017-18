@@ -1,31 +1,24 @@
-package org.firstinspires.ftc.teamcode.Components;
+package org.firstinspires.ftc.teamcode.Drive;
 
 /**
  * Created by Jarred on 10/22/2017.
  */
 
-import com.kauailabs.navx.ftc.AHRS;
-import com.kauailabs.navx.ftc.navXPIDController;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.sun.tools.javac.util.List;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.CstArray;
-import org.firstinspires.ftc.teamcode.Components.Constants;
-
-import java.util.concurrent.Callable;
+import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 
 
 public class Drive {
 
 
-    private ArbitraryDirectionDrive driveTrain;
+    public ArbitraryDirectionDrive driveTrain;
 
     //Motors
     private DcMotor frontRight, backRight, frontLeft, backLeft;
@@ -39,6 +32,8 @@ public class Drive {
     private double offset;
     private double offsetConverted;
     LinearOpMode linOp;
+
+    ModernRoboticsI2cRangeSensor rangeSensor;
 
 
     public Drive(HardwareMap hMap, Telemetry telemetryy) {
@@ -67,98 +62,76 @@ public class Drive {
 
         this.offset = offset;
         offsetConverted = convertHeading(offset);
+        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "range");
     }
 
 
 
     public void resetGyro(){
         driveTrain.gyro.resetZAxisIntegrator();
+
     }
+
     public void updateOffset(double offset) {
         this.offset = offset;
         offsetConverted = convertHeading(offset);
     }
 
-
-
-
-
-
     public void encoderMoveMRGyro(double angle, double distance, double power) //Move forwards by distance
     {
-        //resetPid();
-
-        double pidOutput;
 
         while (driveTrain.distanceCheck(distance)) {
+
             driveTrain.drivePolar(power, angle);
-
-            //telemetry.addData("Status", "Encoder movement");
-            //telemetry.update();
-
-
+            telemetry.addData("Status", "Encoder movement");
+            telemetry.update();
 
         }
-
 
         driveTrain.stopMotors();
 
     }
 
-    public void lineMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
+    public void encoderMoveMRGyro2(double angle, double distance, double power, double turnFactor) //Move forwards by distance
     {
-        //pidController.reset();
-        //pidController.setSetpoint(offsetConverted);
-        //pidController.enable(true);
 
-        double pidOutput;
+        while (driveTrain.distanceCheck(distance)) {
 
-        telemetry.addData("Status", "Moving to line");
+            driveTrain.drivePolar2(power, angle, turnFactor);
+            telemetry.addData("Status", "Encoder movement");
+            telemetry.addData("first run status",driveTrain.firstRun);
+            telemetry.addData("measured length", driveTrain.length);
+            telemetry.addData("final", driveTrain.toEncoder(distance));
+            telemetry.update();
+
+        }
+
+        driveTrain.stopMotors();
+
+    }
+
+    public void colorMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
+    {
+
+        telemetry.addData("Status", "Starting Move to Color");
         telemetry.update();
 
         //try
         //{
         while (!ColorHelper.isFloorWhiteTest(floorColor) && linOp.opModeIsActive()) {
-            //boolean pidUpdated = pidController.waitForNewUpdate(pidResult, NAVX_TIMEOUT_MS);
 
-            //telemetry.addData("PID Updated", pidUpdated);
-            //telemetry.update();
-
-            pidOutput = 0;
-
-            //if(pidUpdated && !pidController.isOnTarget())
-            //{
-            //    pidOutput = pidResult.getOutput();
-            //}
-
-            //driveTrain.drive(angle, power);
-
+            driveTrain.drivePolar(power, angle);
             telemetry.addData("Status", "ForwardsToLine");
-
-            telemetry.addData("Target", offsetConverted);
-            //telemetry.addData("PID Output", pidOutput);
-            //telemetry.addData("PID Updated", pidUpdated);
             telemetry.addData("R", floorColor.red());
             telemetry.addData("G", floorColor.green());
             telemetry.addData("B", floorColor.blue());
             telemetry.update();
 
-
         }
 
         driveTrain.stopMotors();
-        //}
-        //catch(InterruptedException e)
-        //{
-        //    e.printStackTrace();
-        //}
+
     }
-
-
-
-
-
-
 
     private double getRotation() //Get rotation
     {
@@ -166,10 +139,6 @@ public class Drive {
                 driveTrain.m3.getCurrentPosition() + driveTrain.m4.getCurrentPosition()) / 4;
     }
 
-    /*
-     * TODO: This is the problem with BlueCenterDisruptive
-     * When input value = -135 this returns 45, should actually return -135
-    */
     private double convertHeading(double in) //0-360
     {
         while (in < 0) //Make sure in is positive
@@ -190,9 +159,54 @@ public class Drive {
         return (Math.abs(target - reading) < accuracy); //If abs of difference is less than accuracy, we are in range
     }
 
+    public void rangeMove(double distance, double power, double angle){
+
+        telemetry.addData("starting", "range move");
+        telemetry.update();
+
+        while(!inRange(distance, .05, rangeSensor.cmUltrasonic()*0.0328084 )){
+            driveTrain.drivePolar(power,angle);
+            telemetry.addData("running","range move");
+            telemetry.addData("done", "range move");
+        }
+        driveTrain.stopMotors();
+    }
+
     public void close()
     {
         driveTrain.close();
+        this.close();
+    }
+
+    public void turn(int target, int error, double maxSpeed, double minSpeed)
+    {
+        driveTrain.offsetMR += target;
+
+        double heading;
+        double dir;
+
+        double speedFactor = maxSpeed - minSpeed;
+
+        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset())))
+        {
+            if(heading > 180)
+            {
+                heading -= 360;
+                dir = -1;
+            }
+            else
+            {
+                dir = 1;
+            }
+
+            heading /= 180d;
+
+            double turnpow = heading * speedFactor + minSpeed * dir;
+
+            driveTrain.turn(turnpow);
+        }
+
+        driveTrain.stopMotors();
     }
 }
 

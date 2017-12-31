@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 11/10/2017.
  */
 
-public class Grabber2 implements Grabber {
+public class GrabberJack  {
 
     HardwareMap hardwareMap;
     Telemetry telemetry;
@@ -32,7 +32,7 @@ public class Grabber2 implements Grabber {
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
-    public Grabber2(HardwareMap hardwareMap, Telemetry telemetry) {
+    public GrabberJack(HardwareMap hardwareMap, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -46,12 +46,12 @@ public class Grabber2 implements Grabber {
 
     }
 
-    @Override
+    
     public void init() {
 
     }
 
-    @Override
+    
     public void open1() {
         positionOne += INCREMENT;
         if (positionOne >= MAXLeft) {
@@ -60,8 +60,14 @@ public class Grabber2 implements Grabber {
         claw1.setPosition(positionOne);
 
     }
+    public void wide1(){
+        claw1.setPosition(0);
+    }
+    public void wide2(){
+        claw2.setPosition(0);
+    }
 
-    @Override
+    
     public void open2() {
         positionTwo += INCREMENT;
         if (positionTwo >= MAXRight) {
@@ -71,7 +77,7 @@ public class Grabber2 implements Grabber {
 
     }
 
-    @Override
+    
     public void close1() {
         positionOne -= INCREMENT;
         if (positionOne <= MINLeft) {
@@ -80,7 +86,7 @@ public class Grabber2 implements Grabber {
         claw1.setPosition(positionOne);
      }
 
-    @Override
+    
     public void close2() {
         positionTwo -= INCREMENT;
         if (positionTwo <= MINRight) {
@@ -89,23 +95,43 @@ public class Grabber2 implements Grabber {
         claw2.setPosition(positionTwo);
     }
 
+    
+    public void openinst1() {
+        claw1.setPosition(MAXLeft);
+    }
 
-    @Override
+    
+    public void openinst2() {
+claw2.setPosition(MAXRight);
+    }
+
+    
+    public void closeinst1() {
+claw1.setPosition(MINLeft);
+    }
+
+    
+    public void closeinst2() {
+claw2.setPosition(MINRight);
+    }
+
+
+    
     public void rotate(double degrees) {
 
     }
 
-    @Override
+    
     public boolean isHolding() {
         return false;
     }
 
-    @Override
+    
     public void rotateOne(double power) {
         rotateOne.setPower(power*.75);
     }
 
-    @Override
+    
     public void rotateTwo(double power) {
         rotateTwo.setPower(power*.75);
     }
