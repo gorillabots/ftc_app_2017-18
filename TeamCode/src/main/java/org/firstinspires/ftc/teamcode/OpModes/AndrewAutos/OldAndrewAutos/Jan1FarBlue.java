@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
+package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos.OldAndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -14,8 +15,9 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
+@Disabled
 @Autonomous(name = "farBlueAndy", group = "AndrewBot")
-public class FarBlueAndyWorking extends LinearOpMode {
+public class Jan1FarBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
@@ -66,7 +68,7 @@ public class FarBlueAndyWorking extends LinearOpMode {
         //-------------------------------------------jewel↓↓↓↓
         jewel.toogleSwing(true);
         jewel.lowerArm();
-        sleep(200);
+        sleep(500);
         jewel.color.enableLed(true);
 
         telemetry.addData("blue left", jewel.isBlueLeft());
@@ -109,7 +111,7 @@ public class FarBlueAndyWorking extends LinearOpMode {
         m4.setPower(.2);
         sleep(1000);
         stopMotors();
-        sleep (400);
+        sleep (500);
         //↑ align via platform ↑----
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
         sleep(500);
@@ -123,7 +125,7 @@ public class FarBlueAndyWorking extends LinearOpMode {
         m4.setPower(.3);
         sleep(2000);
         stopMotors();
-        sleep(400);
+        sleep(500);
 
         //------↓ align to the correct column ↓---
         if (goodCol == 3) {
@@ -131,19 +133,19 @@ public class FarBlueAndyWorking extends LinearOpMode {
             telemetry.update();
             drive.encoderMoveMRGyro2(90, 1.25, .6, 0.5);
             drive.turn(90, 2, .5, .1);
-            sleep(540);
+            sleep(500);
         } else if (goodCol == 1) {
             telemetry.addData("Going for", "L");
             telemetry.update();
             drive.encoderMoveMRGyro2(90, .75, .6, 0.5);
             drive.turn(90, 2, .5, .1);
-            sleep(400);
+            sleep(500);
         } else {
             telemetry.addData("Going for", "C");
             telemetry.update();
             drive.encoderMoveMRGyro2(90, 1, .6, 0.5);
             drive.turn(90, 2, .5, .1);
-            sleep(400);
+            sleep(500);
         }
         //------↑ align to the correct column ↑---
 
@@ -151,7 +153,7 @@ public class FarBlueAndyWorking extends LinearOpMode {
         telemetry.addData("Step", "A");
         telemetry.update();
         drive.encoderMoveMRGyro2(90, .2, .3, 0.5);
-        sleep(400);
+        sleep(500);
 
         grabber.openinst1();
         grabber.openinst2();
@@ -162,22 +164,9 @@ public class FarBlueAndyWorking extends LinearOpMode {
         m4.setPower(-.2);
         sleep(1000);
         stopMotors();
-        sleep(400);
+        sleep(500);
         drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
-        sleep(400);
-        drive.turn(180,1,.2,.3);
-        sleep (400);
-        drive.driveTrain.stopMotors();
-
-        drive.driveTrain.m1.setPower(.3);
-        drive.driveTrain.m2.setPower(-.3);
-        drive.driveTrain.m3.setPower(-.3);
-        drive.driveTrain.m4.setPower(.3);
-        sleep (2000);
-        drive.driveTrain.stopMotors();
-
-        drive.encoderMoveMRGyro2(90,.2,.3,.5);
-
+        sleep(500);
 
         /*telemetry.addData("Step", "C");      //unnecessary
         telemetry.update();

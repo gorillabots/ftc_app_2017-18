@@ -9,7 +9,7 @@ public class Constants {
     public final static double GO_BACKWARD_AFTER_TOUCH_WALL = 0.1;
 
     public final static double leftOpen = 0;
-    public final static double leftClose = .5;
+    public final static double leftClose = .7;
 
     public final static double rightOpen = .5;
     public final static double rightClose = 0;

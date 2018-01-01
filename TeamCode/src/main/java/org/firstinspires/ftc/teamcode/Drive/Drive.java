@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
@@ -35,7 +36,7 @@ public class Drive {
 
     ModernRoboticsI2cRangeSensor rangeSensor;
 
-
+   ElapsedTime timer;
     public Drive(HardwareMap hMap, Telemetry telemetryy) {
 
         hardwareMap = hMap;
@@ -43,6 +44,9 @@ public class Drive {
 
         telemetry.addData("made","the first part");
         telemetry.update();
+
+        timer= new ElapsedTime();
+        timer.startTime();
         init(0);
     }
 
@@ -94,22 +98,34 @@ public class Drive {
 
     public void encoderMoveMRGyro2(double angle, double distance, double power, double turnFactor) //Move forwards by distance
     {
-
-        while (driveTrain.distanceCheck(distance)) {
-
+        timer.reset();
+        while (driveTrain.distanceCheck(distance)&& timer.seconds()<5) {
             driveTrain.drivePolar2(power, angle, turnFactor);
             telemetry.addData("Status", "Encoder movement");
             telemetry.addData("first run status",driveTrain.firstRun);
             telemetry.addData("measured length", driveTrain.length);
             telemetry.addData("final", driveTrain.toEncoder(distance));
             telemetry.update();
-
         }
-
         driveTrain.stopMotors();
-
     }
 
+    public double encoderMoveMRGyro3(double angle, double distance, double power, double turnFactor) //Move forwards by distance
+    {   double finishTime=-1;
+        timer.reset();
+        while (driveTrain.distanceCheck(distance)&& timer.seconds()<5) {
+            driveTrain.drivePolar2(power, angle, turnFactor);
+            telemetry.addData("Status", "Encoder movement");
+            telemetry.addData("first run status",driveTrain.firstRun);
+            telemetry.addData("measured length", driveTrain.length);
+            telemetry.addData("final", driveTrain.toEncoder(distance));
+            finishTime=timer.milliseconds();
+            telemetry.addData("finish time", finishTime);
+            telemetry.update();
+        }
+        driveTrain.stopMotors();
+        return finishTime;
+    }
     public void colorMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
     {
 

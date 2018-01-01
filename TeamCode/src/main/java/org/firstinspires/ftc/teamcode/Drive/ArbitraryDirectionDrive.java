@@ -127,6 +127,48 @@ public class ArbitraryDirectionDrive {
 
 
         if (!firstRun) {
+            m1Start = (m1.getCurrentPosition());
+            m2Start = (m2.getCurrentPosition());
+            m3Start = (m3.getCurrentPosition());
+            m4Start = (m4.getCurrentPosition());
+            firstRun = true;
+        }
+
+        int m1Current = (m1.getCurrentPosition());
+        int m2Current = (m2.getCurrentPosition());
+        int m3Current = (m3.getCurrentPosition());
+        int m4Current = (m4.getCurrentPosition());
+
+
+        int m1Calc = m1Current - m1Start;
+        int m2Calc = m2Current - m2Start;
+        int m3Calc = m3Current - m3Start;
+        int m4Calc = m4Current - m4Start;
+
+
+        int average1 = (m1Calc + m3Calc)/2;
+        int average2 = (m2Calc + m4Calc)/2;
+
+        length = Math.sqrt(average1 * average1+ average2* average2);
+        //telemetryy.addData("mag", magnitude);
+        //telemetryy.addData("meas", length);
+        //telemetryy.update();
+        double encMag = toEncoder(magnitude);
+        if (length >= encMag) {
+            firstRun = false;
+            return false;
+        } else {
+            firstRun = true;
+            return true;
+        }
+
+
+    }
+
+    public boolean distanceCheckOld(double magnitude){
+
+
+        if (!firstRun) {
             m1Start = Math.abs(m1.getCurrentPosition());
             m2Start = Math.abs(m2.getCurrentPosition());
             m3Start = Math.abs(m3.getCurrentPosition());

@@ -109,11 +109,11 @@ public class TeleOpSecondBot extends LinearOpMode{
 
 
             if(gamepad2.dpad_up){
-                armExtender.extend(1);
-            }
-            else if(gamepad2.dpad_down){
                 armExtender.extend(-1);
             }
+            else if(gamepad2.dpad_down){
+            armExtender.extend(1);
+        }
             else{
                 armExtender.stop();
             }
