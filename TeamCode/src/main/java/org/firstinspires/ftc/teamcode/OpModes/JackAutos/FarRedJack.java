@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.JackAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -10,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Components.JewelsJack;
 /**
  * Created by mikko on 12/1/17.
  */
-
+@Disabled
 @Autonomous(name="FarRedJack", group="JackBot")
 public class FarRedJack extends LinearOpMode
 {
