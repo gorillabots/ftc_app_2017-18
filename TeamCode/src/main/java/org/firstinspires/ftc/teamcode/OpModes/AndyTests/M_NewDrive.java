@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.AndyTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by xiax on 12/29/2017.
  */
-
+@Disabled
 @Autonomous(name = "Mike", group = "AAA")
 public class M_NewDrive extends LinearOpMode {
     final double ARM_RAISED = .22;

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.AndyTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by xiax on 12/29/2017.
  */
-
+@Disabled
 @Autonomous(name = "EchoONE", group = "AAA")
 public class E1 extends LinearOpMode {
     final double ARM_RAISED = .22;
