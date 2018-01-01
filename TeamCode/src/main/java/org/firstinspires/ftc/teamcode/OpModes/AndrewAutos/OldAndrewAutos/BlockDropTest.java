@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
+package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos.OldAndrewAutos;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Drive.Drive;
 /**
  * Created by Owner on 12/15/2017.
  */
+@Disabled
 @Autonomous(name="BlockDropTest")
 public class BlockDropTest extends LinearOpMode {
     final double ARM_RAISED = .22;
