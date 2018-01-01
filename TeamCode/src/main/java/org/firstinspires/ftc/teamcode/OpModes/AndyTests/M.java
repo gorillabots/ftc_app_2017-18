@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  */
 @Disabled
 @Autonomous(name = "Mike", group = "AAA")
-public class M_NewDrive extends LinearOpMode {
+public class M extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 

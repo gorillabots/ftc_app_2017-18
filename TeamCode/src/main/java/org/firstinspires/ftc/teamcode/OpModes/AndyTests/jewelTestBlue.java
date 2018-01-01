@@ -12,16 +12,18 @@ import org.firstinspires.ftc.teamcode.Drive.Drive;
 import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 /**
- * Created by xiax on 12/29/2017.
+ * Created by Andy on 12/15/2017.
  */
-
-@Autonomous(name = "--FoxtrotOne--", group = "AAA")
-public class F1 extends LinearOpMode {
+@Autonomous(name = "KnockTheJewelsOffOnBlueSide", group = "AAA")
+public class jewelTestBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
     Drive drive;
-
+    DcMotor m1;
+    DcMotor m2;
+    DcMotor m3;
+    DcMotor m4;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberJack grabber;
@@ -32,14 +34,12 @@ public class F1 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
         jewel.toogleSwing(false);
-
         grabber = new GrabberJack(this.hardwareMap, this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
@@ -49,11 +49,27 @@ public class F1 extends LinearOpMode {
 
         waitForStart();
 
-        runtime.reset();
-        while(runtime.seconds()<0.00008){
-            grabber.rotateTwo(-0.2);
-        }
-        sleep (3000);
-        grabber.rotateTwo(0);
+        jewel.toogleSwing(true);
+        jewel.lowerArm();
+        sleep(500);
+        jewel.color.enableLed(true);
+
+        telemetry.addData("blue 1", jewel.first_color_sensor_the_ball_is_seen_as_blue());
+        telemetry.addData("red 1", jewel.first_color_sensor_the_ball_is_seen_as_red());
+        telemetry.addData("blue 2", jewel.second_color_sensor_the_ball_is_seen_as_blue());
+        telemetry.addData("red 2", jewel.second_color_sensor_the_ball_is_seen_as_red());
+        telemetry.update();
+        sleep(500);
+        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR blue ACTUALLY
+                jewel.first_color_sensor_the_ball_is_seen_as_red(),
+                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.second_color_sensor_the_ball_is_seen_as_red(),
+                jewel.second_color_sensor_the_ball_is_seen_as_blue()
+        )
+        ;
+        sleep(500);
+        jewel.reset();
+        jewel.toogleSwing(false);
+        sleep(500);
     }
 }

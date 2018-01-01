@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
-@Autonomous(name = "RomeoBlue", group = "AAA")
-public class R2 extends LinearOpMode {
+@Autonomous(name = "KnockTheJewelOffOnRedSide", group = "AAA")
+public class jewelTestRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
@@ -60,11 +60,11 @@ public class R2 extends LinearOpMode {
         telemetry.addData("red 2", jewel.second_color_sensor_the_ball_is_seen_as_red());
         telemetry.update();
         sleep(500);
-        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR blue ACTUALLY
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
+        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
                 jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue()
+                jewel.first_color_sensor_the_ball_is_seen_as_red(),
+                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.second_color_sensor_the_ball_is_seen_as_red()
         )
         ;
         sleep(500);
