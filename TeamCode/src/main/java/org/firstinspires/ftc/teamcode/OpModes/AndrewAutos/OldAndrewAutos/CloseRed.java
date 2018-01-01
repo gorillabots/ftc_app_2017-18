@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
+package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos.OldAndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -13,8 +13,8 @@ import org.opencv.core.Range;
 /**
  * Created by Jarred on 12/15/2017.
  */
-@Autonomous(name="CloseBlue", group="AndrewBot")
-public class CloseBlue extends LinearOpMode {
+@Autonomous(name="CloseRed", group="AndrewBot")
+public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
@@ -59,10 +59,10 @@ public class CloseBlue extends LinearOpMode {
         telemetry.addData("red left", jewel.isRedLeft());
         telemetry.addData("blue right", jewel.isBlueRight());
         telemetry.addData("red right", jewel.isRedRight());
-        telemetry.addData("col", goodCol);
-        telemetry.update();
-        sleep(500);
-        jewel.hitBalls(jewel.isRedRight(),jewel.isBlueLeft());
+        telemetry.addData("col", goodCol);telemetry.update();
+        sleep
+        (500);
+        jewel.hitBalls(jewel.isBlueLeft(),jewel.isRedRight());
 
         //drive.encoderMoveMRGyro(180, .3, 1);
 
@@ -76,19 +76,16 @@ public class CloseBlue extends LinearOpMode {
         telemetry.addData("zone mabob", goodCol);
         telemetry.update();
 
-        drive.encoderMoveMRGyro2(90, .6, .3, .5);
-        drive.turn(90, 2, 1, .1);
+        drive.encoderMoveMRGyro2(270, .6, .3, .5);
+        drive.turn(270, 2, 1, .1);
 
-        drive.resetGyro();
         //drive.encoderMoveMRGyro2(180, .5, .8, .5);
 
 
 
         rangeCrypto.approach(40,.35);
         rangeCrypto.updateOffset(); //Scan wall for reference distance
-        rangeCrypto.go(goodCol);
-        /*
-        //Count off 3 things while moving - 2-Left, 3-Center, 4-Right
+        rangeCrypto.go(goodCol); //Count off 3 things while moving - 2-Left, 3-Center, 4-Right
         drive.encoderMoveMRGyro2(180,.007,.3,.5);
 
         //drive.encoderMoveMRGyro2(180, .16, .5, .5);
@@ -102,6 +99,5 @@ public class CloseBlue extends LinearOpMode {
         grabber.wide2();
         drive.encoderMoveMRGyro(90,.5,.5);
         drive.encoderMoveMRGyro(270,.75,.5);
-        */
     }
 }
