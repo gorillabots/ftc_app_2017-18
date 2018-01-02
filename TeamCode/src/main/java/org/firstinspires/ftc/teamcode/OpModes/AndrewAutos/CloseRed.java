@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
-@Disabled
+
 @Autonomous(name = "closeRedAndy", group = "AndrewBot")
 public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
@@ -104,11 +104,11 @@ public class CloseRed extends LinearOpMode {
 
         //↓ needs testing if we want to score glyph
 
-       /*
-        drive.driveTrain.m1.setPower(-.3);
-        drive.driveTrain.m2.setPower(.3);
-        drive.driveTrain.m3.setPower(.3);
-        drive.driveTrain.m4.setPower(-.3);
+
+        drive.driveTrain.m1.setPower(-.2);
+        drive.driveTrain.m2.setPower(.2);
+        drive.driveTrain.m3.setPower(.2);
+        drive.driveTrain.m4.setPower(-.2);
         sleep (1300);
 
         drive.driveTrain.stopMotors();
@@ -116,18 +116,19 @@ public class CloseRed extends LinearOpMode {
 
         if (goodCol == 1)
         {
-            drive.encoderMoveMRGyro2(270, 1.05, .3, .5);
+            drive.encoderMoveMRGyro2(270, .65, .3, .5);
         }
         else if (goodCol == 3)
         {
-            drive.encoderMoveMRGyro2(270,.55, .3, .5);
+            drive.encoderMoveMRGyro2(270,.05, .3, .5);
         }
         else
         {
-            drive.encoderMoveMRGyro2(270, .8, .3, .5);
+            drive.encoderMoveMRGyro2(270, .4, .3, .5);
         }
 
-        drive.turn(90,1,.4,.2);
+        sleep (500);
+        drive.turn(90,2,.5,.1);
 
         drive.encoderMoveMRGyro2(90,.3, .3, .5);
 
@@ -136,17 +137,18 @@ public class CloseRed extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(270 , .4, .3, .5);
 
-        drive.turn(180,1,.3,.2);
+        drive.turn(180,2,.3,.2);
         sleep (500);
         stopMotors();
         m1.setPower(.3);
         m2.setPower(-.3);
         m3.setPower(-.3);
         m4.setPower(.3);
-        sleep(1000);
+        sleep(1500);
         stopMotors();
+        sleep (500);
 
-        drive.encoderMoveMRGyro2(90,1,.3,.2);*/
+        drive.encoderMoveMRGyro2(90,.25,.3,.2);
 
     }
     public void stopMotors() {
