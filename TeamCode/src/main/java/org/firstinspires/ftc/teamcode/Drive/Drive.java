@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode.Drive;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -37,7 +38,7 @@ public class Drive {
     ModernRoboticsI2cRangeSensor rangeSensor;
 
    ElapsedTime timer;
-    public Drive(HardwareMap hMap, Telemetry telemetryy) {
+    public Drive(HardwareMap hMap, Telemetry telemetryy, LinearOpMode omode) {
 
         hardwareMap = hMap;
         telemetry= telemetryy;
@@ -48,6 +49,8 @@ public class Drive {
         timer= new ElapsedTime();
         timer.startTime();
         init(0);
+
+        linOp = omode;
     }
 
     public double getMag(double x, double y) {
@@ -223,6 +226,18 @@ public class Drive {
         }
 
         driveTrain.stopMotors();
+    }
+
+    public void zeroWall(double speed, long time){
+        driveTrain.m1.setPower(speed);
+        driveTrain.m2.setPower(-speed);
+        driveTrain.m3.setPower(-speed);
+        driveTrain.m4.setPower(speed);
+        linOp.sleep(time);
+        driveTrain.stopMotors();
+        resetGyro();
+
+
     }
 }
 

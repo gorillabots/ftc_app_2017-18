@@ -62,7 +62,12 @@ public class CloseRed extends LinearOpMode {
         telemetry.addData("col", goodCol);telemetry.update();
         sleep
         (500);
-        jewel.hitBalls(jewel.isBlueLeft(),jewel.isRedRight());
+        jewel.hitBalls(
+                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.first_color_sensor_the_ball_is_seen_as_red(),
+                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.second_color_sensor_the_ball_is_seen_as_red()
+        );
 
         //drive.encoderMoveMRGyro(180, .3, 1);
 

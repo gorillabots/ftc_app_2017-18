@@ -32,7 +32,7 @@ public class FarRed extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this.hardwareMap, this.telemetry, this);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
@@ -71,13 +71,13 @@ public class FarRed extends LinearOpMode {
         telemetry.update();
         //jewel.hitBalls(jewel.isRedLeft(), jewel.isBlueRight());
         //jewel.AHEhitBallsVariablesForBlue(jewel.first_color_sensor_the_ball_is_seen_as_red(),jewel.first_color_sensor_the_ball_is_seen_as_blue(),jewel.second_color_sensor_the_ball_is_seen_as_red(),jewel.second_color_sensor_the_ball_is_seen_as_blue());
-        jewel.AHEhitBallsVariablesForBlueVersionTwo(
+        jewel.hitBalls(
                 jewel.first_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.first_color_sensor_the_ball_is_seen_as_red(),
                 jewel.second_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.second_color_sensor_the_ball_is_seen_as_red()
-        )
-        ;
+        );
+
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();

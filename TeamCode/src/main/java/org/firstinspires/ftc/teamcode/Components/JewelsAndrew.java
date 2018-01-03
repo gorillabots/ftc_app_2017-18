@@ -94,7 +94,7 @@ public class JewelsAndrew {
         }
     }
 
-    public void hitBalls(boolean color, boolean opposColor) {
+    public void hitBallsTwoColor(boolean color, boolean opposColor) {
         if (color || opposColor) {
             swing.setPosition(.59);
             try {
@@ -115,7 +115,7 @@ public class JewelsAndrew {
         }
     }
 
-    public void AHEhitBallsVariablesForBlue(boolean leftSensorblue, boolean leftSensorred, boolean rightSensorblue, boolean rightSensorred) {
+    public void hitBalls(boolean leftSensorblue, boolean leftSensorred, boolean rightSensorblue, boolean rightSensorred) {
         if (leftSensorblue && leftSensorred && rightSensorblue && rightSensorred) {
             swingLeft();
             swingRight();
@@ -166,7 +166,7 @@ public class JewelsAndrew {
         }
     }
 
-    public void AHEhitBallsVariablesForBlueVersionTwo(boolean leftSensorblue, boolean leftSensorred, boolean rightSensorblue, boolean rightSensorred) {
+    public void AHEhitBallsBlue(boolean leftSensorblue, boolean leftSensorred, boolean rightSensorblue, boolean rightSensorred) {
         if (leftSensorblue && leftSensorred && rightSensorblue && rightSensorred) {          // color sensors all fail
             swingLeft();
             try {

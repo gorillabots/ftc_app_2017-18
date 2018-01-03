@@ -60,13 +60,12 @@ public class jewelTestRed extends LinearOpMode {
         telemetry.addData("red 2", jewel.second_color_sensor_the_ball_is_seen_as_red());
         telemetry.update();
         sleep(500);
-        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
+        jewel.hitBalls(
                 jewel.first_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.first_color_sensor_the_ball_is_seen_as_red(),
                 jewel.second_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.second_color_sensor_the_ball_is_seen_as_red()
-        )
-        ;
+        );
         sleep(500);
         jewel.reset();
         jewel.toogleSwing(false);

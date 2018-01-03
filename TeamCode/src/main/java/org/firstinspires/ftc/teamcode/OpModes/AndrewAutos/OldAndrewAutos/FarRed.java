@@ -24,7 +24,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     @Override
     public void runOpMode()
     {
-        drive = new Drive(this.hardwareMap,this.telemetry);
+        drive = new Drive(this.hardwareMap,this.telemetry,this);
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
 
         telemetry.addData("Status", "Initialized");
@@ -45,9 +45,12 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         }
 
 
-
-        jewel.hitBalls(jewel.isBlueRight(),jewel.isRedLeft());
-
+        jewel.hitBalls(
+                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.first_color_sensor_the_ball_is_seen_as_red(),
+                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.second_color_sensor_the_ball_is_seen_as_red()
+        );
 
         sleep(500);
         telemetry.addData("status", "dunzo");
@@ -58,9 +61,6 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
             drive.encoderMoveMRGyro(180,2,.5);
             drive.encoderMoveMRGyro(90,4.166,.8);
         }
-
-
-
 
     }
 }
