@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
-
+@Disabled
 @Autonomous(name = "Tango0.75", group = "AAA")
 public class T2 extends LinearOpMode {
     final double ARM_RAISED = .22;

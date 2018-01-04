@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Jarred on 10/29/2017.
  */
-
+@Disabled
 @Autonomous(name="FarBlue", group="AndrewBot")
 public class FarBlue extends LinearOpMode
 {

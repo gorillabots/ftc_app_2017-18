@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos.OldAndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Components.GrabberJack;
@@ -13,6 +14,7 @@ import org.opencv.core.Range;
 /**
  * Created by Jarred on 12/15/2017.
  */
+@Disabled
 @Autonomous(name="CloseRed", group="AndrewBot")
 public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
