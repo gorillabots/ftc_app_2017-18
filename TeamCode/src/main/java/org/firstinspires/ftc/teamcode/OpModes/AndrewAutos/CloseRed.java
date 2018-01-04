@@ -21,6 +21,10 @@ public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
+    final double leftColumnDistance = .5;
+    final double centerColumnDistance = .25;
+    final double rightColumnDistance = 0;
+
     Drive drive;
     DcMotor m1;DcMotor m2;DcMotor m3;DcMotor m4;
     JewelsAndrew jewel;

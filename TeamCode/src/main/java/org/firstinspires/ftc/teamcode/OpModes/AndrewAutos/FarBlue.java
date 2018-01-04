@@ -19,6 +19,12 @@ public class FarBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
+
+    final double leftColumnDistance = .6; //.75
+    final double centerColumnDistance = .752; //1
+    final double rightColumnDistance = .9; //1.25
+    //1 inch should be .01875
+    //eq for determining distance is y = 0.02x - 0.05833333333
     Drive drive;
     DcMotor m1;
     DcMotor m2;
@@ -61,7 +67,7 @@ public class FarBlue extends LinearOpMode {
         int goodCol = vuMark.getVuMark();
         runtime.reset();
         while (runtime.seconds() < 0.00001) {
-            grabber.rotateTwo(0.2);
+            grabber.rotateTwo(0.35);
         }
         //-------------------------------------------jewel↓↓↓↓
         jewel.toogleSwing(true);
@@ -85,23 +91,21 @@ public class FarBlue extends LinearOpMode {
                 jewel.second_color_sensor_the_ball_is_seen_as_blue()
         )
         ;
-        sleep(500);
+        sleep(400);
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();
         jewel.toogleSwing(false);
-        sleep(2000);
         grabber.rotateTwo(0);
         runtime.reset();
-
 
         telemetry.addData("zone mabob", goodCol);
         telemetry.update();
         //---------------------------------jewel↑↑↑
         //------↓ post platform aligning ↓---------------
-        drive.encoderMoveMRGyro2(90, .8, .3, 0.5);
+        drive.encoderMoveMRGyro2(90, .7, .5, 0.5);
         //↑ go forward
-       // drive.encoderMoveMRGyro2(270, .20, .3, 0.5);
+        // drive.encoderMoveMRGyro2(270, .20, .3, 0.5);
 
         m1.setPower(.2);
         m2.setPower(-.2);
@@ -109,10 +113,10 @@ public class FarBlue extends LinearOpMode {
         m4.setPower(.2);
         sleep(1000);
         stopMotors();
-        sleep (400);
+        sleep(400);
         //↑ align via platform ↑----
-        drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
-        sleep(500);
+        drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
+        sleep(300);
         //↑ slightly fowrward
         //------↑ post platform aligning ↑-------
         drive.turn(-90, 2, 1, .1);
@@ -121,28 +125,28 @@ public class FarBlue extends LinearOpMode {
         m2.setPower(-.3);
         m3.setPower(-.3);
         m4.setPower(.3);
-        sleep(2000);
+        sleep(1500);
         stopMotors();
-        sleep(400);
+        sleep(300);
 
         //------↓ align to the correct column ↓---
         if (goodCol == 3) {
             telemetry.addData("Going for", "R");
             telemetry.update();
-            drive.encoderMoveMRGyro2(90, 1.25, .6, 0.5);
-            drive.turn(90, 2, .5, .1);
-            sleep(540);
+            drive.encoderMoveMRGyro2(90, rightColumnDistance, .4, 0.5);
+            drive.turn(90, 1, 1, .1);
+            sleep(400);
         } else if (goodCol == 1) {
             telemetry.addData("Going for", "L");
             telemetry.update();
-            drive.encoderMoveMRGyro2(90, .75, .6, 0.5);
-            drive.turn(90, 2, .5, .1);
+            drive.encoderMoveMRGyro2(90, leftColumnDistance, .4, 0.5);
+            drive.turn(90, 1, 1, .1);
             sleep(400);
         } else {
             telemetry.addData("Going for", "C");
             telemetry.update();
-            drive.encoderMoveMRGyro2(90, 1, .6, 0.5);
-            drive.turn(90, 2, .5, .1);
+            drive.encoderMoveMRGyro2(90, centerColumnDistance, .4, 0.5);
+            drive.turn(90, 1, 1, .1);
             sleep(400);
         }
         //------↑ align to the correct column ↑---
@@ -150,8 +154,7 @@ public class FarBlue extends LinearOpMode {
         //------↓ dropping and pushing in glyph ↓---
         telemetry.addData("Step", "A");
         telemetry.update();
-        drive.encoderMoveMRGyro2(90, .2, .3, 0.5);
-        sleep(400);
+        drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
 
         grabber.openinst1();
         grabber.openinst2();
@@ -162,33 +165,29 @@ public class FarBlue extends LinearOpMode {
         m4.setPower(-.2);
         sleep(1000);
         stopMotors();
-        sleep(400);
-        drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
-        sleep(400);
-        drive.turn(180,1,.2,.3);
-        sleep (400);
-        drive.driveTrain.stopMotors();
+        sleep(500);
+        drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
+        sleep(200);
+        drive.turn(180, 2, 1, .1);
+        sleep(200);
 
+        drive.driveTrain.stopMotors();
         drive.driveTrain.m1.setPower(.3);
         drive.driveTrain.m2.setPower(-.3);
         drive.driveTrain.m3.setPower(-.3);
         drive.driveTrain.m4.setPower(.3);
-        sleep (2000);
+        sleep(2000);
         drive.driveTrain.stopMotors();
 
-        drive.encoderMoveMRGyro2(90,.2,.3,.5);
+        drive.encoderMoveMRGyro2(90, .2, .3, .5);
 
+        if (goodCol == 3) {
+            drive.encoderMoveMRGyro2(180, .3, .6, .5);
+        } else if (goodCol == 1) {
+            drive.encoderMoveMRGyro2(0, .2, .6, .5);
+        } else {
 
-        /*telemetry.addData("Step", "C");      //unnecessary
-        telemetry.update();
-        drive.turn(180, 2, .5 , .1);
-        sleep (500);
-
-        telemetry.addData("Step", "D");
-        telemetry.update();
-        drive.encoderMoveMRGyro2(270, 1.2, .5, 0.5);
-        sleep (500);
-        //------↑ dropping and pushing in glyph ↑---*/
+        }
     }
 
     public void stopMotors() {
