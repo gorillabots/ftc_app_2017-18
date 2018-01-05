@@ -99,7 +99,7 @@ public class FarRed extends LinearOpMode {
         drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
         //↑ slightly fowrward
         //------↑ post platform aligning ↑-------
-        drive.turn(-90,1,.4,.2);
+        drive.turn(-90,1,.4,.1);
 
         drive.driveTrain.m1.setPower(.3);
         drive.driveTrain.m2.setPower(-.3);
@@ -150,7 +150,7 @@ public class FarRed extends LinearOpMode {
         grabber.openinst2();
         drive.encoderMoveMRGyro2(270, .3,.3,.5);
         sleep (400);
-        drive.turn(180,1,.2,.3);
+        drive.turn(180,1,.3,.1);
         sleep (400);
         drive.driveTrain.stopMotors();
 

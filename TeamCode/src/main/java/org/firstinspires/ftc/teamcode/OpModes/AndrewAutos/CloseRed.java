@@ -115,15 +115,15 @@ public class CloseRed extends LinearOpMode {
 
         if (goodCol == 1)
         {
-            drive.encoderMoveMRGyro2(270, .65, .3, .5);
+            drive.encoderMoveMRGyro2(270, .6, .3, .5);
         }
         else if (goodCol == 3)
         {
-            drive.encoderMoveMRGyro2(270,.05, .3, .5);
+           // drive.encoderMoveMRGyro2(270,0, .3, .5); do nothing
         }
         else
         {
-            drive.encoderMoveMRGyro2(270, .4, .3, .5);
+            drive.encoderMoveMRGyro2(270, .27, .3, .5);
         }
 
         sleep (500);
@@ -147,7 +147,7 @@ public class CloseRed extends LinearOpMode {
         stopMotors();
         sleep (500);
 
-        drive.encoderMoveMRGyro2(90,.25,.3,.2);
+        drive.encoderMoveMRGyro2(90,.2,.3,.2);
 
     }
     public void stopMotors() {
