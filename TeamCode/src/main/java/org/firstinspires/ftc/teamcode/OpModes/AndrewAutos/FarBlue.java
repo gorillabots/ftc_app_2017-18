@@ -19,9 +19,11 @@ public class FarBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    final double leftColumnDistance = .55;
-    final double centerColumnDistance = .752;
-    final double rightColumnDistance = .9;
+    double centerColumnDistance = .754;
+    double distanceBetween = .151;
+
+    double rightColumnDistance = centerColumnDistance + distanceBetween;
+    double leftColumnDistance = centerColumnDistance - distanceBetween;
     //1 inch should be .01875
     //eq for determining distance is y = 0.02x - 0.05833333333
     Drive drive;
@@ -184,7 +186,7 @@ public class FarBlue extends LinearOpMode {
         if (goodCol == 3) {
             drive.encoderMoveMRGyro2(180, .3, .6, .5);
         } else if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(0, .2, .6, .5);
+            drive.encoderMoveMRGyro2(0, .15, .6, .5);
         } else {
 
         }

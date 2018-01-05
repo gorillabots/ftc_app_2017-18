@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
+package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos.OldAndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -14,16 +15,15 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
+@Disabled
 @Autonomous(name = "farRedAndy", group = "AndrewBot")
-public class FarRed extends LinearOpMode {
+public class Jan4FarRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .54;
-    double distanceBetween = .153;
-
-    double leftColumnDistance = centerColumnDistance + distanceBetween;
-    double rightColumnDistance = centerColumnDistance - distanceBetween;
+    final double leftColumnDistance = .66;
+    final double centerColumnDistance = .55;
+    final double rightColumnDistance = .4;
 
     Drive drive;
     DcMotor m1;
@@ -65,8 +65,10 @@ public class FarRed extends LinearOpMode {
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
-
-        grabber.rotateTwo(0.5);
+        runtime.reset();
+        while (runtime.seconds() < 0.00001) {
+            grabber.rotateTwo(0.5);
+        }
         //-------------------------------------------jewel↓↓↓↓
         jewel.toogleSwing(true);
         jewel.lowerArm();
@@ -92,7 +94,6 @@ public class FarRed extends LinearOpMode {
         telemetry.update();
         jewel.reset();
         jewel.toogleSwing(false);
-        sleep (500);
         grabber.rotateTwo(0);
         runtime.reset();
 
@@ -134,12 +135,16 @@ public class FarRed extends LinearOpMode {
             telemetry.addData("Going for", "R");
             //telemetry.update();
             //drive.encoderMoveMRGyro2(90, .5, .6, 0.5);
-            drive.encoderMoveMRGyro2(90, rightColumnDistance, .6, 0.5);
+            finishTime = drive.encoderMoveMRGyro3(90, rightColumnDistance, .6, 0.5);
+            telemetry.addData("Finish time", finishTime);
+            telemetry.update();
             drive.turn(-90, 1, 1, .1);
             sleep(400);
         } else if (goodCol == 1) {
             telemetry.addData("Going for", "L");
-            drive.encoderMoveMRGyro2(90, leftColumnDistance, .6, 0.5);
+            finishTime = drive.encoderMoveMRGyro3(90, leftColumnDistance, .6, 0.5);
+            telemetry.addData("Finish time", finishTime);
+            telemetry.update();
             drive.turn(-90, 1, 1, .1);
             sleep(400);
         } else {

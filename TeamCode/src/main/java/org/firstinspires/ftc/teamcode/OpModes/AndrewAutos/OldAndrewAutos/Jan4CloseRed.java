@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
+package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos.OldAndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -15,23 +15,18 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
-
+@Disabled
 @Autonomous(name = "closeRedAndy", group = "AndrewBot")
-public class CloseRed extends LinearOpMode {
+public class Jan4CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .2;
-    double distanceBetween = .153;
-
-    double leftColumnDistance = centerColumnDistance + distanceBetween;
-    double rightColumnDistance = centerColumnDistance - distanceBetween;
+    final double leftColumnDistance = .5;
+    final double centerColumnDistance = .25;
+    final double rightColumnDistance = 0;
 
     Drive drive;
-    DcMotor m1;
-    DcMotor m2;
-    DcMotor m3;
-    DcMotor m4;
+    DcMotor m1;DcMotor m2;DcMotor m3;DcMotor m4;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberJack grabber;
@@ -69,8 +64,8 @@ public class CloseRed extends LinearOpMode {
 
         int goodCol = vuMark.getVuMark();
         runtime.reset();
-        while (runtime.seconds() < 0.00001) {
-            grabber.rotateTwo(0.45);
+        while(runtime.seconds()<0.00001){
+            grabber.rotateTwo(0.2);
         }
         //-------------------------------------------jewel↓↓↓↓
         jewel.toogleSwing(true);
@@ -99,14 +94,16 @@ public class CloseRed extends LinearOpMode {
         telemetry.update();
         jewel.reset();
         jewel.toogleSwing(false);
+        sleep(2000);
         grabber.rotateTwo(0);
         runtime.reset();
+
 
         telemetry.addData("zone mabob", goodCol);
         telemetry.update();
         //---------------------------------jewel↑↑↑
 
-        drive.encoderMoveMRGyro2(270, .75, .3, 0.5);
+        drive.encoderMoveMRGyro2(270, 1, .3, 0.5);
 
 
         //↓ needs testing if we want to score glyph
@@ -116,31 +113,36 @@ public class CloseRed extends LinearOpMode {
         drive.driveTrain.m2.setPower(.2);
         drive.driveTrain.m3.setPower(.2);
         drive.driveTrain.m4.setPower(-.2);
-        sleep(1500);
+        sleep (1300);
 
         drive.driveTrain.stopMotors();
-        sleep(400);
+        sleep (500);
 
-        if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(270, leftColumnDistance, .3, .5);
-        } else if (goodCol == 3) {
-            // drive.encoderMoveMRGyro2(270, 0, .3, .5); do nothing
-        } else {
-            drive.encoderMoveMRGyro2(270, centerColumnDistance, .3, .5);
+        if (goodCol == 1)
+        {
+            drive.encoderMoveMRGyro2(270, .6, .3, .5);
+        }
+        else if (goodCol == 3)
+        {
+           // drive.encoderMoveMRGyro2(270,0, .3, .5); do nothing
+        }
+        else
+        {
+            drive.encoderMoveMRGyro2(270, .27, .3, .5);
         }
 
-        sleep(400);
-        drive.turn(90, 2, .5, .1);
+        sleep (500);
+        drive.turn(90,2,.5,.1);
 
-        drive.encoderMoveMRGyro2(90, .2, .3, .5);
+        drive.encoderMoveMRGyro2(90,.3, .3, .5);
 
         grabber.openinst1();
         grabber.openinst2();
 
-        drive.encoderMoveMRGyro2(270, .2, .3, .5);
+        drive.encoderMoveMRGyro2(270 , .4, .3, .5);
 
-        drive.turn(180, 1, 1, .1);
-        sleep(400);
+        drive.turn(180,2,.3,.2);
+        sleep (500);
         stopMotors();
         m1.setPower(.3);
         m2.setPower(-.3);
@@ -148,20 +150,11 @@ public class CloseRed extends LinearOpMode {
         m4.setPower(.3);
         sleep(1500);
         stopMotors();
-        sleep(500);
+        sleep (500);
 
-        drive.encoderMoveMRGyro2(90, .15, .3, .2);
-
-        if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(0, .15, .6, .5);
-        } else if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(180, .2, .6, .5);
-        } else {
-
-        }
+        drive.encoderMoveMRGyro2(90,.2,.3,.2);
 
     }
-
     public void stopMotors() {
         m1.setPower(0);
         m2.setPower(0);

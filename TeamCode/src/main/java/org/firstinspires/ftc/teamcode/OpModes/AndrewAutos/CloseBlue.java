@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -16,13 +15,13 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  * Created by Andy on 12/15/2017.
  */
 
-@Autonomous(name = "closeRedAndy", group = "AndrewBot")
-public class CloseRed extends LinearOpMode {
+@Autonomous(name = "closeBlueAndy", group = "AndrewBot")
+public class CloseBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .2;
-    double distanceBetween = .153;
+    double centerColumnDistance = .15;
+    double distanceBetween = .11;
 
     double leftColumnDistance = centerColumnDistance + distanceBetween;
     double rightColumnDistance = centerColumnDistance - distanceBetween;
@@ -70,7 +69,7 @@ public class CloseRed extends LinearOpMode {
         int goodCol = vuMark.getVuMark();
         runtime.reset();
         while (runtime.seconds() < 0.00001) {
-            grabber.rotateTwo(0.45);
+            grabber.rotateTwo(0.5);
         }
         //-------------------------------------------jewel↓↓↓↓
         jewel.toogleSwing(true);
@@ -88,10 +87,10 @@ public class CloseRed extends LinearOpMode {
         //jewel.hitBalls(jewel.isRedLeft(), jewel.isBlueRight());
         //jewel.AHEhitBallsVariablesForBlue(jewel.first_color_sensor_the_ball_is_seen_as_red(),jewel.first_color_sensor_the_ball_is_seen_as_blue(),jewel.second_color_sensor_the_ball_is_seen_as_red(),jewel.second_color_sensor_the_ball_is_seen_as_blue());
         jewel.AHEhitBallsVariablesForBlueVersionTwo(
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red()
+                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
+                jewel.second_color_sensor_the_ball_is_seen_as_red(),
+                jewel.second_color_sensor_the_ball_is_seen_as_blue()
         )
         ;
         sleep(500);
@@ -106,17 +105,18 @@ public class CloseRed extends LinearOpMode {
         telemetry.update();
         //---------------------------------jewel↑↑↑
 
-        drive.encoderMoveMRGyro2(270, .75, .3, 0.5);
+        drive.encoderMoveMRGyro2(90, .8, .3, 0.5);
+        drive.encoderMoveMRGyro2(0, 1, .5, .5);
 
 
         //↓ needs testing if we want to score glyph
 
 
-        drive.driveTrain.m1.setPower(-.2);
+        /*drive.driveTrain.m1.setPower(-.2);
         drive.driveTrain.m2.setPower(.2);
         drive.driveTrain.m3.setPower(.2);
         drive.driveTrain.m4.setPower(-.2);
-        sleep(1500);
+        sleep(1000);
 
         drive.driveTrain.stopMotors();
         sleep(400);
@@ -153,13 +153,13 @@ public class CloseRed extends LinearOpMode {
         drive.encoderMoveMRGyro2(90, .15, .3, .2);
 
         if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(0, .15, .6, .5);
+            drive.encoderMoveMRGyro2(0, .2, .6, .5);
         } else if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(180, .2, .6, .5);
+            drive.encoderMoveMRGyro2(180, .3, .6, .5);
         } else {
 
         }
-
+*/
     }
 
     public void stopMotors() {
