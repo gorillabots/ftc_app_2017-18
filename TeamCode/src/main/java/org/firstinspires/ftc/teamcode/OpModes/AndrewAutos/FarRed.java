@@ -19,9 +19,9 @@ public class FarRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    final double leftColumnDistance = .752;
-    final double centerColumnDistance = .6;
-    final double rightColumnDistance = .448;
+    final double leftColumnDistance = .66;
+    final double centerColumnDistance = .55;
+    final double rightColumnDistance = .4;
 
     Drive drive;
     DcMotor m1;
@@ -38,7 +38,13 @@ public class FarRed extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
+        grabber = new GrabberJack(this.hardwareMap, this.telemetry);
+        grabber.closeinst2();
+        grabber.closeinst1();
+        m1 = hardwareMap.dcMotor.get("m1");
+        m2 = hardwareMap.dcMotor.get("m2");
+        m3 = hardwareMap.dcMotor.get("m3");
+        m4 = hardwareMap.dcMotor.get("m4");
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -47,22 +53,19 @@ public class FarRed extends LinearOpMode {
         jewel.toogleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
-
-        grabber = new GrabberJack(this.hardwareMap, this.telemetry);
+        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
         grabber.closeinst2();
         grabber.closeinst1();
-
-        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
+        grabber.closeinst2();
+        grabber.closeinst1();
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
         runtime.reset();
         while (runtime.seconds() < 0.00001) {
-            grabber.rotateTwo(0.35);
+            grabber.rotateTwo(0.5);
         }
         //-------------------------------------------jewel↓↓↓↓
         jewel.toogleSwing(true);
@@ -159,9 +162,9 @@ public class FarRed extends LinearOpMode {
         sleep(300);
         grabber.openinst1();
         grabber.openinst2();
-        drive.encoderMoveMRGyro2(270, .2, .3, .5);
+        drive.encoderMoveMRGyro2(270, .15, .3, .5);
         sleep(300);
-        drive.turn(180, 1, .5, .1);
+        drive.turn(180, 1, 1, .1);
         sleep(300);
 
         drive.driveTrain.stopMotors();
@@ -172,12 +175,12 @@ public class FarRed extends LinearOpMode {
         sleep(2000);
         drive.driveTrain.stopMotors();
 
-        drive.encoderMoveMRGyro2(90, .2, .3, .5);
+        drive.encoderMoveMRGyro2(90, .15, .3, .5);
 
         if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(180, .2, .6, .5);
+            drive.encoderMoveMRGyro2(0, .2, .6, .5);
         } else if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(0, .3, .6, .5);
+            drive.encoderMoveMRGyro2(180, .3, .6, .5);
         } else {
 
         }

@@ -19,10 +19,9 @@ public class FarBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-
-    final double leftColumnDistance = .6; //.75
-    final double centerColumnDistance = .752; //1
-    final double rightColumnDistance = .9; //1.25
+    final double leftColumnDistance = .55;
+    final double centerColumnDistance = .752;
+    final double rightColumnDistance = .9;
     //1 inch should be .01875
     //eq for determining distance is y = 0.02x - 0.05833333333
     Drive drive;
@@ -40,7 +39,9 @@ public class FarBlue extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
+        grabber = new GrabberJack(this.hardwareMap, this.telemetry);
+        grabber.closeinst2();
+        grabber.closeinst1();
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -53,15 +54,13 @@ public class FarBlue extends LinearOpMode {
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
 
-        grabber = new GrabberJack(this.hardwareMap, this.telemetry);
+        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
         grabber.closeinst2();
         grabber.closeinst1();
-
-        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
+        grabber.closeinst2();
+        grabber.closeinst1();
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
@@ -168,7 +167,7 @@ public class FarBlue extends LinearOpMode {
         sleep(500);
         drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
         sleep(200);
-        drive.turn(180, 2, 1, .1);
+        drive.turn(180, 1, 1, .1);
         sleep(200);
 
         drive.driveTrain.stopMotors();
@@ -178,8 +177,9 @@ public class FarBlue extends LinearOpMode {
         drive.driveTrain.m4.setPower(.3);
         sleep(2000);
         drive.driveTrain.stopMotors();
+        sleep(300);
 
-        drive.encoderMoveMRGyro2(90, .2, .3, .5);
+        drive.encoderMoveMRGyro2(90, .15, .3, .5);
 
         if (goodCol == 3) {
             drive.encoderMoveMRGyro2(180, .3, .6, .5);
