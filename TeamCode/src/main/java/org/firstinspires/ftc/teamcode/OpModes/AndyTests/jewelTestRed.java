@@ -39,7 +39,7 @@ public class jewelTestRed extends LinearOpMode {
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         grabber = new GrabberJack(this.hardwareMap, this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
@@ -49,7 +49,7 @@ public class jewelTestRed extends LinearOpMode {
 
         waitForStart();
 
-        jewel.toogleSwing(true);
+        jewel.toggleSwing(true);
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
@@ -68,7 +68,7 @@ public class jewelTestRed extends LinearOpMode {
         );
         sleep(500);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         sleep(500);
     }
 }

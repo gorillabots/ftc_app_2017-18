@@ -55,7 +55,7 @@ public class JewelsAndrew {
 
     }
 
-    public void toogleSwing(boolean bool) {
+    public void toggleSwing(boolean bool) {
         if (bool) {
             swing.setPosition(.39);
         } else if (!bool) {
@@ -102,7 +102,7 @@ public class JewelsAndrew {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            toogleSwing(true);
+            toggleSwing(true);
         } else {
 
             swing.setPosition(.28);
@@ -111,7 +111,7 @@ public class JewelsAndrew {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            toogleSwing(true);
+            toggleSwing(true);
         }
     }
 
@@ -128,7 +128,7 @@ public class JewelsAndrew {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    toogleSwing(true);
+                    toggleSwing(true);
                 } else {
                     if (leftSensorred) {
                         if (rightSensorred) {
@@ -138,7 +138,7 @@ public class JewelsAndrew {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            toogleSwing(true);
+                            toggleSwing(true);
                         } else {
                             swingLeft();
                             try {
@@ -146,7 +146,7 @@ public class JewelsAndrew {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            toogleSwing(true);
+                            toggleSwing(true);
                         }
                     } else {
                     }
@@ -159,7 +159,7 @@ public class JewelsAndrew {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    toogleSwing(true);
+                    toggleSwing(true);
                 } else {
                 }
             }

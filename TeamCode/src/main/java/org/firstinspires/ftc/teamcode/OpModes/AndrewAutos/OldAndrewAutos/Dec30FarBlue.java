@@ -42,7 +42,7 @@ public class Dec30FarBlue extends LinearOpMode {
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
@@ -62,7 +62,7 @@ public class Dec30FarBlue extends LinearOpMode {
 
         int goodCol = vuMark.getVuMark();
         //-------------------------------------------jewel↓↓↓↓
-        jewel.toogleSwing(true);
+        jewel.toggleSwing(true);
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
@@ -87,7 +87,7 @@ public class Dec30FarBlue extends LinearOpMode {
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         sleep(500);
 
         telemetry.addData("zone mabob", goodCol);

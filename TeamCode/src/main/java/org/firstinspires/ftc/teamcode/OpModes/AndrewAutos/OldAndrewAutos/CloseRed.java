@@ -32,7 +32,7 @@ public class CloseRed extends LinearOpMode {
 
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
         grabber = new GrabberJack(this.hardwareMap,this.telemetry);
@@ -50,7 +50,7 @@ public class CloseRed extends LinearOpMode {
 
 
         //drive.encoderMoveMRGyro(270,.5,.5);
-        jewel.toogleSwing(true);
+        jewel.toggleSwing(true);
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
@@ -75,7 +75,7 @@ public class CloseRed extends LinearOpMode {
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         sleep(500);
 
         telemetry.addData("zone mabob", goodCol);

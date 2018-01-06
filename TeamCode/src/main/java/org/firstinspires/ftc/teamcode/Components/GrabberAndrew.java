@@ -106,8 +106,8 @@ public class GrabberAndrew  {
     
     public void rotateTwo(double murica){}
 
-    public void runBelts(double power, boolean toogle){
-        if(toogle){
+    public void runBelts(double power, boolean toggle){
+        if(toggle){
             belt.setPower(-power);
         }
         else{

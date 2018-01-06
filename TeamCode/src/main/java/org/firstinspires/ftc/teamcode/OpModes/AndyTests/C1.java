@@ -39,7 +39,7 @@ public class C1 extends LinearOpMode {
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
 
         grabber = new GrabberJack(this.hardwareMap, this.telemetry);
         grabber.closeinst2();

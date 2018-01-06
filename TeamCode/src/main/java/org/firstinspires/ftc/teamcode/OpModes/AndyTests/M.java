@@ -45,7 +45,7 @@ public class M extends LinearOpMode {
         m4 = hardwareMap.dcMotor.get("m4");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
 
         grabber = new GrabberJack(this.hardwareMap, this.telemetry);
         grabber.closeinst2();

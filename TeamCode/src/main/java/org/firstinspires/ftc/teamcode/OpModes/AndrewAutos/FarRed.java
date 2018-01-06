@@ -37,7 +37,7 @@ public class FarRed extends LinearOpMode {
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
 
@@ -58,7 +58,7 @@ public class FarRed extends LinearOpMode {
             grabber.rotateTwo(0.2);
         }
         //-------------------------------------------jewel↓↓↓↓
-        jewel.toogleSwing(true);
+        jewel.toggleSwing(true);
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
@@ -81,7 +81,7 @@ public class FarRed extends LinearOpMode {
         telemetry.addData("status", "dunzo");
         telemetry.update();
         jewel.reset();
-        jewel.toogleSwing(false);
+        jewel.toggleSwing(false);
         sleep(2300);
         grabber.rotateTwo(0);
         runtime.reset();
