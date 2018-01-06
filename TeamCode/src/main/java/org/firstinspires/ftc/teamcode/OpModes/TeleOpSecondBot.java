@@ -1,41 +1,34 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
-import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
+import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
+import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 
-/**
- * Created by Owner on 10/6/2017.
- */
+//Created by Jarred on 2017-10-06
 
 @TeleOp(name="driveSecond", group="Backup")
 public class TeleOpSecondBot extends LinearOpMode{
 
-    ArbitraryDirectionDrive driveTrain;
-    ExtenderAndrew armExtender;
-    GrabberJack grabber;
-    private LinearOpMode opMode;
-    JewelsAndrew  jewels;
+    private ArbitraryDirectionDrive driveTrain;
+    private ExtenderAndrew armExtender;
+    private GrabberJack grabber;
+    private JewelsAndrew jewels;
 
     DcMotor extend;
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
     double oneOpen = Constants.leftOpen;
-    double oneClose = Constants.leftClose;
     double twoOpen = Constants.rightOpen;
-    double twoClose = Constants.rightClose;
 
     Servo clawOne;
     Servo clawTwo;
@@ -44,8 +37,8 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     Servo arm;
 
-    public void init_() {
-
+    public void init_()
+    {
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         armExtender = new ExtenderAndrew(hardwareMap, telemetry);
         grabber = new GrabberJack(hardwareMap, telemetry);
@@ -55,27 +48,19 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
         jewels.reset();
-        jewels.toogleSwing(false);
-
+        jewels.toggleSwing(false);
 
         clawOne = hardwareMap.servo.get("clawOne");
-        clawTwo = hardwareMap.servo.get("clawTwo");
-
         clawOne.setPosition(oneOpen);
+        clawTwo = hardwareMap.servo.get("clawTwo");
         clawTwo.setPosition(twoOpen);
 
         ballColor = hardwareMap.colorSensor.get("ballColor");
-        //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
+        ballColor.enableLed(true);
+        ballColor.enableLed(false);
 
         arm = hardwareMap.servo.get("arm");
         arm.setPosition(.22);
-
-        ballColor.enableLed(false);
-        ballColor.enableLed(true);
-
-
-
-
     }
     @Override
     public void runOpMode() throws InterruptedException {
