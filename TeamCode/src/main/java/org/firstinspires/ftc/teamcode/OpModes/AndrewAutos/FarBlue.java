@@ -15,11 +15,11 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  * Created by Andy on 12/15/2017.
  */
 @Autonomous(name = "farBlueAndy", group = "AndrewBot")
-public class FarBlue extends LinearOpMode {
-    final double ARM_RAISED = .22;
-    final double ARM_LOWERED = .9;//.88
+public class FarBlue extends LinearOpMode
+{
 
     Drive drive;
+
     DcMotor m1;
     DcMotor m2;
     DcMotor m3;
@@ -69,22 +69,22 @@ public class FarBlue extends LinearOpMode {
         sleep(200);
         jewel.color.enableLed(true);
 
-        telemetry.addData("blue left", jewel.isBlueLeft());
-        telemetry.addData("red left", jewel.isRedLeft());
-        telemetry.addData("blue right", jewel.isBlueRight());
-        telemetry.addData("red right", jewel.isRedRight());
+        telemetry.addData("blue left", jewel.leftSensorIsBlue());
+        telemetry.addData("red left", jewel.leftSensorIsRed());
+        telemetry.addData("blue right", jewel.rightSensorIsBlue());
+        telemetry.addData("red right", jewel.rightSensorIsRed());
         telemetry.addData("col", goodCol);
         telemetry.update();
         sleep(500);
 
         //To do- fix Function parameters
         jewel.hitBalls(
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue()
-        )
-        ;
+                jewel.leftSensorIsRed(),
+                jewel.leftSensorIsBlue(),
+                jewel.rightSensorIsRed(),
+                jewel.rightSensorIsBlue()
+        );
+
         sleep(500);
         telemetry.addData("status", "dunzo");
         telemetry.update();

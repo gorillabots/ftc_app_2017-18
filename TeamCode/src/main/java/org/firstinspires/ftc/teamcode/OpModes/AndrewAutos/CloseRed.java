@@ -69,19 +69,19 @@ public class CloseRed extends LinearOpMode {
         sleep(500);
         jewel.color.enableLed(true);
 
-        telemetry.addData("blue left", jewel.isBlueLeft());
-        telemetry.addData("red left", jewel.isRedLeft());
-        telemetry.addData("blue right", jewel.isBlueRight());
-        telemetry.addData("red right", jewel.isRedRight());
+        telemetry.addData("blue left", jewel.leftSensorIsBlue());
+        telemetry.addData("red left", jewel.leftSensorIsRed());
+        telemetry.addData("blue right", jewel.rightSensorIsBlue());
+        telemetry.addData("red right", jewel.rightSensorIsRed());
         telemetry.addData("col", goodCol);
         telemetry.update();
         sleep(500);
 
         jewel.hitBalls(
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red()
+                jewel.leftSensorIsBlue(),
+                jewel.leftSensorIsRed(),
+                jewel.rightSensorIsBlue(),
+                jewel.rightSensorIsRed()
         );
 
         sleep(500);

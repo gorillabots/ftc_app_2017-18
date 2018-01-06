@@ -240,149 +240,39 @@ public class JewelsAndrew {
         swing.setPosition(.59);
     }
 
-    public boolean isRedRight() {
-
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean isRed = secondColor.red() >= secondColor.blue();
-
-
-            return isRed;
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
+    public boolean rightSensorIsRed()
+    {
+        sleepCatch(10);
+        return secondColor.red() >= secondColor.blue();
     }
 
-    public boolean isRedLeft() {
-
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean isRed = color.red() >= color.blue();
-
-
-            return isRed;
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
+    public boolean leftSensorIsRed()
+    {
+        sleepCatch(10);
+        return color.red() >= color.blue();
     }
 
-    public boolean isBlueRight() {
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean isRed = secondColor.red() >= secondColor.blue();
-
-
-            return isRed;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
+    public boolean rightSensorIsBlue()
+    {
+        sleepCatch(10);
+        return secondColor.blue() >= secondColor.red();
     }
 
-    public boolean isBlueLeft() {
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean isRed = color.blue() >= color.red();
-
-
-            return isRed;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
+    public boolean leftSensorIsBlue()
+    {
+        sleepCatch(10);
+        return color.blue() >= color.red();
     }
 
-    public boolean second_color_sensor_the_ball_is_seen_as_red() {
-
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean a = secondColor.red() >= secondColor.blue();
-
-
-            return a;
-
-
-        } catch (InterruptedException e) {
+    private void sleepCatch(long ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException e)
+        {
             e.printStackTrace();
         }
-
-        return false; //Should never happen
-
-    }
-
-    public boolean first_color_sensor_the_ball_is_seen_as_red() {
-
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean b = color.red() >= color.blue();
-
-
-            return b;
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
-    }
-
-    public boolean second_color_sensor_the_ball_is_seen_as_blue() {
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean c = secondColor.blue() >= secondColor.red();
-
-            return c;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
-    }
-
-    public boolean first_color_sensor_the_ball_is_seen_as_blue() {
-        try {
-
-            Thread.sleep(10); //Ensure LED is enabled
-
-            boolean d = color.blue() >= color.red();
-
-            return d;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false; //Should never happen
-
     }
 }

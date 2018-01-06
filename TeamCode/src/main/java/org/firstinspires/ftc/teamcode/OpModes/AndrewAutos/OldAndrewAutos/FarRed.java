@@ -40,16 +40,16 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         jewel.lowerArm();
         sleep(500);
         jewel.color.enableLed(true);
-        if(jewel.isBlueRight() || jewel.isRedLeft()){
+        if(jewel.rightSensorIsBlue() || jewel.leftSensorIsRed()){
             whereIsDatBall = true;
         }
 
 
         jewel.hitBalls(
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red()
+                jewel.leftSensorIsBlue(),
+                jewel.leftSensorIsRed(),
+                jewel.rightSensorIsBlue(),
+                jewel.rightSensorIsRed()
         );
 
         sleep(500);

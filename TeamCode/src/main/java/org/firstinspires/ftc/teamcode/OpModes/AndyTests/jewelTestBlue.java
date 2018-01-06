@@ -54,17 +54,17 @@ public class jewelTestBlue extends LinearOpMode {
         sleep(500);
         jewel.color.enableLed(true);
 
-        telemetry.addData("blue 1", jewel.first_color_sensor_the_ball_is_seen_as_blue());
-        telemetry.addData("red 1", jewel.first_color_sensor_the_ball_is_seen_as_red());
-        telemetry.addData("blue 2", jewel.second_color_sensor_the_ball_is_seen_as_blue());
-        telemetry.addData("red 2", jewel.second_color_sensor_the_ball_is_seen_as_red());
+        telemetry.addData("blue 1", jewel.leftSensorIsBlue());
+        telemetry.addData("red 1", jewel.leftSensorIsRed());
+        telemetry.addData("blue 2", jewel.rightSensorIsBlue());
+        telemetry.addData("red 2", jewel.rightSensorIsRed());
         telemetry.update();
         sleep(500);
         jewel.hitBalls(
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red()
+                jewel.leftSensorIsBlue(),
+                jewel.leftSensorIsRed(),
+                jewel.rightSensorIsBlue(),
+                jewel.rightSensorIsRed()
         );
         sleep(500);
         jewel.reset();

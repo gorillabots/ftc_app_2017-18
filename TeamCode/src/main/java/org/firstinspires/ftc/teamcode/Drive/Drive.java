@@ -129,6 +129,25 @@ public class Drive {
         driveTrain.stopMotors();
         return finishTime;
     }
+
+    public void timeMove(double angle, double time, double power, double turnFactor)
+    {
+        timer.reset();
+
+        double elapsedTime;
+
+        while((elapsedTime = timer.seconds()) <= time)
+        {
+            driveTrain.drivePolar2(power, angle, turnFactor);
+            telemetry.addData("Status", "Encoder movement");
+            telemetry.addData("first run status",driveTrain.firstRun);
+            telemetry.addData("time", elapsedTime);
+            telemetry.update();
+        }
+
+        driveTrain.stopMotors();
+    }
+
     public void colorMove(ColorSensor floorColor, double power, int angle) //Move forwards to white line
     {
 
