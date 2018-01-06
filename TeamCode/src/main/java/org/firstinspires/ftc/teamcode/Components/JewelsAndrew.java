@@ -49,7 +49,7 @@ public class JewelsAndrew {
     }
 
     public void reset() {
-        jewelArm.setPosition(.2);
+        jewelArm.setPosition(.15);
         swing.setPosition(.63);
         ledState(true);
 
@@ -59,7 +59,7 @@ public class JewelsAndrew {
         if (bool) {
             swing.setPosition(.39);
         } else if (!bool) {
-            swing.setPosition(.7);
+            swing.setPosition(.63);
         }
     }
 
