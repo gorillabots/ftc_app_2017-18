@@ -26,7 +26,7 @@ public class ObseleteFarBlueAndrew extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        drive = new Drive(this.hardwareMap,this.telemetry);
+        drive = new Drive(this);
         //drive.init(0);
         arm = hardwareMap.servo.get("arm");
         armColor=hardwareMap.colorSensor.get("ballColor");

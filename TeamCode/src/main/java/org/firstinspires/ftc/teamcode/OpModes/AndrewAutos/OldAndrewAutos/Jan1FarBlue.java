@@ -37,7 +37,7 @@ public class Jan1FarBlue extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);

@@ -31,7 +31,7 @@ public class RawServoTest extends LinearOpMode {
     void init_(){
 
 
-        driveTrain = new Drive(this.hardwareMap,this.telemetry);
+        driveTrain = new Drive(this);
     }
 
 

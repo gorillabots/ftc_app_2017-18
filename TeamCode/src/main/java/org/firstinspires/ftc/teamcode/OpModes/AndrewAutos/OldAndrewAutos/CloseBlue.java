@@ -28,7 +28,7 @@ public class CloseBlue extends LinearOpMode {
     @Override
     public void runOpMode()
     {
-        drive = new Drive(this.hardwareMap,this.telemetry);
+        drive = new Drive(this);
 
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
         jewel.reset();

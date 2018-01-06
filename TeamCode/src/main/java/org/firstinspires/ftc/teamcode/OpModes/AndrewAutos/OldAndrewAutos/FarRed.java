@@ -24,7 +24,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     @Override
     public void runOpMode()
     {
-        drive = new Drive(this.hardwareMap,this.telemetry,this);
+        drive = new Drive(this);
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
 
         telemetry.addData("Status", "Initialized");

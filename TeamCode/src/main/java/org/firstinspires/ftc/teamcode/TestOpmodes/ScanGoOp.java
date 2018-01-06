@@ -17,7 +17,7 @@ public class ScanGoOp extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        drive = new Drive(hardwareMap, telemetry);
+        drive = new Drive(this);
 
         telemetry.addData("Status", "Initializing Vuforia");
         telemetry.update();

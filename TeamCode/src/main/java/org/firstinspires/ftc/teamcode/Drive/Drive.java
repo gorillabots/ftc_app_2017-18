@@ -38,10 +38,10 @@ public class Drive {
     ModernRoboticsI2cRangeSensor rangeSensor;
 
    ElapsedTime timer;
-    public Drive(HardwareMap hMap, Telemetry telemetryy, LinearOpMode omode) {
+    public Drive(LinearOpMode opMode) {
 
-        hardwareMap = hMap;
-        telemetry= telemetryy;
+        hardwareMap = opMode.hardwareMap;
+        telemetry = opMode.telemetry;
 
         telemetry.addData("made","the first part");
         telemetry.update();
@@ -50,7 +50,7 @@ public class Drive {
         timer.startTime();
         init(0);
 
-        linOp = omode;
+        linOp = opMode;
     }
 
     public double getMag(double x, double y) {

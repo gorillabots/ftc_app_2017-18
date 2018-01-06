@@ -31,7 +31,7 @@ public class BlockDropTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
         arm = hardwareMap.servo.get("arm");
         armColor = hardwareMap.colorSensor.get("ballColor");
         armColor.enableLed(false);
