@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  * Created by Andy on 12/15/2017.
  */
 
-@Autonomous(name = "closeBlueAndy", group = "AndrewBot")
+@Autonomous(name = "closeBlue", group = "AndrewBot")
 public class CloseBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88

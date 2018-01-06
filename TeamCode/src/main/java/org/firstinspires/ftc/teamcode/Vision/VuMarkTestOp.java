@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Vision;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by mikko on 11/22/17.
  */
-
+@Disabled
 @TeleOp(group="Test", name="VuMarkTestOp")
 public class VuMarkTestOp extends OpMode
 {

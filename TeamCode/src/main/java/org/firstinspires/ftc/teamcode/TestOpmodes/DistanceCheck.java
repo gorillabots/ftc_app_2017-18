@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Interfaces.ArmExtender;
 /**
  * Created by Jarred on 11/19/2017.
  */
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="distanceCheck", group="Backup")
 public class DistanceCheck extends LinearOpMode {
     ArbitraryDirectionDrive driveTrain;

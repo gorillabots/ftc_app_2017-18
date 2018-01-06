@@ -59,7 +59,7 @@ public class JewelsAndrew {
         if (bool) {
             swing.setPosition(.39);
         } else if (!bool) {
-            swing.setPosition(.63);
+            swing.setPosition(.7);
         }
     }
 

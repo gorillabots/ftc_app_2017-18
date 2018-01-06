@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Jarred on 10/13/2017.
  */
+@Disabled
 @TeleOp (name="Blue Beacons Shoot Utica", group="Backup")
 public class RangeDebug extends OpMode {
 

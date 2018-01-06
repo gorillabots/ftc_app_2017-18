@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Components.JewelsJack;
 /**
  * Created by mikko on 12/1/17.
  */
-
+@Disabled
 @TeleOp(name="ArmTestOp", group="Murica")
 public class ArmTestOp extends OpMode
 {

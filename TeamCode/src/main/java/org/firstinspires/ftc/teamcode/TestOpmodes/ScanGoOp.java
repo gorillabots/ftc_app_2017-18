@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Drive.Drive;
 import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 //Created by Mikko on 2017-12-15
-
+@Disabled
 @Autonomous(name="ScanGoOp", group="AndrewBot")
 public class ScanGoOp extends LinearOpMode
 {

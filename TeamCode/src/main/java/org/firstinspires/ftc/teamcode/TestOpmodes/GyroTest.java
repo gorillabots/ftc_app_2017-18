@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 /**
  * Created by Owner on 11/10/2017.
  */
-
+@Disabled
 public class GyroTest extends OpMode {
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
-@Autonomous(name = "farBlueAndy", group = "AndrewBot")
+@Autonomous(name = "farBlue", group = "AndrewBot")
 public class FarBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
