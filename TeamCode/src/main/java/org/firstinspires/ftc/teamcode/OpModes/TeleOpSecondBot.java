@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 //Created by Jarred on 2017-10-06
 
 @TeleOp(name="driveSecond", group="Backup")
-public class TeleOpSecondBot extends LinearOpMode{
-
+public class TeleOpSecondBot extends LinearOpMode
+{
     private ArbitraryDirectionDrive driveTrain;
     private ExtenderAndrew armExtender;
     private GrabberJack grabber;
@@ -62,62 +62,53 @@ public class TeleOpSecondBot extends LinearOpMode{
         arm = hardwareMap.servo.get("arm");
         arm.setPosition(.22);
     }
+
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode()
+    {
         init_();
 
         waitForStart();
-        while(opModeIsActive()) {
-            //arm.setPosition(gamepad1.left_trigger);
+        while(opModeIsActive())
+        {
+            driveTrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-            driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
-
-            if(gamepad2.left_bumper){
+            if(gamepad2.left_bumper)
+            {
                 grabber.closeinst2();
             }
-            else if(gamepad2.left_trigger >= .5){
+            else if(gamepad2.left_trigger >= .5)
+            {
                 grabber.openinst2();
             }
-
 
             ColorHelper.printColorHSV(this.telemetry,ballColor);
             telemetry.update();
 
-
-
-            if(gamepad2.right_bumper){
+            if(gamepad2.right_bumper)
+            {
                 grabber.closeinst1();
             }
-            else if(gamepad2.right_trigger >= .5){
+            else if(gamepad2.right_trigger >= .5)
+            {
                 grabber.openinst1();
             }
 
-
-            if(gamepad2.dpad_up){
+            if(gamepad2.dpad_up)
+            {
                 armExtender.extend(-1);
             }
-            else if(gamepad2.dpad_down){
-            armExtender.extend(1);
-        }
-            else{
+            else if(gamepad2.dpad_down)
+            {
+                armExtender.extend(1);
+            }
+            else
+            {
                 armExtender.stop();
             }
 
             grabber.rotateOne(gamepad2.left_stick_y);
             grabber.rotateTwo(gamepad2.right_stick_y);
-
-
-                /*
-                if (gamepad2.right_trigger > .9) {
-                    grabber.rotate(+.25);
-                } else if (gamepad2.left_trigger > .9) {
-                    grabber.rotate(-.25);
-                } else {
-                    grabber.rotate(0);
-                }
-
-                */
-
         }
     }
 }
