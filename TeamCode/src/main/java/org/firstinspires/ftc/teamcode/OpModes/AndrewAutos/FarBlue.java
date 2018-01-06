@@ -135,19 +135,19 @@ public class FarBlue extends LinearOpMode {
             telemetry.addData("Going for", "R");
             telemetry.update();
             drive.encoderMoveMRGyro2(90, rightColumnDistance, .4, 0.5);
-            drive.turn(90, 1, 1, .1);
+            drive.turn(90, 2, 1, .1);
             sleep(400);
         } else if (goodCol == 1) {
             telemetry.addData("Going for", "L");
             telemetry.update();
             drive.encoderMoveMRGyro2(90, leftColumnDistance, .4, 0.5);
-            drive.turn(90, 1, 1, .1);
+            drive.turn(90, 2, 1, .1);
             sleep(400);
         } else {
             telemetry.addData("Going for", "C");
             telemetry.update();
             drive.encoderMoveMRGyro2(90, centerColumnDistance, .4, 0.5);
-            drive.turn(90, 1, 1, .1);
+            drive.turn(90, 2, 1, .1);
             sleep(400);
         }
         //------↑ align to the correct column ↑---
@@ -169,7 +169,7 @@ public class FarBlue extends LinearOpMode {
         sleep(500);
         drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
         sleep(200);
-        drive.turn(180, 1, 1, .1);
+        drive.turn(180, 2, 1, .1);
         sleep(200);
 
         drive.driveTrain.stopMotors();

@@ -20,8 +20,8 @@ public class CloseBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .15;
-    double distanceBetween = .11;
+    double centerColumnDistance = .522;
+    double distanceBetween = .151;
 
     double leftColumnDistance = centerColumnDistance + distanceBetween;
     double rightColumnDistance = centerColumnDistance - distanceBetween;
@@ -105,61 +105,65 @@ public class CloseBlue extends LinearOpMode {
         telemetry.update();
         //---------------------------------jewel↑↑↑
 
-        drive.encoderMoveMRGyro2(90, .8, .3, 0.5);
-        drive.encoderMoveMRGyro2(0, 1, .5, .5);
-
+        drive.encoderMoveMRGyro2(90, .75, .3, 0.5);
 
         //↓ needs testing if we want to score glyph
 
 
-        /*drive.driveTrain.m1.setPower(-.2);
-        drive.driveTrain.m2.setPower(.2);
-        drive.driveTrain.m3.setPower(.2);
-        drive.driveTrain.m4.setPower(-.2);
-        sleep(1000);
-
+        drive.driveTrain.m1.setPower(.2);
+        drive.driveTrain.m2.setPower(-.2);
+        drive.driveTrain.m3.setPower(-.2);
+        drive.driveTrain.m4.setPower(.2);
+        sleep(1500);
         drive.driveTrain.stopMotors();
         sleep(400);
 
         if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(270, leftColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(90, leftColumnDistance, .3, .5);
         } else if (goodCol == 3) {
-            // drive.encoderMoveMRGyro2(270, 0, .3, .5); do nothing
+            drive.encoderMoveMRGyro2(90, rightColumnDistance, .3, .5);
         } else {
-            drive.encoderMoveMRGyro2(270, centerColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(90, centerColumnDistance, .3, .5);
         }
 
         sleep(400);
-        drive.turn(90, 2, .5, .1);
-
-        drive.encoderMoveMRGyro2(90, .2, .3, .5);
+        drive.turn(90, 1, 1, .1);
+        drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
 
         grabber.openinst1();
         grabber.openinst2();
 
-        drive.encoderMoveMRGyro2(270, .2, .3, .5);
-
-        drive.turn(180, 1, 1, .1);
-        sleep(400);
-        stopMotors();
-        m1.setPower(.3);
-        m2.setPower(-.3);
-        m3.setPower(-.3);
-        m4.setPower(.3);
-        sleep(1500);
+        m1.setPower(-.2);
+        m2.setPower(.2);
+        m3.setPower(.2);
+        m4.setPower(-.2);
+        sleep(1000);
         stopMotors();
         sleep(500);
 
-        drive.encoderMoveMRGyro2(90, .15, .3, .2);
+        drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
+        sleep(200);
+        drive.turn(180, 1, 1, .1);
+        sleep(200);
 
-        if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(0, .2, .6, .5);
-        } else if (goodCol == 3) {
+        drive.driveTrain.stopMotors();
+        drive.driveTrain.m1.setPower(.3);
+        drive.driveTrain.m2.setPower(-.3);
+        drive.driveTrain.m3.setPower(-.3);
+        drive.driveTrain.m4.setPower(.3);
+        sleep(2000);
+        drive.driveTrain.stopMotors();
+        sleep(300);
+
+        drive.encoderMoveMRGyro2(90, .15, .3, .5);
+
+        if (goodCol == 3) {
             drive.encoderMoveMRGyro2(180, .3, .6, .5);
+        } else if (goodCol == 1) {
+            drive.encoderMoveMRGyro2(0, .15, .6, .5);
         } else {
 
         }
-*/
     }
 
     public void stopMotors() {
@@ -168,6 +172,6 @@ public class CloseBlue extends LinearOpMode {
         m3.setPower(0);
         m4.setPower(0);
     }
-
-
 }
+
+

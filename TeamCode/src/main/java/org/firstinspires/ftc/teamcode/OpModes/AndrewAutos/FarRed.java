@@ -117,7 +117,7 @@ public class FarRed extends LinearOpMode {
         drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
         //↑ slightly fowrward
         //------↑ post platform aligning ↑-------
-        drive.turn(-90, 1, .5, .1);
+        drive.turn(-90, 2, .5, .1);
         sleep(300);
 
         drive.driveTrain.m1.setPower(.3);
@@ -135,19 +135,19 @@ public class FarRed extends LinearOpMode {
             //telemetry.update();
             //drive.encoderMoveMRGyro2(90, .5, .6, 0.5);
             drive.encoderMoveMRGyro2(90, rightColumnDistance, .6, 0.5);
-            drive.turn(-90, 1, 1, .1);
+            drive.turn(-90, 2, 1, .1);
             sleep(400);
         } else if (goodCol == 1) {
             telemetry.addData("Going for", "L");
             drive.encoderMoveMRGyro2(90, leftColumnDistance, .6, 0.5);
-            drive.turn(-90, 1, 1, .1);
+            drive.turn(-90, 2, 1, .1);
             sleep(400);
         } else {
             telemetry.addData("Going for", "C");
             finishTime = drive.encoderMoveMRGyro3(90, centerColumnDistance, .6, 0.5);
             telemetry.addData("Finish time", finishTime);
             telemetry.update();
-            drive.turn(-90, 1, 1, .1);
+            drive.turn(-90, 2, 1, .1);
             sleep(400);
         }
         //------↑ align to the correct column ↑---
@@ -161,7 +161,7 @@ public class FarRed extends LinearOpMode {
         grabber.openinst2();
         drive.encoderMoveMRGyro2(270, .15, .3, .5);
         sleep(300);
-        drive.turn(180, 1, 1, .1);
+        drive.turn(180, 2, 1, .1);
         sleep(300);
 
         drive.driveTrain.stopMotors();
