@@ -92,21 +92,5 @@ public class CloseBlue extends LinearOpMode {
         rangeCrypto.approach(40,.35);
         rangeCrypto.updateOffset(); //Scan wall for reference distance
         rangeCrypto.go(goodCol);
-        /*
-        //Count off 3 things while moving - 2-Left, 3-Center, 4-Right
-        drive.encoderMoveMRGyro2(180,.007,.3,.5);
-
-        //drive.encoderMoveMRGyro2(180, .16, .5, .5);
-
-
-
-        rangeCrypto.approach(15, .35); //Approach box with range sensor
-        grabber.openinst1();
-        grabber.openinst2();
-        grabber.wide1();
-        grabber.wide2();
-        drive.encoderMoveMRGyro(90,.5,.5);
-        drive.encoderMoveMRGyro(270,.75,.5);
-        */
     }
 }

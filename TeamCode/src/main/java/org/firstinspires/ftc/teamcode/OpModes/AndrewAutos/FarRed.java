@@ -162,38 +162,5 @@ public class FarRed extends LinearOpMode {
         drive.driveTrain.stopMotors();
 
         drive.encoderMoveMRGyro2(90,.2,.3,.5);
-
-
-
-
-
-       /* drive.encoderMoveMRGyro2(90, .17, .3, 0.5);
-        sleep (500);
-        drive.encoderMoveMRGyro2(270, .18, .3, 0.5);
-        sleep (500);
-        drive.encoderMoveMRGyro2(90, .07, .3, 0.5);
-        drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
-        sleep (500);
-        drive.encoderMoveMRGyro2(270, .2, .3, 0.5);*/
-
-
-        /*telemetry.addData("Step", "C");
-        telemetry.update();
-        drive.turn(180, 2, .5 , .1);
-        sleep (500);
-
-        telemetry.addData("Step", "D");
-        telemetry.update();
-        drive.encoderMoveMRGyro2(270, 1.2, .5, 0.5);
-        sleep (500);
-        //------↑ dropping and pushuing in glyph ↑---*/
     }
-    public void stopMotors() {
-        m1.setPower(0);
-        m2.setPower(0);
-        m3.setPower(0);
-        m4.setPower(0);
-    }
-
-
 }

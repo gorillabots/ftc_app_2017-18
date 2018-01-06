@@ -101,15 +101,15 @@ public class FarBlue extends LinearOpMode
         //------↓ post platform aligning ↓---------------
         drive.encoderMoveMRGyro2(90, .8, .3, 0.5);
         //↑ go forward
-       // drive.encoderMoveMRGyro2(270, .20, .3, 0.5);
+        // drive.encoderMoveMRGyro2(270, .20, .3, 0.5);
 
         m1.setPower(.2);
         m2.setPower(-.2);
         m3.setPower(-.2);
         m4.setPower(.2);
         sleep(1000);
-        stopMotors();
-        sleep (400);
+        drive.driveTrain.stopMotors();
+        sleep(400);
         //↑ align via platform ↑----
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
         sleep(500);
@@ -122,7 +122,7 @@ public class FarBlue extends LinearOpMode
         m3.setPower(-.3);
         m4.setPower(.3);
         sleep(2000);
-        stopMotors();
+        drive.driveTrain.stopMotors();
         sleep(400);
 
         //------↓ align to the correct column ↓---
@@ -161,22 +161,22 @@ public class FarBlue extends LinearOpMode
         m3.setPower(.2);
         m4.setPower(-.2);
         sleep(1000);
-        stopMotors();
+        drive.driveTrain.stopMotors();
         sleep(400);
         drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
         sleep(400);
-        drive.turn(180,1,.2,.3);
-        sleep (400);
+        drive.turn(180, 1, .2, .3);
+        sleep(400);
         drive.driveTrain.stopMotors();
 
         drive.driveTrain.m1.setPower(.3);
         drive.driveTrain.m2.setPower(-.3);
         drive.driveTrain.m3.setPower(-.3);
         drive.driveTrain.m4.setPower(.3);
-        sleep (2000);
+        sleep(2000);
         drive.driveTrain.stopMotors();
 
-        drive.encoderMoveMRGyro2(90,.2,.3,.5);
+        drive.encoderMoveMRGyro2(90, .2, .3, .5);
 
 
         /*telemetry.addData("Step", "C");      //unnecessary
@@ -190,13 +190,4 @@ public class FarBlue extends LinearOpMode
         sleep (500);
         //------↑ dropping and pushing in glyph ↑---*/
     }
-
-    public void stopMotors() {
-        m1.setPower(0);
-        m2.setPower(0);
-        m3.setPower(0);
-        m4.setPower(0);
-    }
-
-
 }
