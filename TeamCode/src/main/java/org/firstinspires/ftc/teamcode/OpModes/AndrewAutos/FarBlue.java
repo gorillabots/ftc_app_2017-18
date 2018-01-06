@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 @Autonomous(name = "farBlueAndy", group = "AndrewBot")
 public class FarBlue extends LinearOpMode
 {
-
     Drive drive;
 
     DcMotor m1;

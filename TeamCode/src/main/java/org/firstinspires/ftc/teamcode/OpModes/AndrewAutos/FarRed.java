@@ -15,12 +15,13 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  * Created by Andy on 12/15/2017.
  */
 @Autonomous(name = "farRedAndy", group = "AndrewBot")
-public class FarRed extends LinearOpMode {
-    final double ARM_RAISED = .22;
-    final double ARM_LOWERED = .9;//.88
-
+public class FarRed extends LinearOpMode
+{
     Drive drive;
-    DcMotor m1;DcMotor m2;DcMotor m3;DcMotor m4;
+    DcMotor m1;
+    DcMotor m2;
+    DcMotor m3;
+    DcMotor m4;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberJack grabber;
@@ -30,8 +31,8 @@ public class FarRed extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
-    public void runOpMode() {
-
+    public void runOpMode()
+    {
         drive = new Drive(this);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -39,7 +40,6 @@ public class FarRed extends LinearOpMode {
         jewel.reset();
         jewel.toggleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
-
 
         grabber = new GrabberJack(this.hardwareMap, this.telemetry);
         grabber.closeinst2();
@@ -69,8 +69,7 @@ public class FarRed extends LinearOpMode {
         telemetry.addData("red right", jewel.rightSensorIsRed());
         telemetry.addData("col", goodCol);
         telemetry.update();
-        //jewel.hitBalls(jewel.leftSensorIsRed(), jewel.rightSensorIsBlue());
-        //jewel.AHEhitBallsVariablesForBlue(jewel.leftSensorIsRed(),jewel.leftSensorIsBlue(),jewel.rightSensorIsRed(),jewel.rightSensorIsBlue());
+
         jewel.hitBalls(
                 jewel.leftSensorIsBlue(),
                 jewel.leftSensorIsRed(),
