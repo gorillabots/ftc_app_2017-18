@@ -23,8 +23,8 @@ public class CloseBlue extends LinearOpMode {
     double centerColumnDistance = .522;
     double distanceBetween = .151;
 
-    double leftColumnDistance = centerColumnDistance + distanceBetween;
-    double rightColumnDistance = centerColumnDistance - distanceBetween;
+    double leftColumnDistance = centerColumnDistance - distanceBetween;
+    double rightColumnDistance = centerColumnDistance + distanceBetween;
 
     Drive drive;
     DcMotor m1;

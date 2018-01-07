@@ -21,7 +21,7 @@ public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .2;
+    double centerColumnDistance = .25;
     double distanceBetween = .153;
 
     double leftColumnDistance = centerColumnDistance + distanceBetween;
