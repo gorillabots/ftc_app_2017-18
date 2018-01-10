@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
-@Disabled
 @Autonomous(name="RangeCryptoTestOp", group="Test")
 public class RangeCryptoTestOp extends LinearOpMode
 {

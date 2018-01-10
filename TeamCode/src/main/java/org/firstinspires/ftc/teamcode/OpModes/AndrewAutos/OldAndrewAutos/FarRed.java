@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
 import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
@@ -21,7 +21,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
     Drive drive;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
-    GrabberJack grabber;
+    GrabberAndrew grabber;
     boolean whereIsDatBall;
     @Override
     public void runOpMode()
@@ -32,7 +32,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
-        grabber = new GrabberJack(this.hardwareMap,this.telemetry);
+        grabber = new GrabberAndrew(this.hardwareMap,this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
          vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);

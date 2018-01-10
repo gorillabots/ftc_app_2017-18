@@ -48,7 +48,7 @@ public class RangeCrypto
 
         while(pillarsLeft > 0 && opMode.opModeIsActive())
         {
-            add.drivePolar2(.5, 180,.5); //180 - right, 0 - left
+            add.drivePolar2(.25, 180,.5); //180 - right, 0 - left
 
             double dist = range.cmUltrasonic();
 

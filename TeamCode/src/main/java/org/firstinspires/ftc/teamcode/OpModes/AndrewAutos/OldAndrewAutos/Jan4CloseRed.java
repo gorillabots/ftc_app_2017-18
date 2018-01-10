@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
@@ -29,7 +29,7 @@ public class Jan4CloseRed extends LinearOpMode {
     DcMotor m1;DcMotor m2;DcMotor m3;DcMotor m4;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
-    GrabberJack grabber;
+    GrabberAndrew grabber;
     RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
@@ -51,7 +51,7 @@ public class Jan4CloseRed extends LinearOpMode {
         m4 = hardwareMap.dcMotor.get("m4");
 
 
-        grabber = new GrabberJack(this.hardwareMap, this.telemetry);
+        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
 
