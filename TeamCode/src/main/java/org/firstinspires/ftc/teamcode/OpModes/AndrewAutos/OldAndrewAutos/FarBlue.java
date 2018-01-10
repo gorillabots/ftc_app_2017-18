@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
 import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
@@ -26,7 +26,7 @@ public class FarBlue extends LinearOpMode
     boolean whereIsDatBall;
     JewelsAndrew jewel;
     VuMarkRecognition vuMarks;
-    GrabberJack grabber;
+    GrabberAndrew grabber;
     @Override
     public void runOpMode()
     {
@@ -46,7 +46,7 @@ public class FarBlue extends LinearOpMode
         jewel.reset();
         waitForStart();
         int goodCol = vuMarks.getVuMark();
-        grabber = new GrabberJack(this.hardwareMap,this.telemetry);
+        grabber = new GrabberAndrew(this.hardwareMap,this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
 

@@ -30,7 +30,7 @@ public class TeleOpOp extends LinearOpMode{
 
 
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new GrabberAndrew(hardwareMap, telemetry);
+        //grabber = new GrabberJack(hardwareMap, telemetry);
 
 
         arm = hardwareMap.servo.get("arm");

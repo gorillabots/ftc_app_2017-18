@@ -30,7 +30,7 @@ public class DistanceCheck extends LinearOpMode {
         //driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         drive = new Drive(this.hardwareMap,this.telemetry);
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
-        //grabber = new GrabberAndrew(hardwareMap, telemetry);
+        //grabber = new GrabberJack(hardwareMap, telemetry);
 
 
 

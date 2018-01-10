@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
-import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 
 /**
  * Created by Owner on 10/6/2017.
@@ -24,7 +24,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
     ExtenderAndrew armExtender;
-    GrabberJack grabber;
+    GrabberAndrew grabber;
     private LinearOpMode opMode;
     JewelsAndrew  jewels;
 
@@ -48,7 +48,7 @@ public class TeleOpSecondBot extends LinearOpMode{
 
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         armExtender = new ExtenderAndrew(hardwareMap, telemetry);
-        grabber = new GrabberJack(hardwareMap, telemetry);
+        grabber = new GrabberAndrew(hardwareMap, telemetry);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");

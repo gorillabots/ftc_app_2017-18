@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
-import org.firstinspires.ftc.teamcode.Components.GrabberJack;
+import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.ExtenderJack;
 
 /**
@@ -20,7 +20,7 @@ public class TeleOp extends LinearOpMode {
 
     ArbitraryDirectionDrive driveTrain;
     ExtenderJack armExtender;
-    GrabberJack grabber;
+    GrabberAndrew grabber;
     private LinearOpMode opMode;
 
     Servo claw1;
