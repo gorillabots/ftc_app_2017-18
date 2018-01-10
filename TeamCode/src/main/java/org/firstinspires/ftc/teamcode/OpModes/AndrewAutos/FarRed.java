@@ -113,8 +113,9 @@ public class FarRed extends LinearOpMode {
         sleep(1000);
         stopMotors();
         sleep(300);
+
         //↑ align via platform
-        drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
+        drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
         //↑ slightly fowrward
         //------↑ post platform aligning ↑-------
         drive.turn(-90, 2, .5, .1);
@@ -129,33 +130,26 @@ public class FarRed extends LinearOpMode {
         sleep(100);
 
         //------↓ align to the correct column ↓---
-        double finishTime;
         if (goodCol == 3) {
             telemetry.addData("Going for", "R");
-            //telemetry.update();
-            //drive.encoderMoveMRGyro2(90, .5, .6, 0.5);
+            telemetry.update();
             drive.encoderMoveMRGyro2(90, rightColumnDistance, .6, 0.5);
-            drive.turn(-90, 2, 1, .1);
             sleep(400);
         } else if (goodCol == 1) {
             telemetry.addData("Going for", "L");
+            telemetry.update();
             drive.encoderMoveMRGyro2(90, leftColumnDistance, .6, 0.5);
-            drive.turn(-90, 2, 1, .1);
             sleep(400);
         } else {
             telemetry.addData("Going for", "C");
-            finishTime = drive.encoderMoveMRGyro3(90, centerColumnDistance, .6, 0.5);
-            telemetry.addData("Finish time", finishTime);
             telemetry.update();
-            drive.turn(-90, 2, 1, .1);
+            drive.encoderMoveMRGyro2(90, centerColumnDistance, .6, 0.5);
             sleep(400);
         }
+        drive.turn(-90,2,1,.1);
         //------↑ align to the correct column ↑---
-
-        //------↓ dropping and pushing in glyph ↓--- (not done)
-        telemetry.addData("Step", "A");
-        telemetry.update();
-        drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
+        //------↓ dropping and pushing in glyph ↓---
+        drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
         sleep(300);
         grabber.openinst1();
         grabber.openinst2();
