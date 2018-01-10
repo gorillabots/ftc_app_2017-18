@@ -41,21 +41,26 @@ public class FarRed extends LinearOpMode {
     @Override
     public void runOpMode() {
         grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+
         grabber.closeinst2();
         grabber.closeinst1();
+
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
+
         drive = new Drive(this.hardwareMap, this.telemetry);
+
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
+
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
         jewel.toogleSwing(false);
+
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
-        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
         grabber.closeinst2();
         grabber.closeinst1();
         telemetry.addData("Status", "Initialized");
@@ -63,24 +68,14 @@ public class FarRed extends LinearOpMode {
         grabber.closeinst2();
         grabber.closeinst1();
         waitForStart();
-
         int goodCol = vuMark.getVuMark();
 
-        grabber.rotateTwo(0.5);
-        //-------------------------------------------jewel↓↓↓↓
+        grabber.rotateTwo(0.5); //start rotation
+
         jewel.toogleSwing(true);
         jewel.lowerArm();
         sleep(400);
         jewel.color.enableLed(true);
-
-        telemetry.addData("blue left", jewel.isBlueLeft());
-        telemetry.addData("red left", jewel.isRedLeft());
-        telemetry.addData("blue right", jewel.isBlueRight());
-        telemetry.addData("red right", jewel.isRedRight());
-        telemetry.addData("col", goodCol);
-        telemetry.update();
-        //jewel.hitBalls(jewel.isRedLeft(), jewel.isBlueRight());
-        //jewel.AHEhitBallsVariablesForBlue(jewel.first_color_sensor_the_ball_is_seen_as_red(),jewel.first_color_sensor_the_ball_is_seen_as_blue(),jewel.second_color_sensor_the_ball_is_seen_as_red(),jewel.second_color_sensor_the_ball_is_seen_as_blue());
         jewel.AHEhitBallsVariablesForBlueVersionTwo(
                 jewel.first_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.first_color_sensor_the_ball_is_seen_as_red(),
@@ -88,23 +83,13 @@ public class FarRed extends LinearOpMode {
                 jewel.second_color_sensor_the_ball_is_seen_as_red()
         )
         ;
-        telemetry.addData("status", "dunzo");
-        telemetry.update();
         jewel.reset();
         jewel.toogleSwing(false);
-        sleep (500);
+        sleep(500);
         grabber.rotateTwo(0);
         runtime.reset();
 
-
-        telemetry.addData("zone mabob", goodCol);
-        telemetry.update();
-        //---------------------------------jewel↑↑↑
-
-        //------↓ post platform aligning ↓---------------
-        drive.encoderMoveMRGyro2(270, .6, .5, 0.5);
-        //↑ go forward
-        //drive.encoderMoveMRGyro2(90, .2, .3, 0.5);
+        drive.encoderMoveMRGyro2(270, .6, .5, 0.5); //off the platform
 
         m1.setPower(-.2);
         m2.setPower(.2);
@@ -114,57 +99,49 @@ public class FarRed extends LinearOpMode {
         stopMotors();
         sleep(300);
 
-        //↑ align via platform
-        drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
-        //↑ slightly fowrward
-        //------↑ post platform aligning ↑-------
+        drive.encoderMoveMRGyro2(270, .18, .3, 0.5);
+
         drive.turn(-90, 2, .5, .1);
         sleep(300);
 
-        drive.driveTrain.m1.setPower(.3);
-        drive.driveTrain.m2.setPower(-.3);
-        drive.driveTrain.m3.setPower(-.3);
-        drive.driveTrain.m4.setPower(.3);
+        m1.setPower(.3);
+        m2.setPower(-.3);
+        m3.setPower(-.3);
+        m4.setPower(.3);
         sleep(2000);
-        drive.driveTrain.stopMotors();
+        stopMotors();
         sleep(100);
 
-        //------↓ align to the correct column ↓---
         if (goodCol == 3) {
-            telemetry.addData("Going for", "R");
-            telemetry.update();
-            drive.encoderMoveMRGyro2(90, rightColumnDistance, .6, 0.5);
-            sleep(400);
+            drive.encoderMoveMRGyro2(90, rightColumnDistance, .5, 0.5);
         } else if (goodCol == 1) {
-            telemetry.addData("Going for", "L");
-            telemetry.update();
-            drive.encoderMoveMRGyro2(90, leftColumnDistance, .6, 0.5);
-            sleep(400);
+            drive.encoderMoveMRGyro2(90, leftColumnDistance, .5, 0.5);
         } else {
-            telemetry.addData("Going for", "C");
-            telemetry.update();
-            drive.encoderMoveMRGyro2(90, centerColumnDistance, .6, 0.5);
-            sleep(400);
+            drive.encoderMoveMRGyro2(90, centerColumnDistance, .5, 0.5);
         }
-        drive.turn(-90,2,1,.1);
-        //------↑ align to the correct column ↑---
-        //------↓ dropping and pushing in glyph ↓---
+        sleep(400);
+
+        drive.turn(-90, 2, 1, .1);
+
         drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
-        sleep(300);
+
         grabber.openinst1();
         grabber.openinst2();
-        drive.encoderMoveMRGyro2(270, .15, .3, .5);
+
+        drive.encoderMoveMRGyro2(270, .125, .3, .5);
         sleep(300);
+
         drive.turn(180, 2, 1, .1);
         sleep(300);
 
-        drive.driveTrain.stopMotors();
-        drive.driveTrain.m1.setPower(.3);
-        drive.driveTrain.m2.setPower(-.3);
-        drive.driveTrain.m3.setPower(-.3);
-        drive.driveTrain.m4.setPower(.3);
+        stopMotors();
+
+        m1.setPower(.3);
+        m2.setPower(-.3);
+        m3.setPower(-.3);
+        m4.setPower(.3);
         sleep(2000);
-        drive.driveTrain.stopMotors();
+        stopMotors();
 
         drive.encoderMoveMRGyro2(90, .15, .3, .5);
 
@@ -177,35 +154,11 @@ public class FarRed extends LinearOpMode {
         }
     }
 
-
-
-       /* drive.encoderMoveMRGyro2(90, .17, .3, 0.5);
-        sleep (500);
-        drive.encoderMoveMRGyro2(270, .18, .3, 0.5);
-        sleep (500);
-        drive.encoderMoveMRGyro2(90, .07, .3, 0.5);
-        drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
-        sleep (500);
-        drive.encoderMoveMRGyro2(270, .2, .3, 0.5);*/
-
-
-        /*telemetry.addData("Step", "C");
-        telemetry.update();
-        drive.turn(180, 2, .5 , .1);
-        sleep (500);
-
-        telemetry.addData("Step", "D");
-        telemetry.update();
-        drive.encoderMoveMRGyro2(270, 1.2, .5, 0.5);
-        sleep (500);
-        //------↑ dropping and pushuing in glyph ↑---*/
-
     public void stopMotors() {
         m1.setPower(0);
         m2.setPower(0);
         m3.setPower(0);
         m4.setPower(0);
     }
-
 
 }

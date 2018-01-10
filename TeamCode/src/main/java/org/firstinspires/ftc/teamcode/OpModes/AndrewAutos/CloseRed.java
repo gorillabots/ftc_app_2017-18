@@ -43,6 +43,9 @@ public class CloseRed extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+        grabber.closeinst2();
+        grabber.closeinst1();
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -55,38 +58,25 @@ public class CloseRed extends LinearOpMode {
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
 
-
-        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
         grabber.closeinst2();
         grabber.closeinst1();
 
-        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+        grabber.closeinst2();
+        grabber.closeinst1();
 
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
         runtime.reset();
-        while (runtime.seconds() < 0.00001) {
-            grabber.rotateTwo(0.45);
-        }
-        //-------------------------------------------jewel↓↓↓↓
+        grabber.rotateTwo(0.5); //start rotation
+
         jewel.toogleSwing(true);
         jewel.lowerArm();
-        sleep(500);
+        sleep(400);
         jewel.color.enableLed(true);
-
-        telemetry.addData("blue left", jewel.isBlueLeft());
-        telemetry.addData("red left", jewel.isRedLeft());
-        telemetry.addData("blue right", jewel.isBlueRight());
-        telemetry.addData("red right", jewel.isRedRight());
-        telemetry.addData("col", goodCol);
-        telemetry.update();
-        sleep(500);
-        //jewel.hitBalls(jewel.isRedLeft(), jewel.isBlueRight());
-        //jewel.AHEhitBallsVariablesForBlue(jewel.first_color_sensor_the_ball_is_seen_as_red(),jewel.first_color_sensor_the_ball_is_seen_as_blue(),jewel.second_color_sensor_the_ball_is_seen_as_red(),jewel.second_color_sensor_the_ball_is_seen_as_blue());
         jewel.AHEhitBallsVariablesForBlueVersionTwo(
                 jewel.first_color_sensor_the_ball_is_seen_as_blue(),
                 jewel.first_color_sensor_the_ball_is_seen_as_red(),
@@ -94,31 +84,20 @@ public class CloseRed extends LinearOpMode {
                 jewel.second_color_sensor_the_ball_is_seen_as_red()
         )
         ;
-        sleep(500);
-        telemetry.addData("status", "dunzo");
-        telemetry.update();
         jewel.reset();
         jewel.toogleSwing(false);
+        sleep(500);
         grabber.rotateTwo(0);
         runtime.reset();
 
-        telemetry.addData("zone mabob", goodCol);
-        telemetry.update();
-        //---------------------------------jewel↑↑↑
-
         drive.encoderMoveMRGyro2(270, .75, .3, 0.5);
 
-
-        //↓ needs testing if we want to score glyph
-
-
-        drive.driveTrain.m1.setPower(-.2);
-        drive.driveTrain.m2.setPower(.2);
-        drive.driveTrain.m3.setPower(.2);
-        drive.driveTrain.m4.setPower(-.2);
+        m1.setPower(-.2);
+        m2.setPower(.2);
+        m3.setPower(.2);
+        m4.setPower(-.2);
         sleep(1500);
-
-        drive.driveTrain.stopMotors();
+        stopMotors();
         sleep(400);
 
         if (goodCol == 1) {
@@ -129,8 +108,8 @@ public class CloseRed extends LinearOpMode {
             drive.encoderMoveMRGyro2(270, centerColumnDistance, .3, .5);
         }
 
-        sleep(400);
         drive.turn(90, 2, .5, .1);
+        sleep (400);
 
         drive.encoderMoveMRGyro2(90, .2, .3, .5);
 
@@ -139,8 +118,9 @@ public class CloseRed extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(270, .2, .3, .5);
 
-        drive.turn(180, 1, 1, .1);
+        drive.turn(180, 2, 1, .1);
         sleep(400);
+
         stopMotors();
         m1.setPower(.3);
         m2.setPower(-.3);
