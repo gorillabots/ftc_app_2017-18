@@ -108,7 +108,7 @@ public class CloseRed extends LinearOpMode {
             drive.encoderMoveMRGyro2(270, centerColumnDistance, .3, .5);
         }
 
-        drive.turn(90, 2, .5, .1);
+        drive.turn(90, 2, .25, .1);
         sleep (400);
 
         drive.encoderMoveMRGyro2(90, .2, .3, .5);

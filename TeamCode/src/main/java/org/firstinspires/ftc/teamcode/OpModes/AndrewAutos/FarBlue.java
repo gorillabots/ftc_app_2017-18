@@ -101,7 +101,7 @@ public class FarBlue extends LinearOpMode {
         stopMotors();
         sleep(400);
 
-        drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
+        drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
         sleep(300);
 
         drive.turn(-90, 2, 1, .1);
@@ -121,7 +121,7 @@ public class FarBlue extends LinearOpMode {
         } else {
             drive.encoderMoveMRGyro2(90, centerColumnDistance, .4, 0.5);
         }
-        drive.turn(90, 2, 1, .1);
+        drive.turn(90, 2, .25, .15);
         sleep(400);
 
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);

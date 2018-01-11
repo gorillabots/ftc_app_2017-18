@@ -19,8 +19,8 @@ public class FarRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .54;
-    double distanceBetween = .153;
+    double centerColumnDistance = .48;//.51
+    double distanceBetween = .183;
 
     double leftColumnDistance = centerColumnDistance + distanceBetween;
     double rightColumnDistance = centerColumnDistance - distanceBetween;
@@ -121,7 +121,7 @@ public class FarRed extends LinearOpMode {
         }
         sleep(400);
 
-        drive.turn(-90, 2, 1, .1);
+        drive.turn(-90, 2, .25, .1);
 
         drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
 

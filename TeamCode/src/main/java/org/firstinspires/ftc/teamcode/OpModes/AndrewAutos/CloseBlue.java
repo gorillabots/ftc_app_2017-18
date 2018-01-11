@@ -112,7 +112,7 @@ public class CloseBlue extends LinearOpMode {
         }
 
         sleep(400);
-        drive.turn(90, 1, 1, .1);
+        drive.turn(90, 2, .25, .1);
         sleep(400);
 
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
