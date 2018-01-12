@@ -79,12 +79,12 @@ public class Jan1FarBlue extends LinearOpMode {
         telemetry.update();
         sleep(500);
         //jewel.hitBalls(jewel.isRedRight(), jewel.isBlueLeft());
-        //jewel.AHEhitBallsVariablesForBlue(jewel.first_color_sensor_the_ball_is_seen_as_blue(), jewel.first_color_sensor_the_ball_is_seen_as_red(), jewel.second_color_sensor_the_ball_is_seen_as_blue(), jewel.second_color_sensor_the_ball_is_seen_as_red());
+        //jewel.AHEhitBallsVariablesForBlue(jewel.isBlueLeft(), jewel.isRedLeft(), jewel.isBlueRight(), jewel.isRedRight());
         jewel.AHEhitBallsVariablesForBlueVersionTwo(
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue()
+                jewel.isRedLeft(),
+                jewel.isBlueLeft(),
+                jewel.isRedRight(),
+                jewel.isBlueRight()
         )
         ;
         sleep(500);

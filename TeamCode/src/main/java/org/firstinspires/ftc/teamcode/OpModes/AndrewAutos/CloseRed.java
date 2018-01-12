@@ -78,10 +78,10 @@ public class CloseRed extends LinearOpMode {
         sleep(400);
         jewel.color.enableLed(true);
         jewel.AHEhitBallsVariablesForBlueVersionTwo(
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red()
+                jewel.isBlueLeft(),
+                jewel.isRedLeft(),
+                jewel.isBlueRight(),
+                jewel.isRedRight()
         )
         ;
         jewel.reset();

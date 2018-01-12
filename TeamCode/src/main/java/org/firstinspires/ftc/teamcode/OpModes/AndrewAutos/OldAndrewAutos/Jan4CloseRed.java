@@ -81,12 +81,12 @@ public class Jan4CloseRed extends LinearOpMode {
         telemetry.update();
         sleep(500);
         //jewel.hitBalls(jewel.isRedLeft(), jewel.isBlueRight());
-        //jewel.AHEhitBallsVariablesForBlue(jewel.first_color_sensor_the_ball_is_seen_as_red(),jewel.first_color_sensor_the_ball_is_seen_as_blue(),jewel.second_color_sensor_the_ball_is_seen_as_red(),jewel.second_color_sensor_the_ball_is_seen_as_blue());
+        //jewel.AHEhitBallsVariablesForBlue(jewel.isRedLeft(),jewel.isBlueLeft(),jewel.isRedRight(),jewel.isBlueRight());
         jewel.AHEhitBallsVariablesForBlueVersionTwo(
-                jewel.first_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.first_color_sensor_the_ball_is_seen_as_red(),
-                jewel.second_color_sensor_the_ball_is_seen_as_blue(),
-                jewel.second_color_sensor_the_ball_is_seen_as_red()
+                jewel.isBlueLeft(),
+                jewel.isRedLeft(),
+                jewel.isBlueRight(),
+                jewel.isRedRight()
         )
         ;
         sleep(500);
