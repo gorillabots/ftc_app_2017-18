@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Components;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -7,19 +8,26 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class GrabberTaras
 {
-    private final double UL_CLOSE = 0;
-    private final double UR_CLOSE = 0;
-    private final double BL_CLOSE = 0;
-    private final double BR_CLOSE = 0;
-    private final double UL_OPEN = 0;
-    private final double UR_OPEN = 0;
-    private final double BL_OPEN = 0;
-    private final double BR_OPEN = 0;
+    DcMotor raise;
 
     Servo ul; //Upper left servo
+    private final double UL_CLOSE = 0;
+    private final double UL_OPEN = 1;
+
     Servo ur; //Upper right servo
+    private final double UR_CLOSE = 0;
+    private final double UR_OPEN = 1;
+
     Servo bl; //Bottom left servo
+    private final double BL_CLOSE = 0;
+    private final double BL_OPEN = 1;
+
     Servo br; //Bottom right servo
+    private final double BR_CLOSE = 0;
+    private final double BR_OPEN = 1;
+
+    boolean upperOpen;
+    boolean lowerOpen;
 
     public GrabberTaras(HardwareMap hardwareMap)
     {
@@ -27,29 +35,67 @@ public class GrabberTaras
         ur = hardwareMap.servo.get("urGrabber");
         bl = hardwareMap.servo.get("blGrabber");
         br = hardwareMap.servo.get("brGrabber");
+        
+        raise = hardwareMap.dcMotor.get("grabberRaise");
+
+        upperOpen();
+        lowerOpen();
+    }
+
+    public void raise(double power)
+    {
+        raise.setPower(power);
     }
 
     public void upperClose()
     {
         ul.setPosition(UL_CLOSE);
         ur.setPosition(UR_CLOSE);
+        upperOpen = false;
     }
 
     public void upperOpen()
     {
         ul.setPosition(UL_OPEN);
         ur.setPosition(UR_OPEN);
+        upperOpen = true;
+    }
+
+    public void upperToggle()
+    {
+        if(upperOpen)
+        {
+            upperClose();
+        }
+        else
+        {
+            upperOpen();
+        }
     }
 
     public void lowerClose()
     {
         bl.setPosition(BL_CLOSE);
         br.setPosition(BR_CLOSE);
+        lowerOpen = false;
     }
 
     public void lowerOpen()
     {
         bl.setPosition(BL_OPEN);
         br.setPosition(BR_OPEN);
+        lowerOpen = true;
+    }
+
+    public void lowerToggle()
+    {
+        if(lowerOpen)
+        {
+            lowerClose();
+        }
+        else
+        {
+            lowerOpen();
+        }
     }
 }
