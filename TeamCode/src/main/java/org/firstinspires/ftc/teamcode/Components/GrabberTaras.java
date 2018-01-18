@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 //Created by Mikko on 12018-01-17
 
 public class GrabberTaras
@@ -44,7 +46,7 @@ public class GrabberTaras
 
     public void raise(double power)
     {
-        raise.setPower(power);
+        raise.setPower(power*.75);
     }
 
     public void upperClose()
