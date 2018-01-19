@@ -14,19 +14,19 @@ public class GrabberTaras
 
     Servo ul; //Upper left servo
     private final double UL_CLOSE =.5;
-    private final double UL_OPEN = 0;
+    private final double UL_OPEN = .25;
 
     Servo ur; //Upper right servo
     private final double UR_CLOSE = .705;
-    private final double UR_OPEN = 1;
+    private final double UR_OPEN = .9;
 
     Servo bl; //Bottom left servo
-    private final double BL_CLOSE = .7843;
+    private final double BL_CLOSE = .6;
     private final double BL_OPEN = .2;
 
     Servo br; //Bottom right servo
-    private final double BR_CLOSE = .66;
-    private final double BR_OPEN = 1;
+    private final double BR_CLOSE = .3;
+    private final double BR_OPEN = .75; //bottom left
 
     boolean upperOpen;
     boolean lowerOpen;

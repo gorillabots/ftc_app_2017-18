@@ -87,12 +87,17 @@ public class TeleOpSecondBot extends LinearOpMode{
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad1.right_bumper){ //andy↓
-                glyph.upperToggle();
+                glyph.upperOpen();
             }
             else if(gamepad1.right_trigger >=.5){
-                glyph.lowerToggle();
+                glyph.upperClose();
             }
-
+            if(gamepad1.left_bumper){ //andy↓
+                glyph.lowerOpen();
+            }
+            else if(gamepad1.left_trigger >=.5){
+                glyph.lowerClose();
+            }
 
             if(gamepad2.left_bumper){
                 grabber.closeinst2();
@@ -119,7 +124,7 @@ public class TeleOpSecondBot extends LinearOpMode{
                 armExtender.extend(-1);
             }
             else if(gamepad2.dpad_down){
-            armExtender.extend(1);
+                armExtender.extend(1);
             }
             else{
                 armExtender.stop();
@@ -129,10 +134,10 @@ public class TeleOpSecondBot extends LinearOpMode{
             grabber.rotateTwo(gamepad2.right_stick_y);
 
             if(gamepad2.a){    //andy↓
-                glyph.raise(1);
+                glyph.raise(-1);
             }
             else if(gamepad2.y){
-                glyph.raise(-1);
+                glyph.raise(1); //is up
             }
             else{
                 glyph.raise(0);
