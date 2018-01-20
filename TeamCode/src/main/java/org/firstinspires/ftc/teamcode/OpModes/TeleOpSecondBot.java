@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Components.GrabberTaras;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
@@ -26,7 +25,6 @@ public class TeleOpSecondBot extends LinearOpMode{
     ArbitraryDirectionDrive driveTrain;
     ExtenderAndrew armExtender;
     GrabberAndrew grabber;
-    GrabberTaras glyph; //andy
     private LinearOpMode opMode;
     JewelsAndrew  jewels;
 
@@ -51,7 +49,6 @@ public class TeleOpSecondBot extends LinearOpMode{
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         armExtender = new ExtenderAndrew(hardwareMap, telemetry);
         grabber = new GrabberAndrew(hardwareMap, telemetry);
-        glyph = new GrabberTaras(hardwareMap); //andy
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -59,6 +56,7 @@ public class TeleOpSecondBot extends LinearOpMode{
         jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
         jewels.reset();
         jewels.toogleSwing(false);
+
 
         clawOne = hardwareMap.servo.get("clawOne");
         clawTwo = hardwareMap.servo.get("clawTwo");
@@ -75,6 +73,9 @@ public class TeleOpSecondBot extends LinearOpMode{
         ballColor.enableLed(false);
         ballColor.enableLed(true);
 
+
+
+
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -85,14 +86,6 @@ public class TeleOpSecondBot extends LinearOpMode{
             //arm.setPosition(gamepad1.left_trigger);
 
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
-
-            if(gamepad1.right_bumper){ //andy↓
-                glyph.upperToggle();
-            }
-            else if(gamepad1.right_trigger >=.5){
-                glyph.lowerToggle();
-            }
-
 
             if(gamepad2.left_bumper){
                 grabber.closeinst2();
@@ -120,23 +113,13 @@ public class TeleOpSecondBot extends LinearOpMode{
             }
             else if(gamepad2.dpad_down){
             armExtender.extend(1);
-            }
+        }
             else{
                 armExtender.stop();
             }
 
             grabber.rotateOne(gamepad2.left_stick_y);
             grabber.rotateTwo(gamepad2.right_stick_y);
-
-            if(gamepad2.a){    //andy↓
-                glyph.raise(1);
-            }
-            else if(gamepad2.y){
-                glyph.raise(-1);
-            }
-            else{
-                glyph.raise(0);
-            }
 
 
                 /*
