@@ -255,7 +255,7 @@ public class JewelsAndrew {
     public boolean isBlueRight()
     {
         sleepCatch(10);
-        return secondColor.red() >= secondColor.blue();
+        return secondColor.red() <= secondColor.blue();
     }
 
     public boolean isBlueLeft()

@@ -77,11 +77,12 @@ public class CloseRed extends LinearOpMode {
         jewel.lowerArm();
         sleep(400);
         jewel.color.enableLed(true);
-        jewel.AHEhitBallsVariablesForBlueVersionTwo(
-                jewel.isBlueLeft(),
-                jewel.isRedLeft(),
+        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
+                jewel.isRedRight(),
                 jewel.isBlueRight(),
-                jewel.isRedRight()
+                jewel.isRedLeft(),
+                jewel.isBlueLeft()
+
         )
         ;
         jewel.reset();

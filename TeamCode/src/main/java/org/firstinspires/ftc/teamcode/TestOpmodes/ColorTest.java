@@ -14,6 +14,7 @@ public class ColorTest extends OpMode {
     @Override
     public void init(){
         jewel = new JewelsAndrew(this.hardwareMap,this.telemetry);
+        jewel.toogleSwing(false);
 
 
     }
