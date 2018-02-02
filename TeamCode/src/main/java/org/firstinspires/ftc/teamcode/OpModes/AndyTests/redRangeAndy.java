@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes.AndyTests;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by xiax on 1/28/2018.
  */
+@Disabled
 @Autonomous(name = "rangeRed", group = "AAA")
 public class redRangeAndy extends LinearOpMode {
 

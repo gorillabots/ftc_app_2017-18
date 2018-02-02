@@ -40,7 +40,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Andy on 12/15/2017.
  */
-
+@Disabled
 @Autonomous(name = "wonderousProgramBlue", group = "AndrewBot")
 public class wonderousProgram extends LinearOpMode {
 
