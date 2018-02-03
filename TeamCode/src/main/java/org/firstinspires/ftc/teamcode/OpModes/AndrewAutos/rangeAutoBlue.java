@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
  * Created by Andy on 12/15/2017.
  */
 
-@Autonomous(name = "rangeAuto", group = "AndrewBot")
+@Autonomous(name = "rangeAutoblue", group = "AndrewBot")
 public class rangeAutoBlue extends LinearOpMode {
 
     Drive drive;
@@ -42,6 +42,7 @@ public class rangeAutoBlue extends LinearOpMode {
         grabber.closeinst1();
         drive = new Drive(this.hardwareMap, this.telemetry);
         range = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "range");
+        rangeCrypto = new RangeCrypto(this, drive.driveTrain);
 
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -104,9 +105,13 @@ public class rangeAutoBlue extends LinearOpMode {
 
         rangeCrypto.updateOffset();
         sleep(200);
-        rangeCrypto.go(goodCol);
+        if(goodCol == 0)
+        {
+            goodCol = 2; //Center
+        }
+        rangeCrypto.go(goodCol+1);
 
-        drive.encoderMoveMRGyro2(180, .2, .5, .5);
+        drive.encoderMoveMRGyro2(180, .075, .5, .5);
 
         m1.setPower(-.2);
         m2.setPower(.2);

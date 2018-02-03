@@ -33,7 +33,7 @@ public class Drive {
     HardwareMap hardwareMap;
     private double offset;
     private double offsetConverted;
-    LinearOpMode linOp;
+    public LinearOpMode linOp;
 
     ModernRoboticsI2cRangeSensor rangeSensor;
 
