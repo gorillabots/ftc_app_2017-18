@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
@@ -20,11 +21,7 @@ public class CloseBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .522;
-    double distanceBetween = .151;
 
-    double leftColumnDistance = centerColumnDistance - distanceBetween;
-    double rightColumnDistance = centerColumnDistance + distanceBetween;
 
     Drive drive;
     DcMotor m1;
@@ -104,11 +101,11 @@ public class CloseBlue extends LinearOpMode {
         sleep(400);
 
         if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(90, leftColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(90, Constants.leftColumnDistance, .3, .5);
         } else if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(90, rightColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(90, Constants.rightColumnDistance, .3, .5);
         } else {
-            drive.encoderMoveMRGyro2(90, centerColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(90, Constants.centerColumnDistance, .3, .5);
         }
 
         sleep(400);

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
@@ -115,11 +116,11 @@ public class FarBlue extends LinearOpMode {
         sleep(300);
 
         if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(90, rightColumnDistance, .4, 0.5);
+            drive.encoderMoveMRGyro2(90, Constants.rightColumnDistance, .4, 0.5);
         } else if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(90, leftColumnDistance, .4, 0.5);
+            drive.encoderMoveMRGyro2(90, Constants.leftColumnDistance, .4, 0.5);
         } else {
-            drive.encoderMoveMRGyro2(90, centerColumnDistance, .4, 0.5);
+            drive.encoderMoveMRGyro2(90, Constants.centerColumnDistance, .4, 0.5);
         }
         drive.turn(90, 2, .25, .15);
         sleep(400);

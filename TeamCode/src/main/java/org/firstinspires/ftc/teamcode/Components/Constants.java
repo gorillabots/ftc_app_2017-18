@@ -14,4 +14,16 @@ public class Constants {
 
     public final static double timeoutDelay = 5000;
 
+    public final static int goodTurnError = 2;
+    public final static double goodMaxSpeed =1;
+    public final static double goodMinSpeed =.1;
+
+    public final static double centerColumnDistance = .48;
+    public final static double distanceBetween = .183;
+
+    public final static double leftColumnDistance = centerColumnDistance + distanceBetween;
+    public final static double rightColumnDistance = centerColumnDistance - distanceBetween;
+
+
+
 }
