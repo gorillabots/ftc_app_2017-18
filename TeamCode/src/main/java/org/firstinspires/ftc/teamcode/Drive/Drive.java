@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
+import org.firstinspires.ftc.teamcode.Components.Constants;
 
 
 public class Drive {
@@ -113,7 +114,7 @@ public class Drive {
     public double encoderMoveMRGyro3(double angle, double distance, double power, double turnFactor) //Move forwards by distance
     {   double finishTime=-1;
         timer.reset();
-        while (driveTrain.distanceCheck(distance)&& timer.seconds()<5) {
+        while (driveTrain.distanceCheck(distance)&& timer.milliseconds()<Constants.timeoutDelay && linOp.opModeIsActive()) {
             driveTrain.drivePolar2(power, angle, turnFactor);
             telemetry.addData("Status", "Encoder movement");
             telemetry.addData("first run status",driveTrain.firstRun);
@@ -202,8 +203,9 @@ public class Drive {
         double dir;
 
         double speedFactor = maxSpeed - minSpeed;
+        timer.reset();
 
-        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset())))
+        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset())) && linOp.opModeIsActive() && timer.milliseconds()< Constants.timeoutDelay)
         {
             if(heading > 180)
             {
