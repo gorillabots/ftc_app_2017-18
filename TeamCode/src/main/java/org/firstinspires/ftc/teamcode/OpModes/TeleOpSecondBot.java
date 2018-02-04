@@ -53,9 +53,8 @@ public class TeleOpSecondBot extends LinearOpMode{
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-        jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
-        jewels.reset();
-        jewels.toogleSwing(false);
+        jewels = new JewelsAndrew(this);
+        jewels.stow();
 
 
         clawOne = hardwareMap.servo.get("clawOne");

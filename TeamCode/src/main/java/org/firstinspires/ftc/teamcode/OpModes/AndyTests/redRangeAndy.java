@@ -52,9 +52,8 @@ public class redRangeAndy extends LinearOpMode {
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
-        jewel.reset();
-        jewel.toogleSwing(false);
+        jewel = new JewelsAndrew(this);
+        jewel.stow();
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 

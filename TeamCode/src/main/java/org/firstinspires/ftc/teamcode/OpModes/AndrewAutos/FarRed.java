@@ -51,9 +51,8 @@ public class FarRed extends LinearOpMode {
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
-        jewel.reset();
-        jewel.toogleSwing(false);
+        jewel = new JewelsAndrew(this);
+        jewel.stow();
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
@@ -68,21 +67,12 @@ public class FarRed extends LinearOpMode {
 
         grabber.rotateTwo(0.5); //start rotation
 
-        jewel.toogleSwing(true);
         jewel.lowerArm();
-        sleep(400);
-        jewel.color.enableLed(true);
-        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
-                jewel.isRedRight(),
-                jewel.isBlueRight(),
-                jewel.isRedLeft(),
-                jewel.isBlueLeft()
-
-        )
-        ;
-        jewel.reset();
-        jewel.toogleSwing(false);
         sleep(500);
+        jewel.hitBalls(JewelsAndrew.BallColor.BLUE);
+        jewel.upright();
+        sleep(500);
+        jewel.stow();
         grabber.rotateTwo(0);
         runtime.reset();
 
