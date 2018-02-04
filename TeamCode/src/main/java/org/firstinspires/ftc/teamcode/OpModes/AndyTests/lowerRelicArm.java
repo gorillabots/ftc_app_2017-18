@@ -40,7 +40,7 @@ public class lowerRelicArm extends LinearOpMode {
         jewel.reset();
         jewel.toogleSwing(false);
 
-        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
 

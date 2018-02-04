@@ -41,7 +41,7 @@ public class Jan4FarBlue extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
         drive = new Drive(this.hardwareMap, this.telemetry);

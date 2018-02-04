@@ -37,7 +37,7 @@ public class CloseBlue extends LinearOpMode {
         jewel.toogleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
-        grabber = new GrabberAndrew(this.hardwareMap,this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
 

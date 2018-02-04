@@ -32,7 +32,7 @@ public class FarRed extends LinearOpMode { final double ARM_RAISED = .22;
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         jewel.reset();
-        grabber = new GrabberAndrew(this.hardwareMap,this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
          vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);

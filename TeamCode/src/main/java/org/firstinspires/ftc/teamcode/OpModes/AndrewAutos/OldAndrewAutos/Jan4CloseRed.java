@@ -51,7 +51,7 @@ public class Jan4CloseRed extends LinearOpMode {
         m4 = hardwareMap.dcMotor.get("m4");
 
 
-        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
 

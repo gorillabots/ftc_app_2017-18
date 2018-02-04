@@ -40,7 +40,7 @@ public class Jan4FarRed extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
         m1 = hardwareMap.dcMotor.get("m1");

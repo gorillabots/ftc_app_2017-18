@@ -46,7 +46,7 @@ public class FarBlue extends LinearOpMode
         jewel.reset();
         waitForStart();
         int goodCol = vuMarks.getVuMark();
-        grabber = new GrabberAndrew(this.hardwareMap,this.telemetry);
+        grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
 
