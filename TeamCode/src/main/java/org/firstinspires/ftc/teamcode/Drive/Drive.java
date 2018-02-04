@@ -114,7 +114,7 @@ public class Drive {
     public double encoderMoveMRGyro3(double angle, double distance, double power, double turnFactor) //Move forwards by distance
     {   double finishTime=-1;
         timer.reset();
-        while (driveTrain.distanceCheck(distance)&& timer.milliseconds()<Constants.timeoutDelay && linOp.opModeIsActive()) {
+        while (driveTrain.distanceCheck(distance)&& timer.milliseconds()<Constants.timeoutDelay ) {
             driveTrain.drivePolar2(power, angle, turnFactor);
             telemetry.addData("Status", "Encoder movement");
             telemetry.addData("first run status",driveTrain.firstRun);
@@ -135,7 +135,7 @@ public class Drive {
 
         //try
         //{
-        while (!ColorHelper.isFloorWhiteTest(floorColor) && linOp.opModeIsActive()) {
+        while (!ColorHelper.isFloorWhiteTest(floorColor) ) {
 
             driveTrain.drivePolar(power, angle);
             telemetry.addData("Status", "ForwardsToLine");
@@ -205,7 +205,7 @@ public class Drive {
         double speedFactor = maxSpeed - minSpeed;
         timer.reset();
 
-        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset())) && linOp.opModeIsActive() && timer.milliseconds()< Constants.timeoutDelay)
+        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset()))  && timer.milliseconds()< Constants.timeoutDelay)
         {
             if(heading > 180)
             {
