@@ -38,7 +38,7 @@ public class RangeCrypto
         offset = range.cmUltrasonic();
     }
 
-    final double PILLAR_ACTIVATION_DISTANCE = 7; //cm
+    final double PILLAR_ACTIVATION_DISTANCE = 4; //cm
 
     public void go(int numPillars)
     {
@@ -48,7 +48,7 @@ public class RangeCrypto
 
         while(pillarsLeft > 0 && opMode.opModeIsActive())
         {
-            add.drivePolar2(.8, 180,.5); //180 - right, 0 - left
+            add.drivePolar2(.67, 180,.5); //180 - right, 0 - left
 
             double dist = range.cmUltrasonic();
 
