@@ -38,11 +38,11 @@ public class GrabberAndrew  {
         this.telemetry = telemetry;
 
         claw1 = hardwareMap.servo.get("clawOne");
-        claw2 = hardwareMap.servo.get("clawTwo");
+        //claw2 = hardwareMap.servo.get("clawTwo");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         claw1.setPosition(Constants.leftOpen);
-        claw2.setPosition(Constants.rightOpen);
+       // claw2.setPosition(Constants.rightOpen);
 
     }
 
