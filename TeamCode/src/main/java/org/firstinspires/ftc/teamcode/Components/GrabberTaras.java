@@ -8,23 +8,23 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class GrabberTaras
 {
-    DcMotor raise;
+    public DcMotor raise;
 
-    Servo ul; //Upper left servo
-    private final double UL_CLOSE = 0;
-    private final double UL_OPEN = 1;
+    private Servo ul; //Upper left servo
+    private final double UL_CLOSE = .28;
+    private final double UL_OPEN = .50;
 
-    Servo ur; //Upper right servo
-    private final double UR_CLOSE = 0;
-    private final double UR_OPEN = 1;
+    private Servo ur; //Upper right servo
+    private final double UR_CLOSE = .52;
+    private final double UR_OPEN = .27;
 
-    Servo bl; //Bottom left servo
-    private final double BL_CLOSE = 0;
-    private final double BL_OPEN = 1;
+    private Servo bl; //Bottom left servo
+    private final double BL_CLOSE = .29;
+    private final double BL_OPEN = .11;
 
-    Servo br; //Bottom right servo
-    private final double BR_CLOSE = 0;
-    private final double BR_OPEN = 1;
+    private Servo br; //Bottom right servo
+    private final double BR_CLOSE = .40;
+    private final double BR_OPEN = .63;
 
     boolean upperOpen;
     boolean lowerOpen;
