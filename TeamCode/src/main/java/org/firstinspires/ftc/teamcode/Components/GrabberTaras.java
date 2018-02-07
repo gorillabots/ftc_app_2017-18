@@ -8,23 +8,29 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class GrabberTaras
 {
-    DcMotor raise;
+    public DcMotor raise;
 
-    Servo ul; //Upper left servo
-    private final double UL_CLOSE = 0;
-    private final double UL_OPEN = 1;
+    private Servo ul; //Upper left servo
+    private final double UL_CLOSE = .28;
+    private final double UL_OPEN = .50;
 
-    Servo ur; //Upper right servo
-    private final double UR_CLOSE = 0;
-    private final double UR_OPEN = 1;
+    private Servo ur; //Upper right servo
+    private final double UR_CLOSE = .52;
+    private final double UR_OPEN = .27;
 
-    Servo bl; //Bottom left servo
-    private final double BL_CLOSE = 0;
-    private final double BL_OPEN = 1;
+    private Servo bl; //Bottom left servo
+    private final double BL_CLOSE = .29;
+    private final double BL_OPEN = .08;
 
-    Servo br; //Bottom right servo
-    private final double BR_CLOSE = 0;
-    private final double BR_OPEN = 1;
+    private Servo br; //Bottom right servo
+    private final double BR_CLOSE = .40;
+    private final double BR_OPEN = .7;
+
+    private final double UL_OPEN_WIDE = .75;
+    private final double UR_OPEN_WIDE = .02;
+
+    private final double BL_OPEN_WIDE = 0;
+    private final double BR_OPEN_WIDE = .88;
 
     boolean upperOpen;
     boolean lowerOpen;
@@ -35,7 +41,7 @@ public class GrabberTaras
         ur = hardwareMap.servo.get("urGrabber");
         bl = hardwareMap.servo.get("blGrabber");
         br = hardwareMap.servo.get("brGrabber");
-        
+
         raise = hardwareMap.dcMotor.get("grabberRaise");
 
         upperOpen();
@@ -86,7 +92,18 @@ public class GrabberTaras
         br.setPosition(BR_OPEN);
         lowerOpen = true;
     }
-
+    public void lowerOpenWide()
+    {
+        bl.setPosition(BL_OPEN_WIDE);
+        br.setPosition(BR_OPEN_WIDE);
+        lowerOpen = true;
+    }
+    public void upperOpenWide()
+    {
+        ul.setPosition(UL_OPEN_WIDE);
+        ur.setPosition(UR_OPEN_WIDE);
+        upperOpen = true;
+    }
     public void lowerToggle()
     {
         if(lowerOpen)
