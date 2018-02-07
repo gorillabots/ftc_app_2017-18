@@ -20,11 +20,16 @@ public class GrabberTaras
 
     private Servo bl; //Bottom left servo
     private final double BL_CLOSE = .29;
-    private final double BL_OPEN = .11;
+    private final double BL_OPEN = .08;
 
     private Servo br; //Bottom right servo
     private final double BR_CLOSE = .40;
-    private final double BR_OPEN = .63;
+    private final double BR_OPEN = .7;
+
+    private final double UL_OPEN_WIDE = .75;
+    private final double UR_OPEN_WIDE = .02;
+    private final double BL_OPEN_WIDE = 0;
+    private final double BR_OPEN_WIDE = .88;
 
     boolean upperOpen;
     boolean lowerOpen;
@@ -86,7 +91,18 @@ public class GrabberTaras
         br.setPosition(BR_OPEN);
         lowerOpen = true;
     }
-
+    public void lowerOpenWide()
+    {
+        bl.setPosition(BL_OPEN_WIDE);
+        br.setPosition(BR_OPEN_WIDE);
+        lowerOpen = true;
+    }
+    public void upperOpenWide()
+    {
+        ul.setPosition(UL_OPEN_WIDE);
+        ur.setPosition(UR_OPEN_WIDE);
+        upperOpen = true;
+    }
     public void lowerToggle()
     {
         if(lowerOpen)
