@@ -34,8 +34,40 @@ public class blueRangeAndy extends LinearOpMode {
     ModernRoboticsI2cRangeSensor range;
     private ElapsedTime runtime = new ElapsedTime();
 
-    @Override
-    public void runOpMode() {
+    public double startdis = 0;
+    public double detectdist = 0;
+    public int sensitivity = 3;
+
+    public void detectColumn() {
+        while (startdis - detectdist < sensitivity) {
+            detectdist = range.cmUltrasonic();
+        }
+        sleep(100);
+    }
+
+    public void detectWall() {
+        while (startdis - detectdist > sensitivity) {
+            detectdist = range.cmUltrasonic();
+        }
+        sleep(100);
+    }
+
+    public void stopMotors() {
+        m1.setPower(0);
+        m2.setPower(0);
+        m3.setPower(0);
+        m4.setPower(0);
+    }
+
+    public void goRightForever(double power) {
+        m1.setPower(-power);
+        m2.setPower(-power);
+        m3.setPower(power);
+        m4.setPower(power);
+    }
+
+    public void init_() {
+
         grabber = new GrabberAndrew(this);
 
         grabber.closeinst2();
@@ -64,86 +96,46 @@ public class blueRangeAndy extends LinearOpMode {
         telemetry.update();
         grabber.closeinst2();
         grabber.closeinst1();
+    }
+
+    @Override
+    public void runOpMode() {
+
+        init_();
 
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
 
-        double startdis = range.cmUltrasonic();
-        double detectdist = range.cmUltrasonic();
+        startdis = range.cmUltrasonic();
+        detectdist = range.cmUltrasonic();
 
-        m1.setPower(-.3);
-        m2.setPower(-.3);
-        m3.setPower(.3);
-        m4.setPower(.3);
+        sleep(50);
+
+        goRightForever(.22);
 
         if (goodCol == 1) {
-
-                while (startdis - detectdist < 4) {
-                    detectdist = range.cmUltrasonic();
-                    telemetry.addData("Status", "detecting");
-                    telemetry.update();
-                }
-                stopMotors();
-                telemetry.addData("Status", "done");
-            telemetry.update();
-            sleep(2000);
-
-        } else if (goodCol == 2 || goodCol == 0) {
-
-            while (startdis - detectdist < 4) {
-                detectdist = range.cmUltrasonic();
-                telemetry.addData("Status", "detecting");
-                telemetry.update();
-            }
-            telemetry.addData("Status", "FOUND 1");
-            telemetry.update();
-            sleep(750);
-
-            while (startdis - detectdist < 4) {
-                detectdist = range.cmUltrasonic();
-                telemetry.addData("Status", "detecting");
-                telemetry.update();
-            }
+            detectColumn();
+            detectWall();
+            detectColumn();
             stopMotors();
-            telemetry.addData("Status", "done");
-            telemetry.update();
-            sleep(500);
+        } else if (goodCol == 3) {
+            detectColumn();
+            detectWall();
+            detectColumn();
+            detectWall();
+            detectColumn();
+            detectWall();
+            detectColumn();
+            stopMotors();
         } else {
-            while (startdis - detectdist < 4) {
-                detectdist = range.cmUltrasonic();
-                telemetry.addData("Status", "detecting");
-                telemetry.update();
-            }
-            telemetry.addData("Status", "FOUND 1");
-            telemetry.update();
-            sleep(750);
-
-            while (startdis - detectdist < 4) {
-                detectdist = range.cmUltrasonic();
-                telemetry.addData("Status", "detecting");
-                telemetry.update();
-            }
-            telemetry.addData("Status", "FOUND 2");
-            telemetry.update();
-            sleep(750);
-
-            while (startdis - detectdist < 4) {
-                detectdist = range.cmUltrasonic();
-                telemetry.addData("Status", "detecting");
-                telemetry.update();
-            }
+            detectColumn();
+            detectWall();
+            detectColumn();
+            detectWall();
+            detectColumn();
             stopMotors();
-            telemetry.addData("Status", "done");
-            telemetry.update();
-            sleep(500);
         }
     }
 
-    public void stopMotors() {
-        m1.setPower(0);
-        m2.setPower(0);
-        m3.setPower(0);
-        m4.setPower(0);
-    }
 }
