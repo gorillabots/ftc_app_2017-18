@@ -61,8 +61,6 @@ public class Drive {
 
      void init(double offset) //Get hardware from hardwareMap
     {
-
-
         driveTrain = new ArbitraryDirectionDrive(hardwareMap, telemetry);
 
         this.offset = offset;
@@ -85,7 +83,7 @@ public class Drive {
     public void encoderMoveMRGyro(double angle, double distance, double power) //Move forwards by distance
     {
 
-        while (driveTrain.distanceCheck(distance)) {
+        while (driveTrain.distanceCheck(distance) && linOp.opModeIsActive()) {
 
             driveTrain.drivePolar(power, angle);
             telemetry.addData("Status", "Encoder movement");
@@ -100,7 +98,7 @@ public class Drive {
     public void encoderMoveMRGyro2(double angle, double distance, double power, double turnFactor) //Move forwards by distance
     {
         timer.reset();
-        while (driveTrain.distanceCheck(distance)&& timer.seconds()<5) {
+        while (driveTrain.distanceCheck(distance)&& timer.seconds()<5 && linOp.opModeIsActive()) {
             driveTrain.drivePolar2(power, angle, turnFactor);
             telemetry.addData("Status", "Encoder movement");
             telemetry.addData("first run status",driveTrain.firstRun);
@@ -114,7 +112,7 @@ public class Drive {
     public double encoderMoveMRGyro3(double angle, double distance, double power, double turnFactor) //Move forwards by distance
     {   double finishTime=-1;
         timer.reset();
-        while (driveTrain.distanceCheck(distance)&& timer.milliseconds()<Constants.timeoutDelay ) {
+        while (driveTrain.distanceCheck(distance)&& timer.milliseconds()<Constants.timeoutDelay && linOp.opModeIsActive()) {
             driveTrain.drivePolar2(power, angle, turnFactor);
             telemetry.addData("Status", "Encoder movement");
             telemetry.addData("first run status",driveTrain.firstRun);
@@ -135,7 +133,7 @@ public class Drive {
 
         //try
         //{
-        while (!ColorHelper.isFloorWhiteTest(floorColor) ) {
+        while (!ColorHelper.isFloorWhiteTest(floorColor) && linOp.opModeIsActive()) {
 
             driveTrain.drivePolar(power, angle);
             telemetry.addData("Status", "ForwardsToLine");
@@ -181,7 +179,7 @@ public class Drive {
         telemetry.addData("starting", "range move");
         telemetry.update();
 
-        while(!inRange(distance, .05, rangeSensor.cmUltrasonic()*0.0328084 )){
+        while(!inRange(distance, .05, rangeSensor.cmUltrasonic()*0.0328084 ) && linOp.opModeIsActive()){
             driveTrain.drivePolar(power,angle);
             telemetry.addData("running","range move");
             telemetry.addData("done", "range move");
@@ -205,7 +203,7 @@ public class Drive {
         double speedFactor = maxSpeed - minSpeed;
         timer.reset();
 
-        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset()))  && timer.milliseconds()< Constants.timeoutDelay)
+        while(!inRange(0, error, (heading = driveTrain.getHeadingWithOffset())) && timer.milliseconds()< Constants.timeoutDelay && linOp.opModeIsActive())
         {
             if(heading > 180)
             {

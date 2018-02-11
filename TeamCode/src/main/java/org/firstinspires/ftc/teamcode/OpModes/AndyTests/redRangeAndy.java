@@ -36,7 +36,7 @@ public class redRangeAndy extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
+        grabber = new GrabberAndrew(this);
 
         grabber.closeinst2();
         grabber.closeinst1();
@@ -52,9 +52,8 @@ public class redRangeAndy extends LinearOpMode {
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
-        jewel.reset();
-        jewel.toogleSwing(false);
+        jewel = new JewelsAndrew(this);
+        jewel.stow();
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 

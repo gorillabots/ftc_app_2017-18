@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Components;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -13,8 +15,9 @@ import org.firstinspires.ftc.teamcode.Interfaces.Grabber;
  * Created by Owner on 11/10/2017.
  */
 
-public class GrabberAndrew  {
-
+public class GrabberAndrew
+{
+    LinearOpMode opMode;
     HardwareMap hardwareMap;
     Telemetry telemetry;
     double INCREMENT = 0.01;
@@ -32,10 +35,11 @@ public class GrabberAndrew  {
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
-    public GrabberAndrew(HardwareMap hardwareMap, Telemetry telemetry) {
+    public GrabberAndrew(LinearOpMode opMode) {
 
-        this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
+        this.opMode = opMode;
+        this.hardwareMap = opMode.hardwareMap;
+        this.telemetry = opMode.telemetry;
 
         claw1 = hardwareMap.servo.get("clawOne");
         //claw2 = hardwareMap.servo.get("clawTwo");
@@ -46,20 +50,6 @@ public class GrabberAndrew  {
 
     }
 
-    
-    public void init() {
-
-    }
-
-    
-    public void open1() {
-        positionOne += INCREMENT;
-        if (positionOne >= MAXLeft) {
-            positionOne = MAXLeft;
-        }
-        claw1.setPosition(positionOne);
-
-    }
     public void wide1(){
         claw1.setPosition(0);
     }
@@ -67,72 +57,68 @@ public class GrabberAndrew  {
         claw2.setPosition(0);
     }
 
-    
-    public void open2() {
-        positionTwo += INCREMENT;
-        if (positionTwo >= MAXRight) {
-            positionTwo = MAXRight;
+    public void openinst1()
+    {
+        if(!opMode.opModeIsActive())
+        {
+            return;
         }
-        claw2.setPosition(positionTwo);
 
-    }
-
-    
-    public void close1() {
-        positionOne -= INCREMENT;
-        if (positionOne <= MINLeft) {
-            positionOne = MINLeft;
-        }
-        claw1.setPosition(positionOne);
-     }
-
-    
-    public void close2() {
-        positionTwo -= INCREMENT;
-        if (positionTwo <= MINRight) {
-            positionTwo = MINRight;
-        }
-        claw2.setPosition(positionTwo);
-    }
-
-    
-    public void openinst1() {
         claw1.setPosition(MAXLeft);
     }
 
     
-    public void openinst2() {
-claw2.setPosition(MAXRight);
+    public void openinst2()
+    {
+        if(!opMode.opModeIsActive())
+        {
+            return;
+        }
+
+        claw2.setPosition(MAXRight);
     }
 
     
-    public void closeinst1() {
-claw1.setPosition(MINLeft);
+    public void closeinst1()
+    {
+        if(!opMode.opModeIsActive())
+        {
+            return;
+        }
+
+        claw1.setPosition(MINLeft);
     }
 
     
-    public void closeinst2() {
-claw2.setPosition(MINRight);
-    }
+    public void closeinst2()
+    {
+        if(!opMode.opModeIsActive())
+        {
+            return;
+        }
 
-
-    
-    public void rotate(double degrees) {
-
-    }
-
-    
-    public boolean isHolding() {
-        return false;
+        claw2.setPosition(MINRight);
     }
 
     
-    public void rotateOne(double power) {
+    public void rotateOne(double power)
+    {
+        if(!opMode.opModeIsActive())
+        {
+            return;
+        }
+
         rotateOne.setPower(power*.75);
     }
 
     
-    public void rotateTwo(double power) {
+    public void rotateTwo(double power)
+    {
+        if(!opMode.opModeIsActive())
+        {
+            return;
+        }
+
         rotateTwo.setPower(power*.75);
     }
 }
