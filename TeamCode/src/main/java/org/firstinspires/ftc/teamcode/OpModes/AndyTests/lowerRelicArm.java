@@ -36,8 +36,9 @@ public class lowerRelicArm extends LinearOpMode {
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
-        jewel = new JewelsAndrew(this);
-        jewel.stow();
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
+        jewel.reset();
+        jewel.toogleSwing(false);
 
         grabber = new GrabberAndrew(this);
         grabber.closeinst2();

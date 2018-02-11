@@ -49,8 +49,9 @@ public class CloseRed extends LinearOpMode {
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
-        jewel = new JewelsAndrew(this);
-        jewel.stow();
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
+        jewel.reset();
+        jewel.toogleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
@@ -72,12 +73,21 @@ public class CloseRed extends LinearOpMode {
         runtime.reset();
         grabber.rotateTwo(0.5); //start rotation
 
+        jewel.toogleSwing(true);
         jewel.lowerArm();
         sleep(400);
-        jewel.hitBalls(JewelsAndrew.BallColor.BLUE);
-        jewel.upright();
+        jewel.color.enableLed(true);
+        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
+                jewel.isRedRight(),
+                jewel.isBlueRight(),
+                jewel.isRedLeft(),
+                jewel.isBlueLeft()
+
+        )
+        ;
+        jewel.reset();
+        jewel.toogleSwing(false);
         sleep(500);
-        jewel.stow();
         grabber.rotateTwo(0);
         runtime.reset();
 

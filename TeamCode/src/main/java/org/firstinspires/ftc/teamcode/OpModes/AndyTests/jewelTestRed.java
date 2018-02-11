@@ -37,8 +37,9 @@ public class jewelTestRed extends LinearOpMode {
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
-        jewel = new JewelsAndrew(this);
-        jewel.stow();
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
+        jewel.reset();
+        jewel.toogleSwing(false);
         grabber = new GrabberAndrew(this);
 
 
@@ -47,12 +48,28 @@ public class jewelTestRed extends LinearOpMode {
 
         waitForStart();
 
+        jewel.toogleSwing(true);
         jewel.lowerArm();
         sleep(500);
-        jewel.hitBalls(JewelsAndrew.BallColor.BLUE);
+        jewel.color.enableLed(true);
+
+        telemetry.addData("isBlueLeft", jewel.isBlueLeft());
+        telemetry.addData("isRedLeft", jewel.isRedLeft());
+        telemetry.addData("isBlueRight", jewel.isBlueRight());
+        telemetry.addData("isRedRight", jewel.isRedRight());
+        telemetry.update();
+        sleep(5000);
+        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
+                jewel.isRedRight(),
+                jewel.isBlueRight(),
+                jewel.isRedLeft(),
+                jewel.isBlueLeft()
+
+        )
+        ;
         sleep(500);
-        jewel.upright();
+        jewel.reset();
+        jewel.toogleSwing(false);
         sleep(500);
-        jewel.stow();
     }
 }

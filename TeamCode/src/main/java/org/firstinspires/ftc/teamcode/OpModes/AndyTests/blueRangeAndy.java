@@ -53,8 +53,9 @@ public class blueRangeAndy extends LinearOpMode {
 
         range = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "range");
 
-        jewel = new JewelsAndrew(this);
-        jewel.stow();
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
+        jewel.reset();
+        jewel.toogleSwing(false);
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 

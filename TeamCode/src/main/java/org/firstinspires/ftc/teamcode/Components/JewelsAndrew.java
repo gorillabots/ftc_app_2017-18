@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Components;
 
 //Created by Mikko on 2017-11-29
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -11,221 +10,269 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Drive.Drive;
 
-public class JewelsAndrew
-{
-    private final double ARM_UP = .15;
-    private final double ARM_DOWN = .9;
-    private final double SWING_STOWED = .63;
-    private final double SWING_CENTER = .39;
-    private final double SWING_LEFT = .59;
-    private final double SWING_RIGHT = .28;
+public class JewelsAndrew {
 
-    private Servo arm;
-    private Servo swing;
+    public ColorSensor color;
+    final double ARM_RAISED = .22;
+    final double ARM_LOWERED = .9;
+    public Servo jewelArm;
+    public Servo swing;
+    Telemetry telemetry;
+    public boolean moveLeft;
 
-    private ColorSensor colorL;
-    private ColorSensor colorR;
+    public ColorSensor secondColor;
 
-    private LinearOpMode opMode;
-    private HardwareMap hardwareMap;
-    private Telemetry telemetry;
-
-    public enum BallColor
-    {
-        RED,
-        BLUE,
-        ERROR
-    }
-
-    private BallColor invColor(BallColor bc)
-    {
-        if(bc == BallColor.RED)
-        {
-            return BallColor.BLUE;
-        }
-        else if(bc == BallColor.BLUE)
-        {
-            return BallColor.RED;
-        }
-        else
-        {
-            return BallColor.ERROR;
-        }
-    }
-
-    public JewelsAndrew(LinearOpMode opMode)
-    {
-        this.opMode = opMode;
-        hardwareMap = opMode.hardwareMap;
-        telemetry = opMode.telemetry;
-
-        telemetry.addData("Status", "Inititalizing Jewels");
+    public JewelsAndrew(HardwareMap hm, Telemetry tele) {
+        telemetry = tele;
+        telemetry.addData("status", "init jewels");
         telemetry.update();
 
-        arm = hardwareMap.servo.get("arm");
-        swing = hardwareMap.servo.get("swing");
+        color = hm.colorSensor.get("ballColor");
+        jewelArm = hm.servo.get("arm");
 
-        colorL = hardwareMap.colorSensor.get("ballColor");
+        color.enableLed(false);
+        color.enableLed(true);
 
-        colorR = hardwareMap.colorSensor.get("leftColor");
-        colorR.setI2cAddress(I2cAddr.create8bit(68));
+        secondColor = hm.colorSensor.get("leftColor");
+        secondColor.setI2cAddress(I2cAddr.create8bit(68));
 
-        enableLEDs(false);
-        enableLEDs(true);
-
-        stow();
-
-        telemetry.addData("Status", "Initialized Jewels");
+        swing = hm.servo.get("swing");
+        telemetry.addData("status", "finished jewel init");
         telemetry.update();
+
+        reset();
     }
 
-    public void enableLEDs(boolean led)
-    {
-        colorL.enableLed(led);
-        colorR.enableLed(led);
+    public void ledState(boolean led) {
+        color.enableLed(led);
+        secondColor.enableLed(led);
     }
 
-    public void stow()
-    {
-        if(!opMode.opModeIsActive())
-        {
-            return;
+    public void reset() {
+        jewelArm.setPosition(.15);
+        swing.setPosition(.63);
+        ledState(true);
+
+    }
+
+    public void toogleSwing(boolean bool) {
+        if (bool) {
+            swing.setPosition(.39);
+        } else if (!bool) {
+            swing.setPosition(.63);
         }
-
-        arm.setPosition(ARM_UP);
-        swing.setPosition(SWING_STOWED);
     }
 
-    public void upright()
-    {
-        if(!opMode.opModeIsActive())
-        {
-            return;
-        }
+    public void lowerArm() {
+        jewelArm.setPosition(.9);
 
-        arm.setPosition(ARM_UP);
-        swing.setPosition(SWING_CENTER);
     }
 
-    public void lowerArm()
-    {
-        if(!opMode.opModeIsActive())
-        {
-            return;
-        }
+    public void hitBallsOld(Drive drive, boolean color, boolean opposColor) {
+        if (color || opposColor) {
+            drive.turn(349, 2, .2, .1);
+            this.reset();
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            drive.turn(11, 2, .2, .1);
+            // drive.encoderMoveMRGyro(90,.2,.5);
+        } else {
+            drive.turn(11, 2, .2, .1);
+            this.reset();
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        arm.setPosition(ARM_DOWN);
-        swing.setPosition(SWING_CENTER);
+            drive.turn(349, 2, .2, .1);
+            //drive.encoderMoveMRGyro(270,.2,.5);
+            moveLeft = true;
+        }
     }
 
-    public void swingRight()
-    {
-        if(!opMode.opModeIsActive())
-        {
-            return;
-        }
+    public void hitBalls(boolean color, boolean opposColor) {
+        if (color || opposColor) {
+            swing.setPosition(.59);
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            toogleSwing(true);
+        } else {
 
-        arm.setPosition(ARM_DOWN);
+            swing.setPosition(.28);
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            toogleSwing(true);
+        }
+    }
+
+    public void AHEhitBallsVariablesForBlue(boolean leftSensorblue, boolean leftSensorred, boolean rightSensorblue, boolean rightSensorred) {
+        if (leftSensorblue && leftSensorred && rightSensorblue && rightSensorred) {
+            swingLeft();
+            swingRight();
+        } else {
+            if (leftSensorblue) {
+                if (rightSensorred) {
+                    swingRight();
+                    try {
+                        Thread.sleep(100, 0);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    toogleSwing(true);
+                } else {
+                    if (leftSensorred) {
+                        if (rightSensorred) {
+                            swingRight();
+                            try {
+                                Thread.sleep(100, 0);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            toogleSwing(true);
+                        } else {
+                            swingLeft();
+                            try {
+                                Thread.sleep(100, 0);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            toogleSwing(true);
+                        }
+                    } else {
+                    }
+                }
+            } else {
+                if (rightSensorblue) {
+                    swingLeft();
+                    try {
+                        Thread.sleep(100, 0);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    toogleSwing(true);
+                } else {
+                }
+            }
+        }
+    }
+
+    public void AHEhitBallsVariablesForBlueVersionTwo(boolean leftSensorblue, boolean leftSensorred, boolean rightSensorblue, boolean rightSensorred) {
+        if (leftSensorblue && leftSensorred && rightSensorblue && rightSensorred) {          // color sensors all fail
+            swingLeft();
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            swingRight();
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else if (leftSensorblue && leftSensorred) { //left sensor fails
+            if (rightSensorblue) {
+                swingLeft();
+                try {
+                    Thread.sleep(100, 0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                swingRight();
+                try {
+                    Thread.sleep(100, 0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (rightSensorblue && rightSensorred) { //right sensor fails
+            if (leftSensorblue) {
+                swingRight();
+                try {
+                    Thread.sleep(100, 0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                swingLeft();
+                try {
+                    Thread.sleep(100, 0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if ((rightSensorblue && leftSensorblue) || (leftSensorred && rightSensorred)) { //sensors both working but giving opposite readings
+            // do nothing
+        } else if (rightSensorblue) { //both sensors are reading
+            swingLeft();
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            swingRight();
+            try {
+                Thread.sleep(100, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void swingRight() {
         swing.setPosition(.28);
     }
 
-    public void swingLeft()
-    {
-        if(!opMode.opModeIsActive())
-        {
-            return;
-        }
-
-        arm.setPosition(ARM_DOWN);
+    public void swingLeft() {
         swing.setPosition(.59);
     }
 
-    public void hitBalls(BallColor toHit)
+    public boolean isRedRight()
     {
-        enableLEDs(true);
-
-        opMode.sleep(50); //Let LED's enable, let arm settle
-
-        BallColor l = sensorL();
-        BallColor r = sensorR();
-
-        enableLEDs(false);
-
-        if(l == toHit && r == invColor(toHit)) //Hit left
-        {
-            swingLeft();
-        }
-        else if(r == toHit && l == invColor(toHit)) //Hit right
-        {
-            swingRight();
-        }
-        else if(l == BallColor.ERROR && r == BallColor.ERROR) //Both failed
-        {
-            swingLeft(); //Hit both
-            opMode.sleep(100);
-            swingRight();
-        }
-        else if(l == BallColor.ERROR) //Left failed
-        {
-            if(r == toHit) //Hit right
-            {
-                swingRight();
-            }
-            else //Hit left
-            {
-                swingLeft();
-            }
-        }
-        else if(r == BallColor.ERROR) //Right failed
-        {
-            if(l == toHit) //Hit left
-            {
-                swingLeft();
-            }
-            else //Hit right
-            {
-                swingRight();
-            }
-        }
-
-        opMode.sleep(100);
+        sleepCatch(10);
+        return secondColor.red() >= secondColor.blue();
     }
 
-    private BallColor sensorL()
+    public boolean isRedLeft()
     {
-        int r = colorL.red();
-        int b = colorL.blue();
-
-        if(r > b)
-        {
-            return BallColor.RED;
-        }
-        else if(b > r)
-        {
-            return BallColor.BLUE;
-        }
-        else
-        {
-            return BallColor.ERROR;
-        }
+        sleepCatch(10);
+        return color.red() >= color.blue();
     }
 
-    private BallColor sensorR()
+    public boolean isBlueRight()
     {
-        int r = colorR.red();
-        int b = colorR.blue();
+        sleepCatch(10);
+        return secondColor.red() <= secondColor.blue();
+    }
 
-        if(r > b)
+    public boolean isBlueLeft()
+    {
+        sleepCatch(10);
+        return color.blue() >= color.red();
+    }
+
+    public void sleepCatch(long millis)
+    {
+        try
         {
-            return BallColor.RED;
+            Thread.sleep(millis);
         }
-        else if(b > r)
+        catch(InterruptedException e)
         {
-            return BallColor.BLUE;
-        }
-        else
-        {
-            return BallColor.ERROR;
+            e.printStackTrace();
         }
     }
 }
