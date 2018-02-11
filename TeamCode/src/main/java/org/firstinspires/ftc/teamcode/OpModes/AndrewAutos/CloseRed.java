@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
@@ -22,7 +21,11 @@ public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
+    double centerColumnDistance = .25;
+    double distanceBetween = .153;
 
+    double leftColumnDistance = centerColumnDistance + distanceBetween;
+    double rightColumnDistance = centerColumnDistance - distanceBetween;
 
     Drive drive;
     DcMotor m1;
@@ -89,11 +92,11 @@ public class CloseRed extends LinearOpMode {
         sleep(400);
 
         if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(270, Constants.leftColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(270, leftColumnDistance, .3, .5);
         } else if (goodCol == 3) {
-            // drive.encoderMoveMRGyro2(270, 0, .3, .5); do nothing due to bot allaignment
+            // drive.encoderMoveMRGyro2(270, 0, .3, .5); do nothing
         } else {
-            drive.encoderMoveMRGyro2(270, Constants.centerColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(270, centerColumnDistance, .3, .5);
         }
 
         drive.turn(90, 2, .25, .1);

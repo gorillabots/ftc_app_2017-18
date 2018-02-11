@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
@@ -19,7 +18,12 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 public class FarRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
-    
+
+    double centerColumnDistance = .48;//.51
+    double distanceBetween = .183;
+
+    double leftColumnDistance = centerColumnDistance + distanceBetween;
+    double rightColumnDistance = centerColumnDistance - distanceBetween;
 
     Drive drive;
     DcMotor m1;
@@ -100,11 +104,11 @@ public class FarRed extends LinearOpMode {
         sleep(100);
 
         if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(90, Constants.rightColumnDistance, .5, 0.5);
+            drive.encoderMoveMRGyro2(90, rightColumnDistance, .5, 0.5);
         } else if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(90, Constants.leftColumnDistance, .5, 0.5);
+            drive.encoderMoveMRGyro2(90, leftColumnDistance, .5, 0.5);
         } else {
-            drive.encoderMoveMRGyro2(90, Constants.centerColumnDistance, .5, 0.5);
+            drive.encoderMoveMRGyro2(90, centerColumnDistance, .5, 0.5);
         }
         sleep(400);
 
