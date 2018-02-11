@@ -40,8 +40,7 @@ public class jewelTestRed extends LinearOpMode {
         jewel = new JewelsAndrew(this);
         jewel.stow();
         grabber = new GrabberAndrew(this);
-        grabber.closeinst2();
-        grabber.closeinst1();
+
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

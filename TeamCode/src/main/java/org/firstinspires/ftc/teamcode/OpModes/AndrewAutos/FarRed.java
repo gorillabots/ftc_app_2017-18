@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
@@ -33,17 +34,22 @@ public class FarRed extends LinearOpMode {
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberAndrew grabber;
-    RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
+
+    Servo linkage;
+    Servo clawTop;
+    Servo clawBottom;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
         grabber = new GrabberAndrew(this);
-
-        grabber.closeinst2();
-        grabber.closeinst1();
+        linkage = hardwareMap.servo.get("linkage");
+        clawTop = hardwareMap.servo.get("clawTop");
+        clawBottom = hardwareMap.servo.get("clawBottom");
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
 
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
@@ -60,12 +66,12 @@ public class FarRed extends LinearOpMode {
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
-        grabber.closeinst2();
-        grabber.closeinst1();
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        grabber.closeinst2();
-        grabber.closeinst1();
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
+
         waitForStart();
         int goodCol = vuMark.getVuMark();
 
@@ -116,8 +122,8 @@ public class FarRed extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
 
-        grabber.openinst1();
-        grabber.openinst2();
+        clawTop.setPosition(.66);
+        clawBottom.setPosition(.5);
 
         drive.encoderMoveMRGyro2(270, .125, .3, .5);
         sleep(300);
