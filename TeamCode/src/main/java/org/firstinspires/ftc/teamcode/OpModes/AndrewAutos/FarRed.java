@@ -20,7 +20,7 @@ public class FarRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .48;//.51
+    double centerColumnDistance = .5;//.51
     double distanceBetween = .183;
 
     double leftColumnDistance = centerColumnDistance + distanceBetween;
