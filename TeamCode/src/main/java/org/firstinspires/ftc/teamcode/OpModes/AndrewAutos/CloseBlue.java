@@ -45,7 +45,7 @@ public class CloseBlue extends LinearOpMode {
         grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
 
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");

@@ -62,8 +62,9 @@ public class TeleOpOp extends LinearOpMode{
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-        jewels = new JewelsAndrew(this);
-        jewels.stow();
+        jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
+        jewels.reset();
+        jewels.toogleSwing(false);
 
 
         clawOne = hardwareMap.servo.get("clawOne");
@@ -110,7 +111,7 @@ public class TeleOpOp extends LinearOpMode{
                     clawTop.setPosition(1);
                 }
                 if (gamepad2.left_trigger > .5) {
-                    clawTop.setPosition(.66);
+                    clawTop.setPosition(.33);
                 }
                 if (gamepad2.right_bumper) {
                     clawBottom.setPosition(0);

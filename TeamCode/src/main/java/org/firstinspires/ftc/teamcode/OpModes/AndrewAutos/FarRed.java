@@ -56,7 +56,7 @@ public class FarRed extends LinearOpMode {
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
 
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
 
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -72,7 +72,7 @@ public class FarRed extends LinearOpMode {
         telemetry.update();
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-
+        linkage.setPosition(.858);
         waitForStart();
         int goodCol = vuMark.getVuMark();
 
@@ -89,12 +89,14 @@ public class FarRed extends LinearOpMode {
                 jewel.isBlueLeft()
 
         )
-        ;
+        ;grabber.rotateOne(0);
         jewel.reset();
+
         jewel.toogleSwing(false);
         sleep(500);
         grabber.rotateTwo(0);
         runtime.reset();
+
 
         drive.encoderMoveMRGyro2(270, .6, .5, 0.5); //off the platform
 
@@ -132,7 +134,7 @@ public class FarRed extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
 
-        clawTop.setPosition(.66);
+        clawTop.setPosition(.33);
         clawBottom.setPosition(.5);
 
         drive.encoderMoveMRGyro2(270, .125, .3, .5);

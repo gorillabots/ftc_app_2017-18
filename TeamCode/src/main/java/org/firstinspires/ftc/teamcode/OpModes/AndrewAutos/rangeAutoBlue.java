@@ -40,7 +40,7 @@ public class rangeAutoBlue extends LinearOpMode {
         grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
         range = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "range");
         rangeCrypto = new RangeCrypto(this, drive.driveTrain);
 

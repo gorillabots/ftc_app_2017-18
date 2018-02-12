@@ -22,7 +22,7 @@ public class CloseBlueJack extends LinearOpMode
 
     public void runOpMode()
     {
-        drive = new Drive(this.hardwareMap,this.telemetry);
+        drive = new Drive(this);
         jewel = new JewelsJack(hardwareMap);
         extendTwo = hardwareMap.dcMotor.get("extend2");
         extendOne = hardwareMap.dcMotor.get("extend2");

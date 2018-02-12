@@ -62,9 +62,10 @@ public class driveTest extends LinearOpMode{
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
+        jewels = new JewelsAndrew(this.hardwareMap,this.telemetry);
 
-        jewels = new JewelsAndrew(this);
-        jewels.stow();
+        jewels.reset();
+        jewels.toogleSwing(false);
 
 
 
