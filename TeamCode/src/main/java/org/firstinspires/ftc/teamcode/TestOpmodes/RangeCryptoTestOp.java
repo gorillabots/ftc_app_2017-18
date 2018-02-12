@@ -13,7 +13,7 @@ public class RangeCryptoTestOp extends LinearOpMode
 {
     public void runOpMode()
     {
-        Drive drive = new Drive(hardwareMap, telemetry);
+        Drive drive = new Drive(this);
         drive.resetGyro();
 
         RangeCrypto rangeCrypto = new RangeCrypto(this, drive.driveTrain);

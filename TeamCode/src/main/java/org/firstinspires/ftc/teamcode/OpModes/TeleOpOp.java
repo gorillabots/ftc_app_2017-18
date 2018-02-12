@@ -57,7 +57,7 @@ public class TeleOpOp extends LinearOpMode{
         clawBottom = hardwareMap.servo.get("clawBottom");
         driveTrain = new ArbitraryDirectionDrive(this.hardwareMap,this.telemetry);
         armExtender = new ExtenderAndrew(hardwareMap, telemetry);
-        grabber = new GrabberAndrew(hardwareMap, telemetry);
+        grabber = new GrabberAndrew(this);
         extend = hardwareMap.dcMotor.get("extend");
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -111,7 +111,7 @@ public class TeleOpOp extends LinearOpMode{
                     clawTop.setPosition(1);
                 }
                 if (gamepad2.left_trigger > .5) {
-                    clawTop.setPosition(.66);
+                    clawTop.setPosition(.33);
                 }
                 if (gamepad2.right_bumper) {
                     clawBottom.setPosition(0);

@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
@@ -47,13 +46,14 @@ public class FarBlue extends LinearOpMode {
         grabber.closeinst2();
         grabber.closeinst1();
 
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
 
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
 
-        jewel = new JewelsAndrew(this);
-        jewel.stow();
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
+        jewel.reset();
+        jewel.toogleSwing(false);
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
         m1 = hardwareMap.dcMotor.get("m1");
@@ -73,12 +73,20 @@ public class FarBlue extends LinearOpMode {
         runtime.reset();
         grabber.rotateTwo(0.5);
 
+        jewel.toogleSwing(true);
         jewel.lowerArm();
+        sleep(400);
+        jewel.color.enableLed(true);
+        jewel.AHEhitBallsVariablesForBlueVersionTwo(
+                jewel.isRedLeft(),
+                jewel.isBlueLeft(),
+                jewel.isRedRight(),
+                jewel.isBlueRight()
+        )
+        ;
+        jewel.reset();
+        jewel.toogleSwing(false);
         sleep(500);
-        jewel.hitBalls(JewelsAndrew.BallColor.RED);
-        jewel.upright();
-        sleep(500);
-        jewel.stow();
         grabber.rotateTwo(0);
         runtime.reset();
 
@@ -106,11 +114,11 @@ public class FarBlue extends LinearOpMode {
         sleep(300);
 
         if (goodCol == 3) {
-            drive.encoderMoveMRGyro2(90, Constants.rightColumnDistance, .4, 0.5);
+            drive.encoderMoveMRGyro2(90, rightColumnDistance, .4, 0.5);
         } else if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(90, Constants.leftColumnDistance, .4, 0.5);
+            drive.encoderMoveMRGyro2(90, leftColumnDistance, .4, 0.5);
         } else {
-            drive.encoderMoveMRGyro2(90, Constants.centerColumnDistance, .4, 0.5);
+            drive.encoderMoveMRGyro2(90, centerColumnDistance, .4, 0.5);
         }
         drive.turn(90, 2, .25, .15);
         sleep(400);

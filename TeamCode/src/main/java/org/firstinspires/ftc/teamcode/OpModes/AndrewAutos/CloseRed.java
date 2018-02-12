@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
 import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
@@ -22,7 +21,11 @@ public class CloseRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
+    double centerColumnDistance = .25;
+    double distanceBetween = .153;
 
+    double leftColumnDistance = centerColumnDistance + distanceBetween;
+    double rightColumnDistance = centerColumnDistance - distanceBetween;
 
     Drive drive;
     DcMotor m1;
@@ -43,11 +46,12 @@ public class CloseRed extends LinearOpMode {
         grabber = new GrabberAndrew(this);
         grabber.closeinst2();
         grabber.closeinst1();
-        drive = new Drive(this.hardwareMap, this.telemetry);
+        drive = new Drive(this);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
-        jewel = new JewelsAndrew(this);
-        jewel.stow();
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
+        jewel.reset();
+        jewel.toogleSwing(false);
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
@@ -69,12 +73,21 @@ public class CloseRed extends LinearOpMode {
         runtime.reset();
         grabber.rotateTwo(0.5); //start rotation
 
+        jewel.toogleSwing(true);
         jewel.lowerArm();
         sleep(400);
-        jewel.hitBalls(JewelsAndrew.BallColor.BLUE);
-        jewel.upright();
+        jewel.color.enableLed(true);
+        jewel.AHEhitBallsVariablesForBlueVersionTwo( //FOR RED ACTUALLY
+                jewel.isRedRight(),
+                jewel.isBlueRight(),
+                jewel.isRedLeft(),
+                jewel.isBlueLeft()
+
+        )
+        ;
+        jewel.reset();
+        jewel.toogleSwing(false);
         sleep(500);
-        jewel.stow();
         grabber.rotateTwo(0);
         runtime.reset();
 
@@ -89,11 +102,11 @@ public class CloseRed extends LinearOpMode {
         sleep(400);
 
         if (goodCol == 1) {
-            drive.encoderMoveMRGyro2(270, Constants.leftColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(270, leftColumnDistance, .3, .5);
         } else if (goodCol == 3) {
-            // drive.encoderMoveMRGyro2(270, 0, .3, .5); do nothing due to bot allaignment
+            // drive.encoderMoveMRGyro2(270, 0, .3, .5); do nothing
         } else {
-            drive.encoderMoveMRGyro2(270, Constants.centerColumnDistance, .3, .5);
+            drive.encoderMoveMRGyro2(270, centerColumnDistance, .3, .5);
         }
 
         drive.turn(90, 2, .25, .1);
