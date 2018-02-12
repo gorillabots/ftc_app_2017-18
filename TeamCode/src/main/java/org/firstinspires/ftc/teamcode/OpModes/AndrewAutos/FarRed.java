@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
@@ -19,7 +20,7 @@ public class FarRed extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .48;//.51
+    double centerColumnDistance = .54;//.51
     double distanceBetween = .183;
 
     double leftColumnDistance = centerColumnDistance + distanceBetween;
@@ -30,6 +31,9 @@ public class FarRed extends LinearOpMode {
     DcMotor m2;
     DcMotor m3;
     DcMotor m4;
+    Servo clawTop;
+    Servo clawBottom;
+    Servo linkage;
     JewelsAndrew jewel;
     VuMarkRecognition vuMark;
     GrabberAndrew grabber;
@@ -41,14 +45,19 @@ public class FarRed extends LinearOpMode {
     @Override
     public void runOpMode() {
         grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
-
-        grabber.closeinst2();
+        clawBottom = hardwareMap.servo.get("clawBottom");
+        clawTop = hardwareMap.servo.get("clawTop");
+        linkage = hardwareMap.servo.get("linkage");
+        linkage.setPosition(1);
         grabber.closeinst1();
+        closeGrip();
+        linkage.setPosition(1);
 
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
+
 
         drive = new Drive(this.hardwareMap, this.telemetry);
 
@@ -57,21 +66,23 @@ public class FarRed extends LinearOpMode {
 
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
+        closeGrip();
         jewel.toogleSwing(false);
+        closeGrip();
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
 
-        grabber.closeinst2();
         grabber.closeinst1();
+        closeGrip();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        grabber.closeinst2();
+        closeGrip();
         grabber.closeinst1();
         waitForStart();
         int goodCol = vuMark.getVuMark();
 
         grabber.rotateTwo(0.5); //start rotation
-
+        grabber.rotateOne(.4);
         jewel.toogleSwing(true);
         jewel.lowerArm();
         sleep(400);
@@ -85,6 +96,7 @@ public class FarRed extends LinearOpMode {
         )
         ;
         jewel.reset();
+        grabber.rotateOne(0);
         jewel.toogleSwing(false);
         sleep(500);
         grabber.rotateTwo(0);
@@ -123,12 +135,16 @@ public class FarRed extends LinearOpMode {
         sleep(400);
 
         drive.turn(-90, 2, .25, .1);
-
-        drive.encoderMoveMRGyro2(90, .1, .3, 0.5);
-
+        rotateOne.setPower(-.1);
+        drive.encoderMoveMRGyro2(90, .14, .3, 0.5);
+        rotateOne.setPower(0);
         grabber.openinst1();
-        grabber.openinst2();
-
+        openGrip();
+        m1.setPower(-.3);
+        m2.setPower(.3);
+        m3.setPower(.3);
+        m4.setPower(-.3);
+        sleep(500);
         drive.encoderMoveMRGyro2(270, .125, .3, .5);
         sleep(300);
 
@@ -160,6 +176,15 @@ public class FarRed extends LinearOpMode {
         m2.setPower(0);
         m3.setPower(0);
         m4.setPower(0);
+    }
+
+    public void closeGrip() {
+        clawBottom.setPosition(0);//close?
+        clawTop.setPosition(1);
+    }
+    public void openGrip(){
+        clawBottom.setPosition(.5);
+        clawTop.setPosition(.25);
     }
 
 }

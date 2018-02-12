@@ -86,9 +86,9 @@ public class TeleOpSecondBotTaras extends LinearOpMode {
                 driveTrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
                 if (gamepad2.left_bumper) {
-                    grabber.closeinst2();
+
                 } else if (gamepad2.left_trigger >= .5) {
-                    grabber.openinst2();
+
                 }
 
                 if (gamepad2.right_bumper) {

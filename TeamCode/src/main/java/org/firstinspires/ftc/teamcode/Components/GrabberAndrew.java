@@ -28,7 +28,7 @@ public class GrabberAndrew  {
 
 
     Servo claw1;
-    Servo claw2;
+
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
@@ -38,11 +38,10 @@ public class GrabberAndrew  {
         this.telemetry = telemetry;
 
         claw1 = hardwareMap.servo.get("clawOne");
-        claw2 = hardwareMap.servo.get("clawTwo");
+
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         claw1.setPosition(Constants.leftOpen);
-        claw2.setPosition(Constants.rightOpen);
 
     }
 
@@ -63,9 +62,6 @@ public class GrabberAndrew  {
     public void wide1(){
         claw1.setPosition(0);
     }
-    public void wide2(){
-        claw2.setPosition(0);
-    }
 
     
     public void open2() {
@@ -73,7 +69,7 @@ public class GrabberAndrew  {
         if (positionTwo >= MAXRight) {
             positionTwo = MAXRight;
         }
-        claw2.setPosition(positionTwo);
+
 
     }
 
@@ -92,7 +88,7 @@ public class GrabberAndrew  {
         if (positionTwo <= MINRight) {
             positionTwo = MINRight;
         }
-        claw2.setPosition(positionTwo);
+
     }
 
     
@@ -101,9 +97,7 @@ public class GrabberAndrew  {
     }
 
     
-    public void openinst2() {
-claw2.setPosition(MAXRight);
-    }
+
 
     
     public void closeinst1() {
@@ -111,10 +105,6 @@ claw1.setPosition(MINLeft);
     }
 
     
-    public void closeinst2() {
-claw2.setPosition(MINRight);
-    }
-
 
     
     public void rotate(double degrees) {

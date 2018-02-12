@@ -43,7 +43,7 @@ public class FarBlue extends LinearOpMode {
     public void runOpMode() {
         grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
 
-        grabber.closeinst2();
+
         grabber.closeinst1();
 
         drive = new Drive(this.hardwareMap, this.telemetry);
@@ -62,11 +62,11 @@ public class FarBlue extends LinearOpMode {
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
 
-        grabber.closeinst2();
+
         grabber.closeinst1();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        grabber.closeinst2();
+
         grabber.closeinst1();
         waitForStart();
 
@@ -127,7 +127,7 @@ public class FarBlue extends LinearOpMode {
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
 
         grabber.openinst1();
-        grabber.openinst2();
+
 
         m1.setPower(-.2);
         m2.setPower(.2);

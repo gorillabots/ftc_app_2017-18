@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
+
 //import org.firstinspires.ftc.teamcode.Components.TestArmExtender;
 
 
@@ -13,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by Owner on 10/6/2017.
  */
 
-@Disabled
+
 @TeleOp(name="Servo Test", group="Backup")
 public class TeleOpOp extends LinearOpMode{
 
@@ -21,9 +23,12 @@ public class TeleOpOp extends LinearOpMode{
     private LinearOpMode opMode;
 
     Servo arm;
-    Servo rotateArm;
 
+    Servo clawTop;
+    Servo clawBottom;
+    Servo linkage;
     ColorSensor ballColor;
+    JewelsAndrew jewel;
 
 
     public void init_() {
@@ -31,14 +36,18 @@ public class TeleOpOp extends LinearOpMode{
 
         // armExtender = new TestArmExtender(hardwareMap, telemetry);
         //grabber = new GrabberJack(hardwareMap, telemetry);
-
+        clawBottom = hardwareMap.servo.get ("clawBottom");
+        clawTop = hardwareMap.servo.get("clawTop");
+        linkage = hardwareMap.servo.get ("linkage");
 
         arm = hardwareMap.servo.get("arm");
-        rotateArm = hardwareMap.servo.get("rotateArm");
-        ballColor = hardwareMap.colorSensor.get("ballColor");
 
+        ballColor = hardwareMap.colorSensor.get("ballColor");
+        jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         ballColor.enableLed(false);
         ballColor.enableLed(true);
+        jewel.reset();
+        jewel.toogleSwing(false);
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -49,31 +58,32 @@ public class TeleOpOp extends LinearOpMode{
 
             //arm.setPosition(gamepad1.left_trigger);
             if(gamepad1.a){
-                arm.setPosition(0.08);
+                clawBottom.setPosition(.5);
+                clawTop.setPosition(.7);
             }
             if(gamepad1.b){
-                arm.setPosition(.77);
+                clawTop.setPosition(.25);
             }
             if (gamepad1.y){
-                arm.setPosition(.6);
+                clawTop.setPosition(.75);
             }
             if(gamepad1.x){
-                arm.setPosition(.82);
+                clawTop.setPosition(1);
             }
 
             if(gamepad1.dpad_down){
-                rotateArm.setPosition(0);
-
+                clawBottom.setPosition(0);//close?
+                clawTop.setPosition(1);
             }
             if(gamepad1.dpad_up){
-                rotateArm.setPosition(1);
+
             }
             if(gamepad1.dpad_left){
-                rotateArm.setPosition(.76);
+
             }
 
             telemetry.addData("arm", arm.getPosition());
-            telemetry.addData("armRotate", rotateArm.getPosition());
+
             telemetry.addData("red", ballColor.red());
             telemetry.addData("blue", ballColor.blue());
             telemetry.update();

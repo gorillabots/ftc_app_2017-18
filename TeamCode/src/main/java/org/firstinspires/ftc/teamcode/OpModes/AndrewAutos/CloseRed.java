@@ -44,7 +44,7 @@ public class CloseRed extends LinearOpMode {
     public void runOpMode() {
 
         grabber = new GrabberAndrew(this.hardwareMap, this.telemetry);
-        grabber.closeinst2();
+
         grabber.closeinst1();
         drive = new Drive(this.hardwareMap, this.telemetry);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
@@ -58,13 +58,12 @@ public class CloseRed extends LinearOpMode {
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
 
-        grabber.closeinst2();
+
         grabber.closeinst1();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        grabber.closeinst2();
         grabber.closeinst1();
 
         waitForStart();
@@ -115,7 +114,7 @@ public class CloseRed extends LinearOpMode {
         drive.encoderMoveMRGyro2(90, .2, .3, .5);
 
         grabber.openinst1();
-        grabber.openinst2();
+
 
         drive.encoderMoveMRGyro2(270, .2, .3, .5);
 

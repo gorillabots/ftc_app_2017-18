@@ -9,11 +9,14 @@ import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Components.JewelsAndrew;
+import org.firstinspires.ftc.teamcode.Components.RangeCrypto;
 import org.firstinspires.ftc.teamcode.Drive.ArbitraryDirectionDrive;
 import org.firstinspires.ftc.teamcode.Components.ExtenderAndrew;
 import org.firstinspires.ftc.teamcode.Components.ColorHelper;
 import org.firstinspires.ftc.teamcode.Components.Constants;
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
+import org.firstinspires.ftc.teamcode.Drive.Drive;
+import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 
 /**
  * Created by Owner on 10/6/2017.
@@ -24,11 +27,24 @@ public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
     ExtenderAndrew armExtender;
-    GrabberAndrew grabber;
+
     private LinearOpMode opMode;
     JewelsAndrew  jewels;
 
     DcMotor extend;
+
+    Drive drive;
+    DcMotor m1;
+    DcMotor m2;
+    DcMotor m3;
+    DcMotor m4;
+    Servo clawTop;
+    Servo clawBottom;
+    Servo linkage;
+    JewelsAndrew jewel;
+    VuMarkRecognition vuMark;
+    GrabberAndrew grabber;
+    RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
 
@@ -38,7 +54,7 @@ public class TeleOpSecondBot extends LinearOpMode{
     double twoClose = Constants.rightClose;
 
     Servo clawOne;
-    Servo clawTwo;
+
 
     ColorSensor ballColor;
 
@@ -59,10 +75,10 @@ public class TeleOpSecondBot extends LinearOpMode{
 
 
         clawOne = hardwareMap.servo.get("clawOne");
-        clawTwo = hardwareMap.servo.get("clawTwo");
+
 
         clawOne.setPosition(oneOpen);
-        clawTwo.setPosition(twoOpen);
+
 
         ballColor = hardwareMap.colorSensor.get("ballColor");
         //ballColor.setI2cAddress(I2cAddr.create8bit(0x3A)); //58 in decimal
@@ -88,10 +104,10 @@ public class TeleOpSecondBot extends LinearOpMode{
             driveTrain.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
 
             if(gamepad2.left_bumper){
-                grabber.closeinst2();
+
             }
             else if(gamepad2.left_trigger >= .5){
-                grabber.openinst2();
+
             }
 
 
