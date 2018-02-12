@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.*;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -14,8 +12,8 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Jarred on 10/29/2017.
  */
-@Disabled
-@Autonomous(name="Raw Servo Test", group="Autonomous")
+
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Raw Servo Test", group="Autonomous")
 public class RawServoTest extends LinearOpMode {
     //Drive drive;
     Servo arm;
@@ -28,10 +26,15 @@ public class RawServoTest extends LinearOpMode {
 
     DcMotor extendOne;
     DcMotor extendTwo;
+
+    Servo linkage;
+    Servo claw;
     void init_(){
 
+        claw = hardwareMap.servo.get("claw");
+        linkage = hardwareMap.servo.get("linkage");
 
-        driveTrain = new Drive(this.hardwareMap,this.telemetry);
+
     }
 
 
@@ -40,7 +43,12 @@ public class RawServoTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         init();
         waitForStart();
-        driveTrain.encoderMoveMRGyro(90,1,.5);
+
+        while(opModeIsActive()) {
+            linkage.setPosition(gamepad1.left_trigger);
+            telemetry.addData("link", gamepad1.left_trigger);
+            telemetry.update();
+        }
 
     }
 

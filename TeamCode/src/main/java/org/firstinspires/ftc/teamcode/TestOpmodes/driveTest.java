@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.OpModes;
+package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -20,8 +21,8 @@ import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
  * Created by Owner on 10/6/2017.
  */
 
-@TeleOp(name="driveSecondTest", group="Backup")
-public class TeleOpOp extends LinearOpMode{
+@TeleOp(name="driveTest", group="Backup")
+public class driveTest extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;
     ExtenderAndrew armExtender;
@@ -32,7 +33,7 @@ public class TeleOpOp extends LinearOpMode{
     DcMotor extend;
     DcMotor rotateOne;
     DcMotor rotateTwo;
-
+    AnalogInput angle;
     double oneOpen = Constants.leftOpen;
     double oneClose = Constants.leftClose;
     double twoOpen = Constants.rightOpen;
@@ -87,6 +88,9 @@ public class TeleOpOp extends LinearOpMode{
         time = new ElapsedTime();
         time.reset();
 
+        angle = hardwareMap.analogInput.get("angle");
+
+
 
     }
     @Override
@@ -123,6 +127,8 @@ public class TeleOpOp extends LinearOpMode{
                 grabber.rotateOne(gamepad2.left_stick_y);
                 //grabber.rotateTwo(gamepad2.right_stick_y);
                 linkage.setPosition(gamepad2.right_stick_y);
+                telemetry.addData("potentiometer", angle.getVoltage());
+                telemetry.addData("linkage", gamepad2.right_stick_y);
             }
             else{
                 if(gamepad2.left_bumper && time.seconds()>.25){
@@ -149,7 +155,7 @@ public class TeleOpOp extends LinearOpMode{
                 else{
                     armExtender.stop();
                 }
-               // grabber.rotateOne(gamepad2.left_stick_y);
+                // grabber.rotateOne(gamepad2.left_stick_y);
                 grabber.rotateTwo(gamepad2.right_stick_y);
 
                 if(gamepad2.right_bumper){

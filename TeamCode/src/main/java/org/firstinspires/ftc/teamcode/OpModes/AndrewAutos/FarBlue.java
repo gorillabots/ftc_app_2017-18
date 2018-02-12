@@ -56,7 +56,6 @@ public class FarBlue extends LinearOpMode {
         jewel.stow();
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
-
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
