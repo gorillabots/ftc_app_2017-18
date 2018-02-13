@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
@@ -37,13 +38,22 @@ public class FarBlue extends LinearOpMode {
     RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
+    Servo linkage;
+    Servo clawTop;
+    Servo clawBottom;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
         grabber = new GrabberAndrew(this);
 
-        grabber.closeinst2();
+        linkage = hardwareMap.servo.get("linkage");
+        clawTop = hardwareMap.servo.get("clawTop");
+        clawBottom = hardwareMap.servo.get("clawBottom");
+
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
 
         drive = new Drive(this);
@@ -56,16 +66,19 @@ public class FarBlue extends LinearOpMode {
         jewel.toogleSwing(false);
 
         vuMark = new VuMarkRecognition(this.hardwareMap, this.telemetry);
+
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
 
-        grabber.closeinst2();
-        grabber.closeinst1();
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        grabber.closeinst2();
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
+        linkage.setPosition(.858);
         grabber.closeinst1();
         waitForStart();
 
@@ -125,8 +138,8 @@ public class FarBlue extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
 
-        grabber.openinst1();
-        grabber.openinst2();
+        clawTop.setPosition(.33);
+        clawBottom.setPosition(.5);
 
         m1.setPower(-.2);
         m2.setPower(.2);

@@ -48,8 +48,10 @@ public class FarRed extends LinearOpMode {
         linkage = hardwareMap.servo.get("linkage");
         clawTop = hardwareMap.servo.get("clawTop");
         clawBottom = hardwareMap.servo.get("clawBottom");
+        linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
+        grabber.closeinst1();
 
         m1 = hardwareMap.dcMotor.get("m1");
         m2 = hardwareMap.dcMotor.get("m2");
@@ -73,6 +75,7 @@ public class FarRed extends LinearOpMode {
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
         linkage.setPosition(.858);
+        grabber.closeinst1();
         waitForStart();
         int goodCol = vuMark.getVuMark();
 

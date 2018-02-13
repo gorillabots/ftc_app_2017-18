@@ -20,40 +20,27 @@ public class lowerRelicArm extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    Drive drive;
-
     JewelsAndrew jewel;
-    VuMarkRecognition vuMark;
     GrabberAndrew grabber;
-    RangeCrypto rangeCrypto;
-    DcMotor rotateOne;
     DcMotor rotateTwo;
-    private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
 
-        drive = new Drive(this);
-        rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
         jewel.toogleSwing(false);
 
         grabber = new GrabberAndrew(this);
-        //grabber.closeinst2();
-        //grabber.closeinst1();
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
 
-        runtime.reset();
-        while(runtime.seconds()<0.00008){
+        while(opModeIsActive()){
             grabber.rotateTwo(-0.2);
         }
-        sleep (3000);
         grabber.rotateTwo(0);
     }
 }

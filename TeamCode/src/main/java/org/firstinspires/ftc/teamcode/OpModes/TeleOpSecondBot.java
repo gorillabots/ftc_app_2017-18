@@ -18,8 +18,8 @@ import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 /**
  * Created by Owner on 10/6/2017.
  */
-
-@TeleOp(name="driveSecond", group="Backup")
+@Disabled
+@TeleOp(name="driveSecondOld", group="Backup")
 public class TeleOpSecondBot extends LinearOpMode{
 
     ArbitraryDirectionDrive driveTrain;

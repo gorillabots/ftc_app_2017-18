@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.AndrewAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
@@ -20,7 +21,7 @@ public class CloseBlue extends LinearOpMode {
     final double ARM_RAISED = .22;
     final double ARM_LOWERED = .9;//.88
 
-    double centerColumnDistance = .522;
+    double centerColumnDistance = .524;
     double distanceBetween = .151;
 
     double leftColumnDistance = centerColumnDistance - distanceBetween;
@@ -37,18 +38,27 @@ public class CloseBlue extends LinearOpMode {
     RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
+    Servo linkage;
+    Servo clawTop;
+    Servo clawBottom;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
 
+        linkage = hardwareMap.servo.get("linkage");
+        clawTop = hardwareMap.servo.get("clawTop");
+        clawBottom = hardwareMap.servo.get("clawBottom");
         grabber = new GrabberAndrew(this);
-        grabber.closeinst2();
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
         drive = new Drive(this);
 
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
+
 
         jewel = new JewelsAndrew(this.hardwareMap, this.telemetry);
         jewel.reset();
@@ -59,14 +69,16 @@ public class CloseBlue extends LinearOpMode {
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
-
-        grabber.closeinst2();
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-        grabber.closeinst2();
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
 
         waitForStart();
@@ -92,7 +104,6 @@ public class CloseBlue extends LinearOpMode {
         grabber.rotateTwo(0);
         runtime.reset();
 
-
         drive.encoderMoveMRGyro2(90, .75, .3, 0.5);
 
         m1.setPower(.2);
@@ -117,8 +128,10 @@ public class CloseBlue extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
 
-        grabber.openinst1();
-        grabber.openinst2();
+        sleep(400);
+
+        clawTop.setPosition(.33);
+        clawBottom.setPosition(.5);
 
         m1.setPower(-.2);
         m2.setPower(.2);
@@ -126,9 +139,9 @@ public class CloseBlue extends LinearOpMode {
         m4.setPower(-.2);
         sleep(1000);
         stopMotors();
-        sleep(500);
+        sleep(1000);
 
-        drive.encoderMoveMRGyro2(270, .15, .3, 0.5);
+        drive.encoderMoveMRGyro2(270, .2, .3, 0.5);
         sleep(200);
         drive.turn(180, 2, 1, .1);
         sleep(200);

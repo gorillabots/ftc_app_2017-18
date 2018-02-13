@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Vision.VuMarkRecognition;
 /**
  * Created by Jarred on 10/29/2017.
  */
-
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Raw Servo Test", group="Autonomous")
 public class RawServoTest extends LinearOpMode {
     //Drive drive;

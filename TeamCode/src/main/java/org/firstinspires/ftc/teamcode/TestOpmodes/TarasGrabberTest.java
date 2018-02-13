@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Components.GrabberTaras;
 /*
  * Created by mikko on 2/4/18.
  */
-
+@Disabled
 @TeleOp(name = "TarasGrabberTest", group = "Tests")
 public class TarasGrabberTest extends LinearOpMode {
     GrabberTaras grabber;

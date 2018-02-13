@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
 /**
  * Created by Owner on 10/6/2017.
  */
-
+@Disabled
 @TeleOp(name="driveTest", group="Backup")
 public class driveTest extends LinearOpMode{
 

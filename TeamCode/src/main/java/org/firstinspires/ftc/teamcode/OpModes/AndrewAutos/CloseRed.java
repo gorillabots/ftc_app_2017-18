@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.GrabberAndrew;
@@ -38,13 +39,22 @@ public class CloseRed extends LinearOpMode {
     RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
+    Servo linkage;
+    Servo clawTop;
+    Servo clawBottom;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
 
         grabber = new GrabberAndrew(this);
-        grabber.closeinst2();
+
+        linkage = hardwareMap.servo.get("linkage");
+        clawTop = hardwareMap.servo.get("clawTop");
+        clawBottom = hardwareMap.servo.get("clawBottom");
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
         drive = new Drive(this);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
@@ -57,14 +67,16 @@ public class CloseRed extends LinearOpMode {
         m2 = hardwareMap.dcMotor.get("m2");
         m3 = hardwareMap.dcMotor.get("m3");
         m4 = hardwareMap.dcMotor.get("m4");
-
-        grabber.closeinst2();
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-        grabber.closeinst2();
+        linkage.setPosition(.858);
+        clawBottom.setPosition(0);
+        clawTop.setPosition(1);
         grabber.closeinst1();
 
         waitForStart();
@@ -114,8 +126,8 @@ public class CloseRed extends LinearOpMode {
 
         drive.encoderMoveMRGyro2(90, .2, .3, .5);
 
-        grabber.openinst1();
-        grabber.openinst2();
+        clawTop.setPosition(.33);
+        clawBottom.setPosition(.5);
 
         drive.encoderMoveMRGyro2(270, .2, .3, .5);
 
