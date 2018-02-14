@@ -41,6 +41,7 @@ public class CloseRed extends LinearOpMode {
     DcMotor rotateTwo;
     Servo linkage;
     Servo clawTop;
+    Servo claw1;
     Servo clawBottom;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -48,6 +49,7 @@ public class CloseRed extends LinearOpMode {
     public void runOpMode() {
 
         grabber = new GrabberAndrew(this);
+        claw1 = hardwareMap.servo.get("clawOne");
 
         linkage = hardwareMap.servo.get("linkage");
         clawTop = hardwareMap.servo.get("clawTop");
@@ -55,7 +57,7 @@ public class CloseRed extends LinearOpMode {
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
+        claw1.setPosition(.7);
         drive = new Drive(this);
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
         rotateTwo = hardwareMap.dcMotor.get("rotateTwo");
@@ -70,15 +72,14 @@ public class CloseRed extends LinearOpMode {
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
+        claw1.setPosition(.7);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
-
+        claw1.setPosition(.7);
         waitForStart();
 
         int goodCol = vuMark.getVuMark();

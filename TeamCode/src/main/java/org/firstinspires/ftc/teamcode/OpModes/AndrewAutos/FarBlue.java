@@ -41,6 +41,7 @@ public class FarBlue extends LinearOpMode {
     Servo linkage;
     Servo clawTop;
     Servo clawBottom;
+    Servo claw1;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
@@ -50,11 +51,13 @@ public class FarBlue extends LinearOpMode {
         linkage = hardwareMap.servo.get("linkage");
         clawTop = hardwareMap.servo.get("clawTop");
         clawBottom = hardwareMap.servo.get("clawBottom");
+        claw1 = hardwareMap.servo.get("clawOne");
 
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
+
+        claw1.setPosition(.7);
 
         drive = new Drive(this);
 
@@ -76,10 +79,14 @@ public class FarBlue extends LinearOpMode {
         clawTop.setPosition(1);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
         linkage.setPosition(.858);
-        grabber.closeinst1();
+        claw1.setPosition(.7);
+
+
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
@@ -173,6 +180,7 @@ public class FarBlue extends LinearOpMode {
         } else {
 
         }
+
     }
 
     public void stopMotors() {

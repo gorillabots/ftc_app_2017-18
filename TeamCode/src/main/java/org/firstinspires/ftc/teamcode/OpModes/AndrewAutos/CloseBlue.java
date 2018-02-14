@@ -38,13 +38,16 @@ public class CloseBlue extends LinearOpMode {
     RangeCrypto rangeCrypto;
     DcMotor rotateOne;
     DcMotor rotateTwo;
+    Servo claw1;
     Servo linkage;
     Servo clawTop;
     Servo clawBottom;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
+        claw1 = hardwareMap.servo.get("clawOne");
 
         linkage = hardwareMap.servo.get("linkage");
         clawTop = hardwareMap.servo.get("clawTop");
@@ -53,7 +56,7 @@ public class CloseBlue extends LinearOpMode {
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
+        claw1.setPosition(.7);
         drive = new Drive(this);
 
         rotateOne = hardwareMap.dcMotor.get("rotateOne");
@@ -72,15 +75,14 @@ public class CloseBlue extends LinearOpMode {
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
+        claw1.setPosition(.7);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         linkage.setPosition(.858);
         clawBottom.setPosition(0);
         clawTop.setPosition(1);
-        grabber.closeinst1();
-
+        claw1.setPosition(.7);
         waitForStart();
 
         int goodCol = vuMark.getVuMark();
@@ -123,7 +125,7 @@ public class CloseBlue extends LinearOpMode {
         }
 
         sleep(400);
-        drive.turn(90, 2, .25, .1);
+        drive.turn(90, 2, .25, .15);
         sleep(400);
 
         drive.encoderMoveMRGyro2(90, .15, .3, 0.5);
